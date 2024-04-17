@@ -1,0 +1,42 @@
+.card-wrap {
+  height: 360px;
+  border-radius: 2px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  transition: 0.2s ease-in;
+  padding: 12px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 30%;
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+      color: black;
+    }
+    .card-address,
+    .card-phone {
+      font-size: 12px;
+      font-weight: 500;
+      margin: 0;
+      color: gray;
+    }
+  }
+}

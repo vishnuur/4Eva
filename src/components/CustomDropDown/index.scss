@@ -1,0 +1,14 @@
+.dropdown-style {
+  border: 1px solid white;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  &::placeholder {
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+}

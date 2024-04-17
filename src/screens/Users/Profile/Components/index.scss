@@ -1,0 +1,50 @@
+.profile-tabs {
+  position: relative;
+  .add-details-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .details-listing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 54px;
+    .family-single-wrap {
+      padding-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      width: 50%;
+      p {
+        margin: 0;
+      }
+      .family-line {
+        display: flex;
+        align-items: center;
+        .family-relation {
+          font-size: 14px;
+          color: gray;
+          font-weight: 600;
+        }
+        .family-name {
+          font-size: 14px;
+          color: grey;
+          padding-left: 12px;
+        }
+        a {
+          text-decoration: none;
+          outline: none;
+          position: absolute;
+          right: 0;
+        }
+      }
+      .family-desc {
+        font-size: 14px;
+        color: grey;
+        padding-top: 8px;
+      }
+    }
+  }
+}

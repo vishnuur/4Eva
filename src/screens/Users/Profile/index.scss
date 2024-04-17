@@ -1,0 +1,45 @@
+.profile-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
+
+  .my-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: white;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    .profile-photo {
+      img {
+        border-radius: 2px;
+        width: 160px;
+        height: 160px;
+      }
+    }
+    .profile-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+      h5,
+      h1 {
+        color: gray;
+        margin: 0;
+        padding: 8px;
+        font-weight: 500;
+      }
+      p {
+        color: grey;
+        margin: 0;
+        padding: 8px;
+      }
+      h1 {
+        font-size: 18px;
+      }
+    }
+  }
+}
