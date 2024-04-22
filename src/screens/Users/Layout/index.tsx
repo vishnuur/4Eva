@@ -5,6 +5,7 @@ import "./index.scss";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import authStore from "src/store/users/auth";
 import profileStore from "src/store/users/profile";
+import Logo from "src/assets/logo.jpeg"
 
 const { Header, Content } = Layout;
 
@@ -79,7 +80,7 @@ const LayoutPage: React.FC = () => {
         className="header-color"
       >
         <div className="demo-logo" style={{ color: "white" }}>
-          <img src="../../../src/assets/logo.jpeg" />
+          <img src={Logo}/>
         </div>
         <Menu
           theme="dark"
