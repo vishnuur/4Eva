@@ -29,6 +29,9 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        width: 50%;
+        position: relative;
+        box-sizing: border-box;
       }
       .bg-image {
         width: 50%;
