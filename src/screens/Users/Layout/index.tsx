@@ -79,7 +79,7 @@ const LayoutPage: React.FC = () => {
         className="header-color"
       >
         <div className="demo-logo" style={{ color: "white" }}>
-          <img src="src/assets/logo.jpeg" />
+          <img src="../../../src/assets/logo.jpeg" />
         </div>
         <Menu
           theme="dark"
