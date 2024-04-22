@@ -1,26 +1,26 @@
 import CustomInput from "src/components/CustomInput";
 import "./index.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import authStore from "src/store/users/auth";
 import { useEffect, useState } from "react";
-import { customToast } from "src/components/Toast";
-import { SUCCESS } from "src/config/app.const";
+import LoginBg from "src/assets/admin-bg.jpeg";
+import Logo from "src/assets/logo.jpeg";
 
-export default function Login() {
+export default function AdminLogin() {
   const navigate = useNavigate();
-  const { onLogingIn, loginSuccess } = authStore((state) => state);
+  const { loginSuccess } = authStore((state) => state);
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     phone: "",
   });
 
   const onSubmit = () => {
-    onLogingIn(formData);
+    // onLogingIn(formData);
+    navigate("/admin/dashboard");
   };
 
   useEffect(() => {
     if (loginSuccess) {
-      customToast(SUCCESS, "Login Success");
       navigate("/profile");
     }
   }, [loginSuccess]);
@@ -34,17 +34,15 @@ export default function Login() {
   };
 
   return (
-    <div className="home-container">
+    <div className="admin-login">
       <div className="login-wrap">
         <div className="login-form">
-          <img
-            className="bg-image"
-            src="https://images.pexels.com/photos/916344/pexels-photo-916344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+          <img className="bg-image" src={LoginBg} />
           <div className="login-fields">
-            <h3>Login Now</h3>
+            <img src={Logo} />
+            <h3>Login</h3>
             <CustomInput
-              value={formData.username}
+              value={formData.name}
               placeHolder="User name"
               type="text"
               style={{
@@ -55,7 +53,7 @@ export default function Login() {
                 color: "#fff",
               }}
               onChange={handleChange}
-              name="username"
+              name="name"
             />
             <CustomInput
               value={formData.phone}
@@ -71,9 +69,6 @@ export default function Login() {
               onChange={handleChange}
               name="phone"
             />
-            <p className="login-subhead">
-              Don't have an account ? <Link to="/">Sign Up</Link>
-            </p>
             <button onClick={onSubmit} className="login-button">
               Log In
             </button>

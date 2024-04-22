@@ -4,6 +4,9 @@ import Home from "src/screens/Users/Home/index";
 import Profile from "src/screens/Users/Profile/index";
 import LayoutPage from "src/screens/Users/Layout/index";
 import SignUp from "src/screens/Users/SignUp";
+import AdminDashboard from "src/screens/Admin/Dashboard";
+import AdminLayout from "src/screens/Admin/Layout";
+import AdminLogin from "src/screens/Admin/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -20,12 +23,25 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/sign-up",
+    path: "/",
     element: <SignUp />,
+  },
+  {
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "/admin/dashboard",
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+  {
+    path: "/admin/login",
+    element: <AdminLogin />,
   },
 ]);
 

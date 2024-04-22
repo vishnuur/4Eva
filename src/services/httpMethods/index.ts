@@ -4,8 +4,8 @@ import axios from "axios";
 //  import.meta.env.MODE === "development"
 //    ? import.meta.env.VITE_baseURL
 //    : import.meta.env.VITE_baseQAURL;
-const baseURL = import.meta.env.VITE_baseURL;
-//const baseURL = "http://localhost:3000/";
+// const baseURL = import.meta.env.VITE_baseURL;
+const baseURL = "http://103.154.184.45:3010/";
 
 const base = async (options: any, headerOptions: any) => {
   try {

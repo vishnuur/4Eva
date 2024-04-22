@@ -1,14 +1,26 @@
 .dropdown-style {
-  border: 1px solid white;
+  border: 0.5px solid rgb(208, 207, 207);
   border-radius: 8px;
-  color: white;
+  color: black;
   padding: 8px 12px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #fff;
   box-sizing: border-box;
   &::placeholder {
-    color: white;
+    color: rgb(177, 175, 175);
+  }
+  &:invalid {
+    color: rgb(177, 175, 175);
   }
   &:focus {
     outline: none;
   }
 }
+// select:required:invalid {
+//   color: rgb(189, 186, 186);
+// }
+// option[value=""][disabled] {
+//   display: none;
+// }
+// option {
+//   color: black;
+// }

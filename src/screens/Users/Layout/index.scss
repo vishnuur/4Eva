@@ -1,0 +1,30 @@
+.header-color {
+  background-color: white;
+  border-bottom: 1px solid #ffc107 !important;
+}
+.user-layout-container {
+  .ant-menu-title-content {
+    color: black;
+  }
+  .ant-menu-title-content a {
+    transition: none !important;
+  }
+  .demo-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    img {
+      width: 46px;
+    }
+  }
+  .ant-menu-item-selected {
+    background-color: white !important;
+  }
+  .ant-menu-item-selected > span > a {
+    color: #ffc107 !important;
+  }
+}
+.ant-dropdown-menu {
+  width: 220px;
+}

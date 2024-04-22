@@ -1,50 +1,59 @@
 .profile-tabs {
   position: relative;
+  display: flex;
+  .tab-content-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: flex-end;
+  }
+  .no-data-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .no-data-wrap {
+      height: unset;
+      img {
+        width: 240px;
+      }
+      .no-data-text {
+        font-size: 18px;
+      }
+    }
+  }
   .add-details-btn {
-    position: absolute;
-    right: 0;
-    top: 0;
   }
   .details-listing {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding-top: 54px;
-    .family-single-wrap {
-      padding-bottom: 12px;
+  }
+  .tab-content-cover {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .tab-content {
       display: flex;
-      flex-direction: column;
+      justify-content: flex-start;
       align-items: flex-start;
-      position: relative;
+      flex-direction: column;
       width: 50%;
-      p {
-        margin: 0;
-      }
-      .family-line {
-        display: flex;
-        align-items: center;
-        .family-relation {
-          font-size: 14px;
-          color: gray;
-          font-weight: 600;
-        }
-        .family-name {
-          font-size: 14px;
-          color: grey;
-          padding-left: 12px;
-        }
-        a {
-          text-decoration: none;
-          outline: none;
-          position: absolute;
-          right: 0;
-        }
-      }
-      .family-desc {
-        font-size: 14px;
-        color: grey;
-        padding-top: 8px;
-      }
+    }
+  }
+  .single-row-wrap {
+    display: flex;
+    justify-content: space-between;
+    .singleRow-key {
+      color: Black;
+      font-size: 14px;
+      font-weight: 600;
+      min-width: 140px;
+    }
+    .singleRow-value {
+      color: rgb(77, 76, 76);
+      font-size: 14px;
     }
   }
 }

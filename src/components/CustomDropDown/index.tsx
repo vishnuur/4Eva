@@ -1,6 +1,6 @@
 import "./index.scss";
 interface inputProps {
-  options: string[];
+  options: any[];
   placeHolder: string;
   style?: any;
   onChange: any;
@@ -23,9 +23,9 @@ export default function CustomDropDown({
       name={name}
       value={value}
     >
-      <option>{placeHolder}</option>
+      <option hidden>{placeHolder}</option>
       {options.map((res) => (
-        <option>{res}</option>
+        <option value={res.value}>{res.label}</option>
       ))}
     </select>
   );

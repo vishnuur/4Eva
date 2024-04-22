@@ -1,6 +1,6 @@
 import "./index.scss";
 interface inputProps {
-  value: string;
+  value: string | number;
   placeHolder: string;
   onChange?: any;
   type?: string;

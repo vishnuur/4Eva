@@ -23,7 +23,7 @@ const Home: React.FC = () => {
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col
               className="gutter-row"
-              span={6}
+              span={4}
               style={{ marginBottom: "24px" }}
             >
               <UserCards
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                 address="Trivandrum"
               ></UserCards>
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
               <UserCards
                 image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 name="Aswathi"
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
                 address="Trivandrum"
               ></UserCards>
             </Col>{" "}
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
               <UserCards
                 image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 name="Aswathi"
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
                 address="Trivandrum"
               ></UserCards>
             </Col>{" "}
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
               <UserCards
                 image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 name="Aswathi"
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
                 address="Trivandrum"
               ></UserCards>
             </Col>{" "}
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
               <UserCards
                 image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 name="Aswathi"
@@ -65,7 +65,38 @@ const Home: React.FC = () => {
                 address="Trivandrum"
               ></UserCards>
             </Col>{" "}
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" span={4}>
+              <UserCards
+                image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                name="Aswathi"
+                phone="12312312323423"
+                address="Trivandrum"
+              ></UserCards>
+            </Col>
+            <Col className="gutter-row" span={4}>
+              <UserCards
+                image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                name="Aswathi"
+                phone="12312312323423"
+                address="Trivandrum"
+              ></UserCards>
+            </Col>{" "}
+            <Col className="gutter-row" span={4}>
+              <UserCards
+                image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                name="Aswathi"
+                phone="12312312323423"
+                address="Trivandrum"
+              ></UserCards>
+            </Col> <Col className="gutter-row" span={4}>
+              <UserCards
+                image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                name="Aswathi"
+                phone="12312312323423"
+                address="Trivandrum"
+              ></UserCards>
+            </Col>{" "}
+            <Col className="gutter-row" span={4}>
               <UserCards
                 image="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 name="Aswathi"

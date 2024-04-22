@@ -1,46 +1,85 @@
 import React from "react";
-import { Avatar, Dropdown, Layout, Menu, MenuProps, theme } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import { Avatar, Dropdown, Layout, Menu, MenuProps } from "antd";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import "./index.scss";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import authStore from "src/store/users/auth";
+import profileStore from "src/store/users/profile";
 
 const { Header, Content } = Layout;
 
 const items = [
   {
     key: 1,
-    label: <Link to="/home">Home</Link>,
+    label: (
+      <Link className="header-text-color" to="/home">
+        <HomeOutlined />
+        <span>Home</span>
+      </Link>
+    ),
   },
   {
     key: 2,
-    label: <Link to="/profile">Profile</Link>,
+    label: (
+      <Link to="/profile">
+        <UserOutlined />
+        <span>Profile</span>
+      </Link>
+    ),
   },
 ];
 
-const dropDownItems: MenuProps["items"] = [
-  {
-    label: <Link to="/profile">Profile</Link>,
-    key: "0",
-  },
-  {
-    label: <Link to="/home">Home</Link>,
-    key: "1",
-  },
-  {
-    label: <Link to="/">Logout</Link>,
-    key: "3",
-  },
-];
+const LayoutPage: React.FC = () => {
+  // const location = useLocation();
+  // const { pathname } = location;
+  const navigate = useNavigate();
+  const { setLoginSuccess, setUserId } = authStore((state) => state);
+  const { personalDetails } = profileStore((state) => state);
+  // const [currentPath, setcurrentPath] = useState("1");
 
-const LayoutPage: React.FC = (props: any) => {
-  console.log(props.children, "childrennnn");
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  // console.log(pathname, "pathnameee");
+  // const activePath = (path: any, key: any) => {
+  //   if (pathname === path) {
+  //     setcurrentPath(key);
+  //   }
+  // };
+
+  const onLogout = () => {
+    localStorage.removeItem("userId");
+    setLoginSuccess(false);
+    navigate("/");
+    setUserId("");
+  };
+
+  const dropDownItems: MenuProps["items"] = [
+    {
+      label: <Link to="/profile">Profile</Link>,
+      key: "0",
+    },
+    {
+      label: <Link to="/home">Home</Link>,
+      key: "1",
+    },
+    {
+      label: <a onClick={onLogout}>Logout</a>,
+      key: "3",
+    },
+  ];
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Header style={{ display: "flex", alignItems: "center" }}>
+    <Layout
+      style={{ minHeight: "100vh", backgroundColor: "white" }}
+      className="user-layout-container"
+    >
+      <Header
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+        className="header-color"
+      >
         <div className="demo-logo" style={{ color: "white" }}>
-          Logo
+          <img src="src/assets/logo.jpeg" />
         </div>
         <Menu
           theme="dark"
@@ -48,6 +87,8 @@ const LayoutPage: React.FC = (props: any) => {
           defaultSelectedKeys={["1"]}
           items={items}
           style={{ flex: 1, minWidth: 0 }}
+          className="header-color"
+          // selectedKeys={[currentPath]}
         />
         <Dropdown menu={{ items: dropDownItems }} trigger={["click"]}>
           <a onClick={(e) => e.preventDefault()}>
@@ -55,7 +96,7 @@ const LayoutPage: React.FC = (props: any) => {
               style={{ backgroundColor: "#f56a00", verticalAlign: "middle" }}
               size="large"
             >
-              Vishnu
+              {personalDetails?.registerInfo?.name?.slice(0, 1)}
             </Avatar>
           </a>
         </Dropdown>
@@ -66,14 +107,7 @@ const LayoutPage: React.FC = (props: any) => {
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>Layout</Breadcrumb.Item>
         </Breadcrumb> */}
-        <div
-          style={{
-            background: colorBgContainer,
-            minHeight: 280,
-            padding: 24,
-            borderRadius: borderRadiusLG,
-          }}
-        >
+        <div>
           <Outlet />
         </div>
       </Content>

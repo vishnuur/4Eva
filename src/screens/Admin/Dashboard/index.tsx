@@ -1,15 +1,11 @@
-import { useState } from "react";
+import CustomTable from "src/components/Table";
 import "./index.scss";
-import { Modal } from "antd";
+import Modal from "antd/es/modal/Modal";
 import CustomDropDown from "src/components/CustomDropDown";
 import CustomInput from "src/components/CustomInput";
-import profileStore from "src/store/users/profile";
-import { EditOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-export default function PersonalDetails() {
-  const { savePersonalDetails, personalDetails } = profileStore(
-    (state) => state
-  );
+export default function AdminDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -21,27 +17,8 @@ export default function PersonalDetails() {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    savePersonalDetails(formData);
-    setFormData({
-      name: "",
-      relation: "",
-      description: "",
-    });
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
-
-  const onEditPress = (value: any) => {
-    setIsModalOpen(true);
-    setFormData({
-      name: value.name,
-      relation: value.relation,
-      description: value.description,
-    });
   };
 
   const handleChange = (e: any) => {
@@ -52,30 +29,18 @@ export default function PersonalDetails() {
       [name]: value,
     });
   };
-
   return (
-    <div className="profile-tabs">
-      <button className="add-details-btn" onClick={showModal}>
-        Add Details
-      </button>
-      <div className="details-listing">
-        {personalDetails?.map((res: any) => (
-          <div className="family-single-wrap">
-            <span className="family-line">
-              <p className="family-relation">{res.relation}</p>:
-              <p className="family-name">{res.name}</p>
-              <a onClick={() => onEditPress(res)}>
-                <EditOutlined />
-              </a>
-            </span>
-            <p className="family-desc">{res.description}</p>
-          </div>
-        ))}
+    <div>
+      <div className="header">
+        <h2>Users</h2>
+        <button className="primary-btn" onClick={showModal}>
+          Add Users
+        </button>
       </div>
       <Modal
         title="Add details"
         open={isModalOpen}
-        onOk={handleOk}
+        // onOk={handleOk}
         onCancel={handleCancel}
       >
         <label>Name:</label>
@@ -106,6 +71,7 @@ export default function PersonalDetails() {
           style={{ width: "100%" }}
         />
       </Modal>
+      <CustomTable />
     </div>
   );
 }
