@@ -5,25 +5,36 @@ import CustomInput from "src/components/CustomInput";
 import profileStore from "src/store/users/profile";
 import "../index.scss";
 import authStore from "src/store/users/auth";
+import dayjs from "dayjs";
 
-export default function PersonalDetails() {
+interface modalProps {
+  modalVisible: boolean;
+  setModalVisible: any;
+}
+
+const formDataInitialState = {
+  name: "",
+  dob: new Date(),
+  maritalStatus: "",
+  height: "",
+  weight: "",
+  physicalStatus: "",
+  religion: "",
+  caste: "",
+  motherTounge: "",
+  email: "",
+};
+
+export default function PersonalDetails({
+  modalVisible,
+  setModalVisible,
+}: modalProps) {
   const { postProfileDetails, religions, getCaste, caste, personalDetails } =
     profileStore((state) => state);
   const { userId } = authStore((state) => state);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    dob: new Date(),
-    maritalStatus: "",
-    height: "",
-    weight: "",
-    physicalStatus: "",
-    religion: "",
-    caste: "",
-    motherTounge: "",
-    email: "",
-  });
+  const [formData, setFormData] = useState(formDataInitialState) as any;
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     personalDetails?.basicInfo &&
@@ -33,12 +44,8 @@ export default function PersonalDetails() {
       });
   }, [personalDetails]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
   const handleOk = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
     const payload = {
       registerId: userId,
       emailId: formData.email,
@@ -76,25 +83,14 @@ export default function PersonalDetails() {
         district: "",
         citizenship: "",
       },
-      basicInfo: formData,
+      basicInfo: { ...formData, dob: new Date(selectedDate) },
     };
     postProfileDetails(payload); //api to submit
-    setFormData({
-      name: "",
-      dob: new Date(),
-      maritalStatus: "",
-      height: "",
-      weight: "",
-      physicalStatus: "",
-      religion: "",
-      caste: "",
-      motherTounge: "",
-      email: "",
-    });
+    setFormData(formDataInitialState);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
   };
 
   const handleChange = (e: any) => {
@@ -110,33 +106,17 @@ export default function PersonalDetails() {
   const onChangeDate: any = (date: any, dateString: any) => {
     setFormData({
       ...formData,
-      dob: new Date(dateString),
+      dob: new Date(dateString).toISOString(),
     });
+    setSelectedDate(dateString);
     console.log(date);
   };
 
   return (
     <div className="profile-tabs">
-      <button className="add-details-btn" onClick={showModal}>
-        {formData?.name ? "Edit Details" : "Add Details"}
-      </button>
-      {/* <div className="details-listing">
-        {personalDetails?.map((res: any) => (
-          <div className="family-single-wrap">
-            <span className="family-line">
-              <p className="family-relation">{res.relation}</p>:
-              <p className="family-name">{res.name}</p>
-              <a onClick={() => onEditPress(res)}>
-                <EditOutlined />
-              </a>
-            </span>
-            <p className="family-desc">{res.description}</p>
-          </div>
-        ))}
-      </div> */}
       <Modal
-        title="Add basic info"
-        open={isModalOpen}
+        title={`${formData.name ? "Edit" : "Add"} Personal Details`}
+        open={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -162,9 +142,9 @@ export default function PersonalDetails() {
         <DatePicker
           onChange={onChangeDate}
           name="dob"
-          // value={dayjs(formData?.dob, "YYYY-MM-DD")}
+          value={dayjs(formData?.dob, "YYYY-MM-DD")}
           style={{ width: "100%" }}
-          format="DD-MM-YYYY"
+          format="YYYY-MM-DD"
         />
         <label>Marital Status:</label>
         <CustomDropDown

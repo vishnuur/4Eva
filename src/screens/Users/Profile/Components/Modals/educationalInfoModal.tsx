@@ -85,7 +85,9 @@ export default function EducationalInfoModal({
   return (
     <div className="profile-tabs">
       <Modal
-        title="Add Education info"
+        title={`${
+          formData.highestEducation ? "Edit" : "Add"
+        } Education Details`}
         open={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}

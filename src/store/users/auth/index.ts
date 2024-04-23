@@ -27,11 +27,15 @@ const authStore = create<AuthState>()((set) => ({
     }
   },
   onLogingIn: async (state) => {
-    const localUserId = localStorage.getItem("userId");
     const result = await userLoginAPI(state);
-    set({ userId: localUserId ?? result?.data[0]?.userId });
-    localStorage.setItem("userId", result?.data[0]?.userId);
-    set({ loginSuccess: result.status });
+    if (!result.status) {
+      set({ loginSuccess: false });
+      customToast(ERROR, result.result);
+    } else {
+      set({ userId: result?.data[0]?.userId });
+      localStorage.setItem("userId", result?.data[0]?.userId);
+      set({ loginSuccess: result.status });
+    }
   },
   setLoginSuccess: (state) => {
     set({ loginSuccess: state });

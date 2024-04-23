@@ -107,7 +107,7 @@ export default function ContactInfoModal({
   return (
     <div className="profile-tabs">
       <Modal
-        title="Add Contact info"
+        title={`${formDataLocation.country ? "Edit" : "Add"} Contact Details`}
         open={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}

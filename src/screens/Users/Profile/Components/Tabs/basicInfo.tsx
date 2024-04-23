@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
@@ -10,6 +10,11 @@ export default function BasicInfo() {
   const { personalDetails, religions, caste, getCaste } = profileStore(
     (state) => state
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     personalDetails?.basicInfo?.religion &&
@@ -22,8 +27,6 @@ export default function BasicInfo() {
     )?.castename;
   };
 
-  console.log(casteValue(), "castevalue");
-
   return (
     <div className="profile-tabs">
       {!personalDetails?.basicInfo ? (
@@ -35,7 +38,13 @@ export default function BasicInfo() {
         </div>
       ) : (
         <div className="tab-content-wrap">
-          <div>{personalDetails?.basicInfo && <PersonalDetails />}</div>
+          <div>
+            {personalDetails?.basicInfo && (
+              <button className="add-details-btn" onClick={showModal}>
+                Edit Details
+              </button>
+            )}
+          </div>
 
           <div className="tab-content-cover">
             <div className="tab-content">
@@ -90,6 +99,10 @@ export default function BasicInfo() {
           </div>
         </div>
       )}
+      <PersonalDetails
+        modalVisible={isModalOpen}
+        setModalVisible={setIsModalOpen}
+      />
     </div>
   );
 }

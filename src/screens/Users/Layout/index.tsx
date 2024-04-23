@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Dropdown, Layout, Menu, MenuProps } from "antd";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import authStore from "src/store/users/auth";
 import profileStore from "src/store/users/profile";
-import Logo from "src/assets/logo.jpeg"
+import Logo from "src/assets/logo.jpeg";
 
 const { Header, Content } = Layout;
 
@@ -32,18 +32,30 @@ const items = [
 
 const LayoutPage: React.FC = () => {
   // const location = useLocation();
-  // const { pathname } = location;
+  const { pathname } = location;
   const navigate = useNavigate();
   const { setLoginSuccess, setUserId } = authStore((state) => state);
   const { personalDetails } = profileStore((state) => state);
-  // const [currentPath, setcurrentPath] = useState("1");
+  const [currentPath, setcurrentPath] = useState("1");
 
   // console.log(pathname, "pathnameee");
-  // const activePath = (path: any, key: any) => {
-  //   if (pathname === path) {
-  //     setcurrentPath(key);
-  //   }
-  // };
+  const activePath = (path: any, key: any) => {
+    setcurrentPath(key);
+  };
+
+  useEffect(() => {
+    switch (pathname) {
+      case "/home":
+        setcurrentPath("1");
+        break;
+      case "/profile":
+        setcurrentPath("2");
+        break;
+
+      default:
+        break;
+    }
+  }, [pathname]);
 
   const onLogout = () => {
     localStorage.removeItem("userId");
@@ -67,6 +79,7 @@ const LayoutPage: React.FC = () => {
     },
   ];
 
+  console.log(currentPath, "currentpatn", pathname);
   return (
     <Layout
       style={{ minHeight: "100vh", backgroundColor: "white" }}
@@ -80,16 +93,17 @@ const LayoutPage: React.FC = () => {
         className="header-color"
       >
         <div className="demo-logo" style={{ color: "white" }}>
-          <img src={Logo}/>
+          <img src={Logo} />
         </div>
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[currentPath]}
           items={items}
           style={{ flex: 1, minWidth: 0 }}
           className="header-color"
-          // selectedKeys={[currentPath]}
+          selectedKeys={[currentPath]}
+          onClick={(e) => setcurrentPath(e.key)}
         />
         <Dropdown menu={{ items: dropDownItems }} trigger={["click"]}>
           <a onClick={(e) => e.preventDefault()}>

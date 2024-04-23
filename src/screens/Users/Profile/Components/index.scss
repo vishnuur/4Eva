@@ -1,7 +1,7 @@
 .profile-tabs {
   position: relative;
   display: flex;
-  .tab-content-wrap{
+  .tab-content-wrap {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -56,4 +56,12 @@
       font-size: 14px;
     }
   }
+}
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #ffc107 !important;
+}
+.ant-tabs-ink-bar {
+  position: absolute;
+  background: #ffc107 !important;
+  pointer-events: none;
 }
