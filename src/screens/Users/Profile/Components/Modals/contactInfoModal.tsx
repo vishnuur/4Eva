@@ -5,22 +5,37 @@ import profileStore from "src/store/users/profile";
 import "../index.scss";
 import authStore from "src/store/users/auth";
 
-export default function ContactInfoModal() {
+interface modalProps {
+  modalVisible: boolean;
+  setModalVisible: any;
+}
+
+const locationDataInitialState = {
+  country: "",
+  state: "",
+  district: "",
+  citizenship: "",
+};
+
+const contactDataInitialState = {
+  mobileNo1: "",
+  mobileNo2: "",
+};
+
+export default function ContactInfoModal({
+  modalVisible,
+  setModalVisible,
+}: modalProps) {
   const { postProfileDetails, personalDetails } = profileStore(
     (state) => state
   );
   const { userId } = authStore((state) => state);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formDataLocation, setFormDataLocation] = useState({
-    country: "",
-    state: "",
-    district: "",
-    citizenship: "",
-  });
-  const [formDataContact, setFormDataContact] = useState({
-    mobileNo1: "",
-    mobileNo2: "",
-  });
+  const [formDataLocation, setFormDataLocation] = useState(
+    locationDataInitialState
+  );
+  const [formDataContact, setFormDataContact] = useState(
+    contactDataInitialState
+  );
 
   useEffect(() => {
     personalDetails?.locationInfo &&
@@ -34,12 +49,8 @@ export default function ContactInfoModal() {
       });
   }, [personalDetails]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
   const handleOk = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
     const payload = {
       registerId: userId,
       emailId: personalDetails?.emailInfo.emailId ?? "",
@@ -70,23 +81,12 @@ export default function ContactInfoModal() {
       contactInfo: formDataContact,
     };
     postProfileDetails(payload);
-    // setFormData({
-    // Address: "",
-    // fatherName: "",
-    // motherName: "",
-    // fatherOccupation: "",
-    // motherOccupation: "",
-    // familyValue: "",
-    // familyType: "",
-    // familyStaus: "",
-    // numOfBrothers: 1,
-    // numOfSisters: 1,
-    // aboutFamily: "",
-    // });
+    setFormDataLocation(locationDataInitialState);
+    setFormDataContact(contactDataInitialState);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
   };
 
   const handleChange = (e: any) => {
@@ -106,26 +106,9 @@ export default function ContactInfoModal() {
   };
   return (
     <div className="profile-tabs">
-      <button className="add-details-btn" onClick={showModal}>
-        {formDataLocation?.country ? "Edit Details" : "Add Details"}
-      </button>
-      {/* <div className="details-listing">
-        {personalDetails?.map((res: any) => (
-          <div className="family-single-wrap">
-            <span className="family-line">
-              <p className="family-relation">{res.relation}</p>:
-              <p className="family-name">{res.name}</p>
-              <a onClick={() => onEditPress(res)}>
-                <EditOutlined />
-              </a>
-            </span>
-            <p className="family-desc">{res.description}</p>
-          </div>
-        ))}
-      </div> */}
       <Modal
         title="Add Contact info"
-        open={isModalOpen}
+        open={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >

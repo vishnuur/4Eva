@@ -3,10 +3,15 @@ import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import EducationalInfoModal from "../Modals/educationalInfoModal";
 import SingleRow from "../singleRow";
+import { useState } from "react";
 
 export default function EducationalInfo() {
   const { personalDetails } = profileStore((state) => state);
-  console.log(personalDetails?.educationInfo, "personalDetailspersonalDetails");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
   return (
     <div className="profile-tabs">
       {!personalDetails?.educationInfo ? (
@@ -14,14 +19,19 @@ export default function EducationalInfo() {
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
-            <EducationalInfoModal />
-            {/* <button>Add details</button> */}
+            <button className="add-details-btn" onClick={showModal}>
+              Add Details
+            </button>
           </div>
         </div>
       ) : (
         <div className="tab-content-wrap">
           <div>
-            {personalDetails?.educationInfo && <EducationalInfoModal />}
+            {personalDetails?.educationInfo && (
+              <button className="add-details-btn" onClick={showModal}>
+                Edit Details
+              </button>
+            )}
           </div>
 
           <div className="tab-content-cover">
@@ -60,6 +70,10 @@ export default function EducationalInfo() {
           </div>
         </div>
       )}
+      <EducationalInfoModal
+        modalVisible={isModalOpen}
+        setModalVisible={setIsModalOpen}
+      />
     </div>
   );
 }

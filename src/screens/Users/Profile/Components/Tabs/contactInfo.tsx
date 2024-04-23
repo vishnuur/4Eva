@@ -3,9 +3,16 @@ import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
 import ContactInfoModal from "../Modals/contactInfoModal";
+import { useState } from "react";
 
 export default function ContactInfoTab() {
   const { personalDetails } = profileStore((state) => state);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="profile-tabs">
       {!personalDetails?.locationInfo ? (
@@ -13,13 +20,20 @@ export default function ContactInfoTab() {
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
-            <ContactInfoModal />
-            {/* <button>Add details</button> */}
+            <button className="add-details-btn" onClick={showModal}>
+              Add Details
+            </button>
           </div>
         </div>
       ) : (
         <div className="tab-content-wrap">
-          <div>{personalDetails?.locationInfo && <ContactInfoModal />}</div>
+          <div>
+            {personalDetails?.locationInfo && (
+              <button className="add-details-btn" onClick={showModal}>
+                Edit Details
+              </button>
+            )}
+          </div>
 
           <div className="tab-content-cover">
             <div className="tab-content">
@@ -44,6 +58,10 @@ export default function ContactInfoTab() {
           </div>
         </div>
       )}
+      <ContactInfoModal
+        modalVisible={isModalOpen}
+        setModalVisible={setIsModalOpen}
+      />
     </div>
   );
 }

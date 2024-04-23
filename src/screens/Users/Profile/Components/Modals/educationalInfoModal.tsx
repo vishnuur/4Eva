@@ -5,34 +5,39 @@ import profileStore from "src/store/users/profile";
 import "../index.scss";
 import authStore from "src/store/users/auth";
 
-export default function EducationalInfoModal() {
+interface modalProps {
+  modalVisible: boolean;
+  setModalVisible: any;
+}
+
+const formDataInitialState = {
+  highestEducation: "",
+  college: "",
+  educationDet: "",
+  employedIn: "",
+  occupation: "",
+  occupationDet: "",
+  annualIncome: "",
+};
+
+export default function EducationalInfoModal({
+  modalVisible,
+  setModalVisible,
+}: modalProps) {
   const { postProfileDetails, personalDetails } = profileStore(
     (state) => state
   );
   const { userId } = authStore((state) => state);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    highestEducation: "",
-    college: "",
-    educationDet: "",
-    employedIn: "",
-    occupation: "",
-    occupationDet: "",
-    annualIncome: "",
-  });
+  const [formData, setFormData] = useState(formDataInitialState);
 
   useEffect(() => {
     personalDetails?.educationInfo &&
       setFormData(personalDetails?.educationInfo);
   }, [personalDetails]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
   const handleOk = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
     const payload = {
       registerId: userId,
       emailId: personalDetails?.emailInfo.emailId ?? "",
@@ -62,19 +67,11 @@ export default function EducationalInfoModal() {
       basicInfo: personalDetails?.basicInfo,
     };
     postProfileDetails(payload);
-    // setFormData({
-    //   highestEducation: "",
-    //   college: "",
-    //   educationDet: "",
-    //   employedIn: "",
-    //   occupation: "",
-    //   occupationDet: "",
-    //   annualIncome: "",
-    // });
+    setFormData(formDataInitialState);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
   };
 
   const handleChange = (e: any) => {
@@ -87,26 +84,9 @@ export default function EducationalInfoModal() {
 
   return (
     <div className="profile-tabs">
-      <button className="add-details-btn" onClick={showModal}>
-        Add Details
-      </button>
-      {/* <div className="details-listing">
-        {personalDetails?.map((res: any) => (
-          <div className="family-single-wrap">
-            <span className="family-line">
-              <p className="family-relation">{res.relation}</p>:
-              <p className="family-name">{res.name}</p>
-              <a onClick={() => onEditPress(res)}>
-                <EditOutlined />
-              </a>
-            </span>
-            <p className="family-desc">{res.description}</p>
-          </div>
-        ))}
-      </div> */}
       <Modal
         title="Add Education info"
-        open={isModalOpen}
+        open={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >

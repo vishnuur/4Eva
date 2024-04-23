@@ -5,37 +5,42 @@ import profileStore from "src/store/users/profile";
 import "../index.scss";
 import authStore from "src/store/users/auth";
 
-export default function FamilyModal() {
+interface modalProps {
+  modalVisible: boolean;
+  setModalVisible: any;
+}
+
+const formDataInitialState = {
+  Address: "",
+  fatherName: "",
+  motherName: "",
+  fatherOccupation: "",
+  motherOccupation: "",
+  familyValue: "",
+  familyType: "",
+  familyStaus: "",
+  numOfBrothers: "",
+  numOfSisters: "",
+  aboutFamily: "",
+};
+
+export default function FamilyModal({
+  modalVisible,
+  setModalVisible,
+}: modalProps) {
   const { postProfileDetails, personalDetails } = profileStore(
     (state) => state
   );
   const { userId } = authStore((state) => state);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    Address: "",
-    fatherName: "",
-    motherName: "",
-    fatherOccupation: "",
-    motherOccupation: "",
-    familyValue: "",
-    familyType: "",
-    familyStaus: "",
-    numOfBrothers: "",
-    numOfSisters: "",
-    aboutFamily: "",
-  });
+  const [formData, setFormData] = useState(formDataInitialState);
 
   useEffect(() => {
     personalDetails?.familyInfo && setFormData(personalDetails?.familyInfo);
   }, [personalDetails?.familyInfo]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
   const handleOk = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
     const payload = {
       registerId: userId,
       emailId: personalDetails?.emailInfo.emailId ?? "",
@@ -64,23 +69,11 @@ export default function FamilyModal() {
       },
     };
     postProfileDetails(payload);
-    // setFormData({
-    // Address: "",
-    // fatherName: "",
-    // motherName: "",
-    // fatherOccupation: "",
-    // motherOccupation: "",
-    // familyValue: "",
-    // familyType: "",
-    // familyStaus: "",
-    // numOfBrothers: 1,
-    // numOfSisters: 1,
-    // aboutFamily: "",
-    // });
+    setFormData(formDataInitialState);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setModalVisible(false);
   };
 
   const handleChange = (e: any) => {
@@ -93,26 +86,9 @@ export default function FamilyModal() {
 
   return (
     <div className="profile-tabs">
-      <button className="add-details-btn" onClick={showModal}>
-        {formData?.Address === "" ? "Add Details" : "Edit Details"}
-      </button>
-      {/* <div className="details-listing">
-        {personalDetails?.map((res: any) => (
-          <div className="family-single-wrap">
-            <span className="family-line">
-              <p className="family-relation">{res.relation}</p>:
-              <p className="family-name">{res.name}</p>
-              <a onClick={() => onEditPress(res)}>
-                <EditOutlined />
-              </a>
-            </span>
-            <p className="family-desc">{res.description}</p>
-          </div>
-        ))}
-      </div> */}
       <Modal
         title="Add Family info"
-        open={isModalOpen}
+        open={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >

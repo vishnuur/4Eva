@@ -3,9 +3,15 @@ import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
 import FamilyModal from "../Modals/familyModal";
+import { useState } from "react";
 
 export default function FamilyInfoTab() {
   const { personalDetails } = profileStore((state) => state);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
   return (
     <div className="profile-tabs">
       {!personalDetails?.familyInfo ? (
@@ -13,13 +19,20 @@ export default function FamilyInfoTab() {
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
-            <FamilyModal />
-            {/* <button>Add details</button> */}
+            <button className="add-details-btn" onClick={showModal}>
+              Add Details
+            </button>
           </div>
         </div>
       ) : (
         <div className="tab-content-wrap">
-          <div>{personalDetails?.educationInfo && <FamilyModal />}</div>
+          <div>
+            {personalDetails?.educationInfo && (
+              <button className="add-details-btn" onClick={showModal}>
+                Edit Details
+              </button>
+            )}
+          </div>
 
           <div className="tab-content-cover">
             <div className="tab-content">
@@ -69,6 +82,10 @@ export default function FamilyInfoTab() {
           </div>
         </div>
       )}
+      <FamilyModal
+        modalVisible={isModalOpen}
+        setModalVisible={setIsModalOpen}
+      />
     </div>
   );
 }
