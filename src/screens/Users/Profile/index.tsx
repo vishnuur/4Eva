@@ -2,7 +2,6 @@ import { Button, Image, Upload, UploadProps } from "antd";
 import "./index.scss";
 import profileStore from "src/store/users/profile";
 import DefaultProfile from "../../../assets/profile.jpg";
-import LoaderImage from "../../../assets/loader.jpeg";
 
 import { useEffect } from "react";
 import EducationalInfo from "./Components/Tabs/educationalInfo";
@@ -15,6 +14,7 @@ import { ERROR, SUCCESS } from "src/config/app.const";
 import authStore from "src/store/users/auth";
 import { saveBasicDetailsAPI } from "src/services/apis/users/profile";
 import { useNavigate } from "react-router-dom";
+import LoaderComponent from "src/components/LoaderComponent";
 
 export default function Profile() {
   const {
@@ -60,9 +60,7 @@ export default function Profile() {
   };
 
   return isLoading ? (
-    <div className="loader-wrap">
-      <img src={LoaderImage} />
-    </div>
+    <LoaderComponent />
   ) : (
     <div className="profile-wrap">
       <div className="profile-photo">
