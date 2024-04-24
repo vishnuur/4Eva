@@ -41,23 +41,23 @@ export default function FamilyInfoTab() {
             <div className="tab-content">
               <SingleRow
                 keyName="Address"
-                keyValue={personalDetails?.familyInfo?.address}
+                keyValue={personalDetails?.familyInfo?.Address}
               />
               <SingleRow
                 keyName="Father's Name"
-                keyValue={personalDetails?.familyInfo?.fathersName}
+                keyValue={personalDetails?.familyInfo?.fatherName}
               />
               <SingleRow
                 keyName="Father's Occupation"
-                keyValue={personalDetails?.familyInfo?.fathersOccupation}
+                keyValue={personalDetails?.familyInfo?.fatherOccupation}
               />
               <SingleRow
                 keyName="Mother's Name"
-                keyValue={personalDetails?.familyInfo?.mothersName}
+                keyValue={personalDetails?.familyInfo?.motherName}
               />
               <SingleRow
                 keyName="Mother's Occupation"
-                keyValue={personalDetails?.familyInfo?.mothersOccupation}
+                keyValue={personalDetails?.familyInfo?.motherOccupation}
               />
             </div>
             <div className="tab-content">
@@ -71,11 +71,11 @@ export default function FamilyInfoTab() {
               />
               <SingleRow
                 keyName="Number Of Brothers"
-                keyValue={personalDetails?.familyInfo?.noofBrothers}
+                keyValue={personalDetails?.familyInfo?.numOfBrothers}
               />
               <SingleRow
                 keyName="Number Of Sisters"
-                keyValue={personalDetails?.familyInfo?.noofSisters}
+                keyValue={personalDetails?.familyInfo?.numOfSisters}
               />{" "}
               <SingleRow
                 keyName="About Family"

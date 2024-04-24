@@ -50,7 +50,7 @@ export default function PersonalDetails() {
     personalDetails?.basicInfo &&
       setFormData({
         ...personalDetails?.basicInfo,
-        email: personalDetails.emailInfo.emailId,
+        email: personalDetails?.emailInfo?.emailId,
       });
   }, [personalDetails]);
 
@@ -62,7 +62,7 @@ export default function PersonalDetails() {
     });
     await saveEmailInfoAPI({
       registerId: userId,
-      emailId: formData.email,
+      emailId: formData?.email,
     });
     if (result.status) {
       customToast(SUCCESS, "Basic Details Updated Successfully");
@@ -133,7 +133,7 @@ export default function PersonalDetails() {
             placeHolder="Email"
             onChange={handleChange}
             name="email"
-            value={formData.emailId}
+            value={formData?.emailId}
             type="text"
             style={{ width: "100%" }}
           />
