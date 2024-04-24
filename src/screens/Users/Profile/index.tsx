@@ -35,11 +35,6 @@ export default function Profile() {
   }, [userId]);
 
   const props: UploadProps = {
-    name: "file",
-    action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-    headers: {
-      authorization: "authorization-text",
-    },
     async onChange(info) {
       const payload = {
         registerId: userId,

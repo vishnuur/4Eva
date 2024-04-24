@@ -10,6 +10,7 @@ export const toastConfig: ToastOptions = {
   progress: undefined,
   theme: "light",
   transition: Bounce,
+  toastId: 1,
 };
 
 export const SUCCESS = "success";
