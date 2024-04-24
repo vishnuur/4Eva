@@ -1,6 +1,5 @@
-import { Button, Image, Tabs, TabsProps, Upload, UploadProps } from "antd";
+import { Button, Image, Upload, UploadProps } from "antd";
 import "./index.scss";
-import noDataImage from "../../../assets/no-data.png";
 import profileStore from "src/store/users/profile";
 import DefaultProfile from "../../../assets/profile.jpg";
 import LoaderImage from "../../../assets/loader.jpeg";
@@ -8,7 +7,6 @@ import LoaderImage from "../../../assets/loader.jpeg";
 import { useEffect } from "react";
 import EducationalInfo from "./Components/Tabs/educationalInfo";
 import BasicInfo from "./Components/Tabs/basicInfo";
-import PersonalDetails from "./Components/Modals/personalDetails";
 import FamilyInfoTab from "./Components/Tabs/familyInfo";
 import ContactInfoTab from "./Components/Tabs/contactInfo";
 import { UploadOutlined } from "@ant-design/icons";
@@ -17,29 +15,6 @@ import { ERROR, SUCCESS } from "src/config/app.const";
 import authStore from "src/store/users/auth";
 import { saveBasicDetailsAPI } from "src/services/apis/users/profile";
 import { useNavigate } from "react-router-dom";
-
-const items: TabsProps["items"] = [
-  {
-    key: "1",
-    label: "Personal Details",
-    children: <BasicInfo />,
-  },
-  {
-    key: "2",
-    label: "Professional Details",
-    children: <EducationalInfo />,
-  },
-  {
-    key: "3",
-    label: "Family Details",
-    children: <FamilyInfoTab />,
-  },
-  {
-    key: "4",
-    label: "Contact Details ",
-    children: <ContactInfoTab />,
-  },
-];
 
 export default function Profile() {
   const {

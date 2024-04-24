@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { ERROR } from "src/config/app.const";
 import { userLoginAPI, userRegisterAPI } from "src/services/apis/users/auth";
@@ -12,14 +11,14 @@ interface AuthState {
   setLoginSuccess: (state: boolean) => void;
   userId: string | number;
   setUserId: (payload: any) => void;
-  isProfileCreated:boolean;
+  isProfileCreated: boolean;
 }
 
-const authStore = create<AuthState>()((set,get) => ({
+const authStore = create<AuthState>()((set, get) => ({
   loginSuccess: false,
   signUpSuccess: false,
   userId: "",
-  isProfileCreated:false,
+  isProfileCreated: false,
   onSigningUp: async (state) => {
     const result = await userRegisterAPI(state);
     if (!result.status) {
@@ -27,7 +26,7 @@ const authStore = create<AuthState>()((set,get) => ({
       customToast(ERROR, result.result);
     } else {
       set({ signUpSuccess: true });
-      get().onLogingIn(state)
+      get().onLogingIn(state);
     }
   },
   onLogingIn: async (state) => {
@@ -40,7 +39,6 @@ const authStore = create<AuthState>()((set,get) => ({
       localStorage.setItem("userId", result?.data[0]?.userId);
       set({ loginSuccess: result.status });
       set({ isProfileCreated: result.Profile });
-
     }
   },
   setLoginSuccess: (state) => {
