@@ -17,6 +17,9 @@ export default function ContactInfoTab() {
     <div className="profile-tabs">
       {!personalDetails?.locationInfo ? (
         <div className="no-data-container">
+          <div className="header-wrap-no-data">
+            <h2>Contact Info</h2>
+          </div>
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>

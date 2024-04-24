@@ -31,6 +31,9 @@ export default function BasicInfo() {
     <div className="profile-tabs">
       {!personalDetails?.basicInfo ? (
         <div className="no-data-container">
+          <div className="header-wrap-no-data">
+            <h2>Basic Info</h2>
+          </div>
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span>No details are added yet</span>

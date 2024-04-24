@@ -38,6 +38,11 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    position: relative;
+    .header-wrap-no-data {
+      position: absolute;
+      left: 12px;
+    }
     .no-data-wrap {
       height: unset;
       img {

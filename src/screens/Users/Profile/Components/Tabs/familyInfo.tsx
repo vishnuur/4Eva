@@ -16,6 +16,9 @@ export default function FamilyInfoTab() {
     <div className="profile-tabs">
       {!personalDetails?.familyInfo ? (
         <div className="no-data-container">
+          <div className="header-wrap-no-data">
+            <h2>Family Info</h2>
+          </div>
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
