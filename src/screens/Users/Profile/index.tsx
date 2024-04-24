@@ -2,7 +2,8 @@ import { Button, Image, Tabs, TabsProps, Upload, UploadProps } from "antd";
 import "./index.scss";
 import noDataImage from "../../../assets/no-data.png";
 import profileStore from "src/store/users/profile";
-import DefaultProfile from "../../../assets/default-profile.jpg";
+import DefaultProfile from "../../../assets/profile.jpg";
+import LoaderImage from "../../../assets/loader.jpeg";
 
 import { useEffect } from "react";
 import EducationalInfo from "./Components/Tabs/educationalInfo";
@@ -14,6 +15,8 @@ import { UploadOutlined } from "@ant-design/icons";
 import { customToast } from "src/components/Toast";
 import { ERROR, SUCCESS } from "src/config/app.const";
 import authStore from "src/store/users/auth";
+import { saveBasicDetailsAPI } from "src/services/apis/users/profile";
+import { useNavigate } from "react-router-dom";
 
 const items: TabsProps["items"] = [
   {
@@ -44,11 +47,13 @@ export default function Profile() {
     postProfileDetails,
     personalDetails,
     getReligion,
+    isLoading,
   } = profileStore((state) => state);
   const { userId } = authStore((state) => state);
-  const onChange = (key: string) => {
-    console.log(key);
-  };
+  const navigate = useNavigate();
+  // const onChange = (key: string) => {
+  //   console.log(key);
+  // };
   useEffect(() => {
     getProfileDetails({ registerId: userId });
     getReligion();
@@ -60,35 +65,18 @@ export default function Profile() {
     headers: {
       authorization: "authorization-text",
     },
-    onChange(info) {
+    async onChange(info) {
       const payload = {
         registerId: userId,
-        emailId: personalDetails?.emailInfo.emailId ?? "",
-        educationInfo: personalDetails?.educationInfo ?? {
-          highestEducation: "",
-          college: "",
-          educationDet: "",
-          employedIn: "",
-          occupation: "",
-          occupationDet: "",
-          annualIncome: "",
-        },
-        familyInfo: personalDetails?.familyInfo ?? {
-          Address: "",
-          fatherName: "",
-          motherName: "",
-          fatherOccupation: "",
-          motherOccupation: "",
-          familyValue: "",
-          familyType: "",
-          familyStaus: "",
-          numOfBrothers: 1,
-          numOfSisters: 1,
-          aboutFamily: "",
-        },
         basicInfo: personalDetails?.basicInfo,
         image: info.file,
       };
+      const result = await saveBasicDetailsAPI(payload);
+      if (result.status) {
+        customToast(SUCCESS, "Basic Details Updated Successfully");
+        // if(personalDetails.basicInfo)
+        navigate("/profile");
+      }
       postProfileDetails(payload);
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
@@ -101,23 +89,32 @@ export default function Profile() {
     },
   };
 
-  return !personalDetails?.basicInfo ? (
-    <div className="no-data-wrap">
-      <img src={noDataImage} />
-      <span>No details are added yet</span>
-      <PersonalDetails />
-      {/* <button>Add details</button> */}
+  return isLoading ? (
+    <div className="loader-wrap">
+      <img src={LoaderImage} />
     </div>
   ) : (
     <div className="profile-wrap">
       <div className="profile-photo">
-        <Image width={240} src={DefaultProfile} />
+        <Image src={DefaultProfile} />
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
+        <div className="my-details">
+          <div className="profile-details">
+            <h1>{personalDetails?.registerInfo?.name}</h1>
+            <p>
+              24 Years, {personalDetails?.basicInfo?.height} cm,
+              {personalDetails?.basicInfo?.weight} kg
+            </p>
+            <h5>Trivandrum, Kerala</h5>
+            <h5>B.Tech , Software Professional</h5>
+            <h5>{personalDetails?.registerInfo?.phone}</h5>
+          </div>
+        </div>
       </div>
       <div className="my-details">
-        <div className="profile-details">
+        {/* <div className="profile-details">
           <h1>{personalDetails?.registerInfo?.name}</h1>
           <p>
             24 Years, {personalDetails?.basicInfo?.height} cm,
@@ -126,9 +123,13 @@ export default function Profile() {
           <h5>Trivandrum, Kerala</h5>
           <h5>B.Tech , Software Professional</h5>
           <h5>{personalDetails?.registerInfo?.phone}</h5>
-        </div>
+        </div> */}
         <div style={{ paddingLeft: "8px", width: "100%" }}>
-          <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+          <BasicInfo />
+          <EducationalInfo />
+          <FamilyInfoTab />
+          <ContactInfoTab />
+          {/* <Tabs defaultActiveKey="1" items={items} onChange={onChange} /> */}
         </div>
       </div>
     </div>

@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
-import PersonalDetails from "../Modals/personalDetails";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 export default function BasicInfo() {
   const { personalDetails, religions, caste, getCaste } = profileStore(
     (state) => state
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const showModal = () => {
-    setIsModalOpen(true);
+    navigate("/profile/edit/basic-details");
   };
 
   useEffect(() => {
@@ -38,13 +38,14 @@ export default function BasicInfo() {
         </div>
       ) : (
         <div className="tab-content-wrap">
-          <div>
-            {personalDetails?.basicInfo && (
+          {personalDetails?.basicInfo && (
+            <div className="header-wrap">
+              <h2>Basic Info</h2>
               <button className="add-details-btn" onClick={showModal}>
                 Edit Details
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="tab-content-cover">
             <div className="tab-content">
@@ -78,7 +79,7 @@ export default function BasicInfo() {
                   religions?.find(
                     (res: any) =>
                       res.religionId === personalDetails?.basicInfo?.religion
-                  ).religionName
+                  )?.religionName
                 }
               />
               <SingleRow keyName="Caste" keyValue={casteValue()} />
@@ -99,10 +100,10 @@ export default function BasicInfo() {
           </div>
         </div>
       )}
-      <PersonalDetails
-        modalVisible={isModalOpen}
-        setModalVisible={setIsModalOpen}
-      />
+      {/* {isModalOpen&& <PersonalDetails
+          modalVisible={isModalOpen}
+          setModalVisible={setIsModalOpen}
+        />} */}
     </div>
   );
 }

@@ -38,11 +38,6 @@ const LayoutPage: React.FC = () => {
   const { personalDetails } = profileStore((state) => state);
   const [currentPath, setcurrentPath] = useState("1");
 
-  // console.log(pathname, "pathnameee");
-  const activePath = (path: any, key: any) => {
-    setcurrentPath(key);
-  };
-
   useEffect(() => {
     switch (pathname) {
       case "/home":

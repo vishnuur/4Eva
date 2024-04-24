@@ -1,16 +1,16 @@
 import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
-import EducationalInfoModal from "../Modals/educationalInfoModal";
 import SingleRow from "../singleRow";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function EducationalInfo() {
   const { personalDetails } = profileStore((state) => state);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const showModal = () => {
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
+    navigate("/profile/edit/education-details");
   };
   return (
     <div className="profile-tabs">
@@ -26,13 +26,14 @@ export default function EducationalInfo() {
         </div>
       ) : (
         <div className="tab-content-wrap">
-          <div>
-            {personalDetails?.educationInfo && (
+          {personalDetails?.educationInfo && (
+            <div className="header-wrap">
+              <h2>Educational Info</h2>
               <button className="add-details-btn" onClick={showModal}>
                 Edit Details
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="tab-content-cover">
             <div className="tab-content">
@@ -70,10 +71,12 @@ export default function EducationalInfo() {
           </div>
         </div>
       )}
+      {/* {isModalOpen&&
       <EducationalInfoModal
         modalVisible={isModalOpen}
         setModalVisible={setIsModalOpen}
       />
+       } */}
     </div>
   );
 }

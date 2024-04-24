@@ -1,6 +1,32 @@
+.add-details-btn {
+  background: linear-gradient(135deg, #f95450, #fa5252);
+  height: 38px;
+  width: 120px;
+}
+.cancel-btn {
+  background: grey;
+  margin-right: 12px;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 60px;
+}
 .profile-tabs {
   position: relative;
   display: flex;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 15px;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 36px;
+  .header-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .tab-content-wrap {
     display: flex;
     flex-direction: column;
@@ -21,8 +47,6 @@
         font-size: 18px;
       }
     }
-  }
-  .add-details-btn {
   }
   .details-listing {
     display: flex;
@@ -50,10 +74,12 @@
       font-size: 14px;
       font-weight: 600;
       min-width: 140px;
+      margin: 6px 0;
     }
     .singleRow-value {
       color: rgb(77, 76, 76);
       font-size: 14px;
+      margin: 6px 0;
     }
   }
 }
@@ -64,4 +90,17 @@
   position: absolute;
   background: #ffc107 !important;
   pointer-events: none;
+}
+.form-wrap {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 0 auto;
+  .left {
+    width: 50%;
+    margin-right: 12px;
+  }
+  .right {
+    width: 50%;
+  }
 }

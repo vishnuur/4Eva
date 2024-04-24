@@ -8,6 +8,54 @@ export const saveProfileDetails = (payload: any) => {
     console.log(er);
   }
 };
+export const saveBasicDetailsAPI = (payload: any) => {
+  try {
+    const result = post("/profile/insertUpdateBasicInfo", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
+export const saveContactDetailsAPI = (payload: any) => {
+  try {
+    const result = post("/profile/insertUpdateContactInfo", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
+export const saveEducationDetailAPI = (payload: any) => {
+  try {
+    const result = post("/profile/insertUpdateEducationInfo", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
+export const saveEmailInfoAPI = (payload: any) => {
+  try {
+    const result = post("/profile/insertUpdateEmailInfo", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
+export const saveFamilyInfoAPI = (payload: any) => {
+  try {
+    const result = post("/profile/insertUpdateFamilyInfo", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
+export const saveLocationInfoAPI = (payload: any) => {
+  try {
+    const result = post("/profile/insertUpdateLocationInfo", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
 
 export const getProfileDetailsAPI = (payload: any) => {
   try {

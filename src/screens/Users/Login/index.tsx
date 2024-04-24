@@ -8,7 +8,9 @@ import { SUCCESS } from "src/config/app.const";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { onLogingIn, loginSuccess } = authStore((state) => state);
+  const { onLogingIn, loginSuccess, isProfileCreated } = authStore(
+    (state) => state
+  );
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -21,7 +23,11 @@ export default function Login() {
   useEffect(() => {
     if (loginSuccess) {
       customToast(SUCCESS, "Login Success");
-      navigate("/profile");
+      if (isProfileCreated) {
+        navigate("/profile");
+      } else {
+        navigate("/profile/edit/basic-details");
+      }
     }
   }, [loginSuccess]);
 
@@ -35,6 +41,10 @@ export default function Login() {
 
   return (
     <div className="home-container">
+      <img
+        className="bg-login"
+        src="https://images.pexels.com/photos/1045541/pexels-photo-1045541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      />
       <div className="login-wrap">
         <div className="login-form">
           <img

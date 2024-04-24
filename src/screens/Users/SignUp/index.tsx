@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "src/components/CustomInput";
 import "../Login/index.scss";
 import CustomDropDown from "src/components/CustomDropDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import authStore from "src/store/users/auth";
+import { customToast } from "src/components/Toast";
+import { SUCCESS } from "src/config/app.const";
 
 const images = [
   {
@@ -22,7 +24,9 @@ const images = [
 ];
 
 export default function SignUp() {
-  const { onSigningUp } = authStore((state) => state);
+  const { onSigningUp, signUpSuccess, loginSuccess } = authStore(
+    (state) => state
+  );
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -31,10 +35,14 @@ export default function SignUp() {
   const navigate = useNavigate();
   const onSubmit = () => {
     onSigningUp(formData);
-    // if (signUpSuccess) {
-    navigate("/login");
-    // }
   };
+
+  useEffect(() => {
+    if (signUpSuccess && loginSuccess) {
+      navigate("/profile/edit/basic-details");
+      customToast(SUCCESS, "Login Success");
+    }
+  }, [loginSuccess]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -46,6 +54,10 @@ export default function SignUp() {
 
   return (
     <div className="home-container">
+      <img
+        className="bg-login"
+        src="https://images.pexels.com/photos/1045541/pexels-photo-1045541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      />
       <div className="login-wrap">
         <div className="login-form">
           <img

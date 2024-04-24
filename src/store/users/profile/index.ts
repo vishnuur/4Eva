@@ -16,12 +16,15 @@ interface ProfileState {
   getProfileDetails: (payload: any) => void;
   getReligion: () => void;
   getCaste: (payload: any) => void;
+  setLoader:(payload: any) => void;
+  isLoading:boolean;
 }
 
 const profileStore = create<ProfileState>()((set, get) => ({
   personalDetails: {},
   religions: [],
   caste: [],
+  isLoading:false,
   postProfileDetails: async (payload) => {
     const result = await saveProfileDetails(payload);
     if (result.status) {
@@ -30,8 +33,13 @@ const profileStore = create<ProfileState>()((set, get) => ({
     }
   },
   getProfileDetails: async (payload) => {
+    get().setLoader(true)
     const result = await getProfileDetailsAPI(payload);
     set({ personalDetails: result });
+    get().setLoader(false)
+  },
+  setLoader: async (payload) => {
+    set({ isLoading: payload });
   },
   getReligion: async () => {
     const result = await getReligionsList();

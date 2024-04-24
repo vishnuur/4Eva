@@ -2,15 +2,15 @@ import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
-import ContactInfoModal from "../Modals/contactInfoModal";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ContactInfoTab() {
   const { personalDetails } = profileStore((state) => state);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const showModal = () => {
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
+    navigate("/profile/edit/contact-details");
   };
 
   return (
@@ -27,13 +27,14 @@ export default function ContactInfoTab() {
         </div>
       ) : (
         <div className="tab-content-wrap">
-          <div>
-            {personalDetails?.locationInfo && (
+          {personalDetails?.locationInfo && (
+            <div className="header-wrap">
+              <h2>Contact Info</h2>
               <button className="add-details-btn" onClick={showModal}>
                 Edit Details
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="tab-content-cover">
             <div className="tab-content">
@@ -54,14 +55,25 @@ export default function ContactInfoTab() {
                 keyValue={personalDetails?.locationInfo?.citizenship}
               />
             </div>
-            <div className="tab-content"></div>
+            <div className="tab-content">
+              <SingleRow
+                keyName="Mobile No 1"
+                keyValue={personalDetails?.contactInfo?.mobileNo1}
+              />
+              <SingleRow
+                keyName="Mobile No 2"
+                keyValue={personalDetails?.contactInfo?.mobileNo2}
+              />
+            </div>
           </div>
         </div>
       )}
-      <ContactInfoModal
-        modalVisible={isModalOpen}
-        setModalVisible={setIsModalOpen}
-      />
+      {/* {isModalOpen && (
+        <ContactInfoModal
+          modalVisible={isModalOpen}
+          setModalVisible={setIsModalOpen}
+        />
+      )} */}
     </div>
   );
 }
