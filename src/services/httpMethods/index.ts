@@ -5,7 +5,7 @@ import axios from "axios";
 //    ? import.meta.env.VITE_baseURL
 //    : import.meta.env.VITE_baseQAURL;
 // const baseURL = import.meta.env.VITE_baseURL;
-const baseURL = "http://103.154.184.45:3010/";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const base = async (options: any, headerOptions: any) => {
   try {

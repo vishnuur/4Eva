@@ -3,8 +3,9 @@ import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
-import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "src/components/CustomButton";
+import moment from "moment";
 
 export default function BasicInfo() {
   const { personalDetails, religions, caste, getCaste } = profileStore(
@@ -44,9 +45,7 @@ export default function BasicInfo() {
           {personalDetails?.basicInfo && (
             <div className="header-wrap">
               <h2>Basic Info</h2>
-              <button className="add-details-btn" onClick={showModal}>
-                Edit Details
-              </button>
+              <CustomButton onClick={showModal} text="Edit Details" primary />
             </div>
           )}
 
@@ -58,9 +57,8 @@ export default function BasicInfo() {
               />
               <SingleRow
                 keyName="Date Of Birth"
-                keyValue={dayjs(personalDetails?.basicInfo?.dob).format(
-                  "DD-MMM-YYYY"
-                )}
+                keyValue={moment(new Date(personalDetails?.basicInfo?.dob))
+                  .format("DD-MM-YYYY")}
               />
               <SingleRow
                 keyName="Height"

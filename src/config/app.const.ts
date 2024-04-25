@@ -8,7 +8,7 @@ export const toastConfig: ToastOptions = {
   pauseOnHover: false,
   draggable: true,
   progress: undefined,
-  theme: "light",
+  theme: "dark",
   transition: Bounce,
   toastId: 1,
 };

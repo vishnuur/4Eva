@@ -3,6 +3,7 @@ import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "src/components/CustomButton";
 
 export default function FamilyInfoTab() {
   const { personalDetails } = profileStore((state) => state);
@@ -12,6 +13,7 @@ export default function FamilyInfoTab() {
     // setIsModalOpen(true);
     navigate("/profile/edit/family-details");
   };
+
   return (
     <div className="profile-tabs">
       {!personalDetails?.familyInfo ? (
@@ -22,9 +24,7 @@ export default function FamilyInfoTab() {
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
-            <button className="add-details-btn" onClick={showModal}>
-              Add Details
-            </button>
+            <CustomButton onClick={showModal} text="Add Details" primary />
           </div>
         </div>
       ) : (
@@ -32,9 +32,7 @@ export default function FamilyInfoTab() {
           {personalDetails?.educationInfo && (
             <div className="header-wrap">
               <h2>Family Info</h2>
-              <button className="add-details-btn" onClick={showModal}>
-                Edit Details
-              </button>
+              <CustomButton onClick={showModal} text="Edit Details" primary />
             </div>
           )}
           <div className="tab-content-cover">
@@ -59,11 +57,19 @@ export default function FamilyInfoTab() {
                 keyName="Mother's Occupation"
                 keyValue={personalDetails?.familyInfo?.motherOccupation}
               />
+              <SingleRow
+                keyName="House Name"
+                keyValue={personalDetails?.familyInfo?.houseName}
+              />
             </div>
             <div className="tab-content">
               <SingleRow
                 keyName="Family Value"
                 keyValue={personalDetails?.familyInfo?.familyValue}
+              />
+              <SingleRow
+                keyName="Family Type"
+                keyValue={personalDetails?.familyInfo?.familyType}
               />
               <SingleRow
                 keyName="Family Status"

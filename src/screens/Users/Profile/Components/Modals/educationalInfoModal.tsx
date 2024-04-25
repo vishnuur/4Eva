@@ -7,6 +7,7 @@ import { saveEducationDetailAPI } from "src/services/apis/users/profile";
 import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
+import CustomButton from "src/components/CustomButton";
 
 const formDataInitialState = {
   highestEducation: "",
@@ -66,15 +67,12 @@ export default function EducationalInfoModal() {
       <div className="header-container">
         <h2>Education Details</h2>
         <div>
-          <button
-            className="add-details-btn cancel-btn"
+          <CustomButton
             onClick={() => navigate(-1)}
-          >
-            Cancel
-          </button>
-          <button className="add-details-btn" onClick={handleOk}>
-            Save
-          </button>
+            text="Cancel"
+            style={{ marginRight: "12px" }}
+          />
+          <CustomButton onClick={handleOk} text="Save" primary />
         </div>
       </div>
       <div className="form-wrap">
@@ -106,7 +104,8 @@ export default function EducationalInfoModal() {
             type="text"
             style={{ width: "100%" }}
           />
-
+        </div>
+        <div className="right">
           <label>Employed In:</label>
           <CustomInput
             placeHolder="Employed In"
@@ -116,8 +115,6 @@ export default function EducationalInfoModal() {
             type="text"
             style={{ width: "100%" }}
           />
-        </div>
-        <div className="right">
           <label>Occupation:</label>
           <CustomInput
             placeHolder="Occupation"

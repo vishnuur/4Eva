@@ -3,6 +3,7 @@ import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "src/components/CustomButton";
 
 export default function ContactInfoTab() {
   const { personalDetails } = profileStore((state) => state);
@@ -23,9 +24,7 @@ export default function ContactInfoTab() {
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
-            <button className="add-details-btn" onClick={showModal}>
-              Add Details
-            </button>
+            <CustomButton onClick={showModal} text="Add Details" primary />
           </div>
         </div>
       ) : (
@@ -33,9 +32,7 @@ export default function ContactInfoTab() {
           {personalDetails?.locationInfo && (
             <div className="header-wrap">
               <h2>Contact Info</h2>
-              <button className="add-details-btn" onClick={showModal}>
-                Edit Details
-              </button>
+              <CustomButton onClick={showModal} text="Edit Details" primary />
             </div>
           )}
 

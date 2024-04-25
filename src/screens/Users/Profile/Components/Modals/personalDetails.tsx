@@ -13,6 +13,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
+import CustomButton from "src/components/CustomButton";
+import moment from "moment";
 
 const formDataInitialState = {
   name: "",
@@ -39,7 +41,6 @@ export default function PersonalDetails() {
   const { userId } = authStore((state) => state);
   const navigate = useNavigate();
   const [formData, setFormData] = useState(formDataInitialState) as any;
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     getProfileDetails({ registerId: userId });
@@ -51,14 +52,19 @@ export default function PersonalDetails() {
       setFormData({
         ...personalDetails?.basicInfo,
         email: personalDetails?.emailInfo?.emailId,
+        dob:moment(new Date(personalDetails?.basicInfo?.dob))
+        .format("YYYY-MM-DD")
       });
+    return () => {
+      setFormData(formDataInitialState);
+    };
   }, [personalDetails]);
 
   const handleOk = async () => {
     // setModalVisible(false);
     const result = await saveBasicDetailsAPI({
       registerId: userId,
-      basicInfo: { ...formData, dob: new Date(selectedDate) },
+      basicInfo: { ...formData },
     });
     await saveEmailInfoAPI({
       registerId: userId,
@@ -88,7 +94,6 @@ export default function PersonalDetails() {
       ...formData,
       dob: new Date(dateString).toISOString(),
     });
-    setSelectedDate(dateString);
     console.log(date);
   };
 
@@ -100,21 +105,18 @@ export default function PersonalDetails() {
     //   onCancel={handleCancel}
     //   width={600}
     // >
-    <div>
+    <div className="wrap">
       <div className="header-container">
         <h2>Basic Details</h2>
         <div>
           {personalDetails.basicInfo && (
-            <button
-              className="add-details-btn cancel-btn"
+            <CustomButton
               onClick={() => navigate(-1)}
-            >
-              Cancel
-            </button>
+              text="Cancel"
+              style={{ marginRight: "12px" }}
+            />
           )}
-          <button className="add-details-btn" onClick={handleOk}>
-            Save
-          </button>
+          <CustomButton onClick={handleOk} text="Save" primary />
         </div>
       </div>
       <div className="form-wrap">
@@ -133,7 +135,7 @@ export default function PersonalDetails() {
             placeHolder="Email"
             onChange={handleChange}
             name="email"
-            value={formData?.emailId}
+            value={formData?.email}
             type="text"
             style={{ width: "100%" }}
           />
@@ -144,6 +146,7 @@ export default function PersonalDetails() {
             value={dayjs(formData?.dob, "YYYY-MM-DD")}
             style={{ width: "100%" }}
             format="YYYY-MM-DD"
+            inputReadOnly
           />
           <label>Marital Status:</label>
           <CustomDropDown

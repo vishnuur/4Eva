@@ -12,60 +12,61 @@ import { UploadOutlined } from "@ant-design/icons";
 import { customToast } from "src/components/Toast";
 import { ERROR, SUCCESS } from "src/config/app.const";
 import authStore from "src/store/users/auth";
-import { saveBasicDetailsAPI } from "src/services/apis/users/profile";
-import { useNavigate } from "react-router-dom";
+import { saveProfileImage } from "src/services/apis/users/profile";
 import LoaderComponent from "src/components/LoaderComponent";
 
 export default function Profile() {
-  const {
-    getProfileDetails,
-    postProfileDetails,
-    personalDetails,
-    getReligion,
-    isLoading,
-  } = profileStore((state) => state);
+  const { getProfileDetails, personalDetails, getReligion, isLoading } =
+    profileStore((state) => state);
   const { userId } = authStore((state) => state);
-  const navigate = useNavigate();
   // const onChange = (key: string) => {
   //   console.log(key);
   // };
   useEffect(() => {
-    getProfileDetails({ registerId: userId });
+    if (userId) {
+      getProfileDetails({ registerId: userId });
+    }
     getReligion();
   }, [userId]);
 
   const props: UploadProps = {
-    async onChange(info) {
-      const payload = {
-        registerId: userId,
-        basicInfo: personalDetails?.basicInfo,
-        image: info.file,
+    async onChange(info: any) {
+      const reader = new FileReader();
+
+      reader.onloadend = async () => {
+        const payload = {
+          registerId: userId,
+          image: reader.result,
+        };
+        if (reader.result) {
+          const result = await saveProfileImage(payload);
+          if (result.status) {
+            customToast(SUCCESS, "Profile Photo Uploaded Successfully");
+            getProfileDetails({ registerId: userId });
+          } else {
+            customToast(ERROR, result?.result);
+          }
+        }
       };
-      const result = await saveBasicDetailsAPI(payload);
-      if (result.status) {
-        customToast(SUCCESS, "Basic Details Updated Successfully");
-        // if(personalDetails.basicInfo)
-        navigate("/profile");
-      }
-      postProfileDetails(payload);
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        customToast(SUCCESS, "File uploaded successfully");
-      } else if (info.file.status === "error") {
-        customToast(ERROR, "File upload failed");
+      if (info.file) {
+        reader.readAsDataURL(info.file);
       }
     },
   };
+
+  const profileImage = personalDetails?.imageInfo?.image
+    ? `${import.meta.env.VITE_IMAGE_URL}forEva/${
+        personalDetails?.imageInfo?.image
+      }`
+    : DefaultProfile;
 
   return isLoading ? (
     <LoaderComponent />
   ) : (
     <div className="profile-wrap">
       <div className="profile-photo">
-        <Image src={DefaultProfile} />
-        <Upload {...props}>
+        <Image src={profileImage} />
+        <Upload {...props} beforeUpload={() => false}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
         <div className="my-details">
@@ -92,7 +93,7 @@ export default function Profile() {
           <h5>B.Tech , Software Professional</h5>
           <h5>{personalDetails?.registerInfo?.phone}</h5>
         </div> */}
-        <div style={{ paddingLeft: "8px", width: "100%" }}>
+        <div className="my-details-content">
           <BasicInfo />
           <EducationalInfo />
           <FamilyInfoTab />

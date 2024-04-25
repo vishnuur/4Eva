@@ -8,6 +8,14 @@ export const saveProfileDetails = (payload: any) => {
     console.log(er);
   }
 };
+export const saveProfileImage = (payload: any) => {
+  try {
+    const result = post("/profile/uploadImage", payload);
+    return result;
+  } catch (er) {
+    console.log(er);
+  }
+};
 export const saveBasicDetailsAPI = (payload: any) => {
   try {
     const result = post("/profile/insertUpdateBasicInfo", payload);

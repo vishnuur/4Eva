@@ -3,6 +3,7 @@ import noDataImage from "../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "src/components/CustomButton";
 
 export default function EducationalInfo() {
   const { personalDetails } = profileStore((state) => state);
@@ -22,9 +23,7 @@ export default function EducationalInfo() {
           <div className="no-data-wrap">
             <img src={noDataImage} />
             <span className="no-data-text">No details are added yet</span>
-            <button className="add-details-btn" onClick={showModal}>
-              Add Details
-            </button>
+            <CustomButton onClick={showModal} text="Add Details" primary />
           </div>
         </div>
       ) : (
@@ -32,9 +31,7 @@ export default function EducationalInfo() {
           {personalDetails?.educationInfo && (
             <div className="header-wrap">
               <h2>Educational Info</h2>
-              <button className="add-details-btn" onClick={showModal}>
-                Edit Details
-              </button>
+              <CustomButton onClick={showModal} text="Edit Details" primary />
             </div>
           )}
 
@@ -46,11 +43,11 @@ export default function EducationalInfo() {
               />
               <SingleRow
                 keyName="College"
-                keyValue={personalDetails?.educationInfo?.college_Institute}
+                keyValue={personalDetails?.educationInfo?.college}
               />
               <SingleRow
                 keyName="Education Details"
-                keyValue={personalDetails?.educationInfo?.educationDetail}
+                keyValue={personalDetails?.educationInfo?.educationDet}
               />
             </div>
             <div className="tab-content">
@@ -64,11 +61,11 @@ export default function EducationalInfo() {
               />
               <SingleRow
                 keyName="Occupation Details"
-                keyValue={personalDetails?.educationInfo?.occupationDetail}
+                keyValue={personalDetails?.educationInfo?.occupationDet}
               />
               <SingleRow
                 keyName="Annual Income"
-                keyValue={personalDetails?.educationInfo?.anualIncome}
+                keyValue={personalDetails?.educationInfo?.annualIncome}
               />
             </div>
           </div>

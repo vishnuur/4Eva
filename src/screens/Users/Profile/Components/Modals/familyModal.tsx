@@ -7,6 +7,7 @@ import { saveFamilyInfoAPI } from "src/services/apis/users/profile";
 import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
+import CustomButton from "src/components/CustomButton";
 
 const formDataInitialState = {
   Address: "",
@@ -20,6 +21,7 @@ const formDataInitialState = {
   numOfBrothers: "",
   numOfSisters: "",
   aboutFamily: "",
+  houseName: "",
 };
 
 export default function FamilyModal() {
@@ -64,15 +66,12 @@ export default function FamilyModal() {
       <div className="header-container">
         <h2>Family Details</h2>
         <div>
-          <button
-            className="add-details-btn cancel-btn"
+          <CustomButton
             onClick={() => navigate(-1)}
-          >
-            Cancel
-          </button>
-          <button className="add-details-btn" onClick={handleOk}>
-            Save
-          </button>
+            text="Cancel"
+            style={{ marginRight: "12px" }}
+          />
+          <CustomButton onClick={handleOk} text="Save" primary />
         </div>
       </div>
       <div className="form-wrap">
@@ -120,6 +119,15 @@ export default function FamilyModal() {
             onChange={handleChange}
             name="motherOccupation"
             value={formData.motherOccupation}
+            type="text"
+            style={{ width: "100%" }}
+          />
+           <label>House Name:</label>
+          <CustomInput
+            placeHolder="House Name"
+            onChange={handleChange}
+            name="houseName "
+            value={formData.houseName}
             type="text"
             style={{ width: "100%" }}
           />

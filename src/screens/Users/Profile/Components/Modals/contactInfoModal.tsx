@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
+import CustomButton from "src/components/CustomButton";
 
 const locationDataInitialState = {
   country: "",
@@ -87,15 +88,12 @@ export default function ContactInfoModal() {
       <div className="header-container">
         <h2>Contact Details</h2>
         <div>
-          <button
-            className="add-details-btn cancel-btn"
+          <CustomButton
             onClick={() => navigate(-1)}
-          >
-            Cancel
-          </button>
-          <button className="add-details-btn" onClick={handleOk}>
-            Save
-          </button>
+            text="Cancel"
+            style={{ marginRight: "12px" }}
+          />
+          <CustomButton onClick={handleOk} text="Save" primary />
         </div>
       </div>
       <div className="form-wrap">
