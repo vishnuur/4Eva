@@ -7,6 +7,8 @@ import SimpleImageSlider from "react-simple-image-slider";
 import authStore from "src/store/users/auth";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
+import genericStore from "src/store/generic";
+import CustomButton from "src/components/CustomButton";
 
 const images = [
   {
@@ -27,6 +29,8 @@ export default function SignUp() {
   const { onSigningUp, signUpSuccess, loginSuccess } = authStore(
     (state) => state
   );
+  const { isLoading } = genericStore((state) => state);
+
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -116,9 +120,13 @@ export default function SignUp() {
               />
             </div>
 
-            <button onClick={onSubmit} className="login-button">
-              Sign Up
-            </button>
+            <CustomButton
+              onClick={onSubmit}
+              extraClassName={"login-button"}
+              text="Sign Up"
+              loader={isLoading}
+              disabled={isLoading}
+            />
           </div>
         </div>
       </div>

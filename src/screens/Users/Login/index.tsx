@@ -5,12 +5,16 @@ import authStore from "src/store/users/auth";
 import { useEffect, useState } from "react";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
+import CustomButton from "src/components/CustomButton";
+import genericStore from "src/store/generic";
 
 export default function Login() {
   const navigate = useNavigate();
   const { onLogingIn, loginSuccess, isProfileCreated } = authStore(
     (state) => state
   );
+  const { isLoading } = genericStore((state) => state);
+
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -24,7 +28,7 @@ export default function Login() {
     if (loginSuccess) {
       customToast(SUCCESS, "Login Success");
       if (isProfileCreated) {
-        navigate("/profile");
+        navigate("/home");
       } else {
         navigate("/profile/edit/basic-details");
       }
@@ -84,9 +88,13 @@ export default function Login() {
             <p className="login-subhead">
               Don't have an account ? <Link to="/">Sign Up</Link>
             </p>
-            <button onClick={onSubmit} className="login-button">
-              Log In
-            </button>
+            <CustomButton
+              onClick={onSubmit}
+              extraClassName={"login-button"}
+              text="Log In"
+              loader={isLoading}
+              disabled={isLoading}
+            />
           </div>
         </div>
       </div>

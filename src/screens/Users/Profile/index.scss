@@ -26,7 +26,7 @@
   padding: 12px;
 
   .profile-photo {
-    background-color: rgb(53, 52, 52);
+    background-color: #434e5d;
     min-height: 70vh;
     border-radius: 12px;
     margin-top: 34px;
@@ -55,6 +55,7 @@
     padding: 12px;
     padding-top: 0;
     border-radius: 8px;
+    overflow: hidden;
     width: 100%;
     .my-details-content {
       padding-left: 8px;

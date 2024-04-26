@@ -1,9 +1,29 @@
 .button-style {
   height: 38px;
   width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .sl-spinner2 .sl-loader {
+    position: absolute;
+    right: 0;
+  }
 }
 .primary {
   background: linear-gradient(135deg, #f95450, #fa5252);
+  outline: none;
+  &:hover {
+    background: linear-gradient(135deg, #f8403d, #f93e3f);
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 62, 63, 0.5);
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 .secondary {
   background: grey;

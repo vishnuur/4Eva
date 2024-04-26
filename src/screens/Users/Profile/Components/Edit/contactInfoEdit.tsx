@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
+import genericStore from "src/store/generic";
 
 const locationDataInitialState = {
   country: "",
@@ -28,6 +29,8 @@ export default function ContactInfoModal() {
   const { getProfileDetails, personalDetails } = profileStore((state) => state);
   const navigate = useNavigate();
   const { userId } = authStore((state) => state);
+  const { isLoading, isLoadingFn } = genericStore((state) => state);
+
   const [formDataLocation, setFormDataLocation] = useState(
     locationDataInitialState
   );
@@ -44,9 +47,10 @@ export default function ContactInfoModal() {
       setFormDataLocation(personalDetails?.locationInfo);
     personalDetails?.contactInfo &&
       setFormDataContact(personalDetails?.contactInfo);
-    console.log("formmmm", personalDetails.contactInfo);
   }, [personalDetails]);
+
   const handleOk = async () => {
+    isLoadingFn(true);
     const result = await saveLocationInfoAPI({
       registerId: userId,
       locationInfo: formDataLocation,
@@ -55,6 +59,7 @@ export default function ContactInfoModal() {
       registerId: userId,
       contactInfo: formDataContact,
     });
+    isLoadingFn(false);
     if (result.status) {
       customToast(SUCCESS, "Contact Details Updated Successfully");
       navigate(-1);
@@ -87,13 +92,19 @@ export default function ContactInfoModal() {
     <div>
       <div className="header-container">
         <h2>Contact Details</h2>
-        <div>
+        <div className="edit-buttons">
           <CustomButton
             onClick={() => navigate(-1)}
             text="Cancel"
             style={{ marginRight: "12px" }}
           />
-          <CustomButton onClick={handleOk} text="Save" primary />
+          <CustomButton
+            onClick={handleOk}
+            text="Save"
+            primary
+            loader={isLoading}
+            disabled={isLoading}
+          />
         </div>
       </div>
       <div className="form-wrap">

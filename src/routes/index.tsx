@@ -7,10 +7,10 @@ import SignUp from "src/screens/Users/SignUp";
 import AdminDashboard from "src/screens/Admin/Dashboard";
 import AdminLayout from "src/screens/Admin/Layout";
 import AdminLogin from "src/screens/Admin/AdminLogin";
-import PersonalDetails from "src/screens/Users/Profile/Components/Modals/personalDetails";
-import FamilyModal from "src/screens/Users/Profile/Components/Modals/familyModal";
-import EducationalInfoModal from "src/screens/Users/Profile/Components/Modals/educationalInfoModal";
-import ContactInfoModal from "src/screens/Users/Profile/Components/Modals/contactInfoModal";
+import BasicInfoEdit from "src/screens/Users/Profile/Components/Edit/basicInfoEdit";
+import FamilyInfoEdit from "src/screens/Users/Profile/Components/Edit/familyEdit";
+import EducationalInfoEdit from "src/screens/Users/Profile/Components/Edit/educationalInfoEdit";
+import ContactInfoEdit from "src/screens/Users/Profile/Components/Edit/contactInfoEdit";
 
 const router = createBrowserRouter([
   {
@@ -24,13 +24,13 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
-      { path: "/profile/edit/basic-details", element: <PersonalDetails /> },
-      { path: "/profile/edit/family-details", element: <FamilyModal /> },
+      { path: "/profile/edit/basic-details", element: <BasicInfoEdit /> },
+      { path: "/profile/edit/family-details", element: <FamilyInfoEdit /> },
       {
         path: "/profile/edit/education-details",
-        element: <EducationalInfoModal />,
+        element: <EducationalInfoEdit />,
       },
-      { path: "/profile/edit/contact-details", element: <ContactInfoModal /> },
+      { path: "/profile/edit/contact-details", element: <ContactInfoEdit /> },
     ],
   },
   {

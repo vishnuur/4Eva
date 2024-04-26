@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
+import genericStore from "src/store/generic";
 
 const formDataInitialState = {
   highestEducation: "",
@@ -22,6 +23,7 @@ const formDataInitialState = {
 export default function EducationalInfoModal() {
   const { personalDetails, getProfileDetails } = profileStore((state) => state);
   const { userId } = authStore((state) => state);
+  const { isLoading, isLoadingFn } = genericStore((state) => state);
   const navigate = useNavigate();
   const [formData, setFormData] = useState(formDataInitialState);
 
@@ -35,7 +37,7 @@ export default function EducationalInfoModal() {
   }, [personalDetails]);
 
   const handleOk = async () => {
-    // postProfileDetails(payload);
+    isLoadingFn(true);
     const result = await saveEducationDetailAPI({
       registerId: userId,
       educationInfo: {
@@ -43,6 +45,7 @@ export default function EducationalInfoModal() {
         annualIncome: parseInt(formData.annualIncome),
       },
     });
+    isLoadingFn(false);
     if (result.status) {
       customToast(SUCCESS, "Education Details Updated Successfully");
       navigate(-1);
@@ -66,13 +69,19 @@ export default function EducationalInfoModal() {
     <div>
       <div className="header-container">
         <h2>Education Details</h2>
-        <div>
+        <div className="edit-buttons">
           <CustomButton
             onClick={() => navigate(-1)}
             text="Cancel"
             style={{ marginRight: "12px" }}
           />
-          <CustomButton onClick={handleOk} text="Save" primary />
+          <CustomButton
+            onClick={handleOk}
+            text="Save"
+            primary
+            loader={isLoading}
+            disabled={isLoading}
+          />
         </div>
       </div>
       <div className="form-wrap">

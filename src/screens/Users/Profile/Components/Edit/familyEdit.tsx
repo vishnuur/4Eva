@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
+import genericStore from "src/store/generic";
 
 const formDataInitialState = {
   Address: "",
@@ -27,6 +28,8 @@ const formDataInitialState = {
 export default function FamilyModal() {
   const { getProfileDetails, personalDetails } = profileStore((state) => state);
   const { userId } = authStore((state) => state);
+  const { isLoading, isLoadingFn } = genericStore((state) => state);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState(formDataInitialState);
 
@@ -39,10 +42,12 @@ export default function FamilyModal() {
   }, [personalDetails?.familyInfo]);
 
   const handleOk = async () => {
+    isLoadingFn(true);
     const result = await saveFamilyInfoAPI({
       registerId: userId,
       familyInfo: formData,
     });
+    isLoadingFn(false);
     if (result.status) {
       customToast(SUCCESS, "Family Details Updated Successfully");
       navigate(-1);
@@ -65,13 +70,19 @@ export default function FamilyModal() {
     <div>
       <div className="header-container">
         <h2>Family Details</h2>
-        <div>
+        <div className="edit-buttons">
           <CustomButton
             onClick={() => navigate(-1)}
             text="Cancel"
             style={{ marginRight: "12px" }}
           />
-          <CustomButton onClick={handleOk} text="Save" primary />
+          <CustomButton
+            onClick={handleOk}
+            text="Save"
+            primary
+            loader={isLoading}
+            disabled={isLoading}
+          />
         </div>
       </div>
       <div className="form-wrap">
@@ -122,7 +133,7 @@ export default function FamilyModal() {
             type="text"
             style={{ width: "100%" }}
           />
-           <label>House Name:</label>
+          <label>House Name:</label>
           <CustomInput
             placeHolder="House Name"
             onChange={handleChange}

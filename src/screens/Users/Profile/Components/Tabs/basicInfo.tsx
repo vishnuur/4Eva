@@ -57,8 +57,9 @@ export default function BasicInfo() {
               />
               <SingleRow
                 keyName="Date Of Birth"
-                keyValue={moment(new Date(personalDetails?.basicInfo?.dob))
-                  .format("DD-MM-YYYY")}
+                keyValue={moment(
+                  new Date(personalDetails?.basicInfo?.dob)
+                ).format("DD-MM-YYYY")}
               />
               <SingleRow
                 keyName="Height"

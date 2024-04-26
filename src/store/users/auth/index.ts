@@ -1,6 +1,7 @@
 import { customToast } from "src/components/Toast";
 import { ERROR } from "src/config/app.const";
 import { userLoginAPI, userRegisterAPI } from "src/services/apis/users/auth";
+import genericStore from "src/store/generic";
 import { create } from "zustand";
 
 interface AuthState {
@@ -20,6 +21,7 @@ const authStore = create<AuthState>()((set, get) => ({
   userId: "",
   isProfileCreated: false,
   onSigningUp: async (state) => {
+    genericStore.getState().isLoadingFn(true);
     const result = await userRegisterAPI(state);
     if (!result.status) {
       set({ signUpSuccess: false });
@@ -28,8 +30,10 @@ const authStore = create<AuthState>()((set, get) => ({
       set({ signUpSuccess: true });
       get().onLogingIn(state);
     }
+    genericStore.getState().isLoadingFn(false);
   },
   onLogingIn: async (state) => {
+    genericStore.getState().isLoadingFn(true);
     const result = await userLoginAPI(state);
     if (!result.status) {
       set({ loginSuccess: false });
@@ -40,6 +44,7 @@ const authStore = create<AuthState>()((set, get) => ({
       set({ loginSuccess: result.status });
       set({ isProfileCreated: result.Profile });
     }
+    genericStore.getState().isLoadingFn(false);
   },
   setLoginSuccess: (state) => {
     set({ loginSuccess: state });

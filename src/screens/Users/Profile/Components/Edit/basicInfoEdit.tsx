@@ -15,6 +15,7 @@ import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
 import moment from "moment";
+import genericStore from "src/store/generic";
 
 const formDataInitialState = {
   name: "",
@@ -39,6 +40,8 @@ export default function PersonalDetails() {
     getReligion,
   } = profileStore((state) => state);
   const { userId } = authStore((state) => state);
+  const { isLoading, isLoadingFn } = genericStore((state) => state);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState(formDataInitialState) as any;
 
@@ -52,8 +55,9 @@ export default function PersonalDetails() {
       setFormData({
         ...personalDetails?.basicInfo,
         email: personalDetails?.emailInfo?.emailId,
-        dob:moment(new Date(personalDetails?.basicInfo?.dob))
-        .format("YYYY-MM-DD")
+        dob: moment(new Date(personalDetails?.basicInfo?.dob)).format(
+          "YYYY-MM-DD"
+        ),
       });
     return () => {
       setFormData(formDataInitialState);
@@ -62,6 +66,7 @@ export default function PersonalDetails() {
 
   const handleOk = async () => {
     // setModalVisible(false);
+    isLoadingFn(true);
     const result = await saveBasicDetailsAPI({
       registerId: userId,
       basicInfo: { ...formData },
@@ -70,6 +75,7 @@ export default function PersonalDetails() {
       registerId: userId,
       emailId: formData?.email,
     });
+    isLoadingFn(false);
     if (result.status) {
       customToast(SUCCESS, "Basic Details Updated Successfully");
       // if(personalDetails.basicInfo)
@@ -108,7 +114,7 @@ export default function PersonalDetails() {
     <div className="wrap">
       <div className="header-container">
         <h2>Basic Details</h2>
-        <div>
+        <div className="edit-buttons">
           {personalDetails.basicInfo && (
             <CustomButton
               onClick={() => navigate(-1)}
@@ -116,7 +122,13 @@ export default function PersonalDetails() {
               style={{ marginRight: "12px" }}
             />
           )}
-          <CustomButton onClick={handleOk} text="Save" primary />
+          <CustomButton
+            onClick={handleOk}
+            text="Save"
+            primary
+            loader={isLoading}
+            disabled={isLoading}
+          />
         </div>
       </div>
       <div className="form-wrap">

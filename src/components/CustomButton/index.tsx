@@ -1,4 +1,5 @@
 import "./index.scss";
+import Loader from "react-js-loader";
 
 interface buttonProps {
   onClick: any;
@@ -6,6 +7,8 @@ interface buttonProps {
   disabled?: boolean;
   primary?: boolean;
   style?: any;
+  extraClassName?: any;
+  loader?: boolean;
 }
 
 export default function CustomButton({
@@ -14,15 +17,28 @@ export default function CustomButton({
   disabled,
   primary,
   style,
+  extraClassName,
+  loader,
 }: buttonProps) {
   return (
     <button
-      className={`button-style ${primary ? "primary" : "secondary"}`}
+      className={`button-style ${extraClassName} ${
+        primary ? "primary" : "secondary"
+      }`}
       onClick={onClick}
       disabled={disabled}
       style={style}
     >
       {text}
+      {loader && (
+        <Loader
+          type="spinner-circle"
+          bgColor="#ffc107"
+          color="#ffc107"
+          title={""}
+          size={30}
+        />
+      )}
     </button>
   );
 }

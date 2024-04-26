@@ -111,7 +111,7 @@ const LayoutPage: React.FC = () => {
           </a>
         </Dropdown>
       </Header>
-      <Content style={{ padding: "0 48px" }}>
+      <Content style={{ padding: "0 34px" }}>
         {/* <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>List</Breadcrumb.Item>

@@ -6,6 +6,7 @@ import {
   getReligionsList,
   saveProfileDetails,
 } from "src/services/apis/users/profile";
+import genericStore from "src/store/generic";
 import { create } from "zustand";
 
 interface ProfileState {
@@ -16,27 +17,29 @@ interface ProfileState {
   getProfileDetails: (payload: any) => void;
   getReligion: () => void;
   getCaste: (payload: any) => void;
-  setLoader:(payload: any) => void;
-  isLoading:boolean;
+  setLoader: (payload: any) => void;
+  isLoading: boolean;
 }
 
 const profileStore = create<ProfileState>()((set, get) => ({
   personalDetails: {},
   religions: [],
   caste: [],
-  isLoading:false,
+  isLoading: false,
   postProfileDetails: async (payload) => {
+    genericStore.getState().isLoadingFn(true);
     const result = await saveProfileDetails(payload);
     if (result.status) {
       customToast(SUCCESS, "Details Updated Success");
       get().getProfileDetails({ registerId: payload?.registerId });
     }
+    genericStore.getState().isLoadingFn(false);
   },
   getProfileDetails: async (payload) => {
-    get().setLoader(true)
+    get().setLoader(true);
     const result = await getProfileDetailsAPI(payload);
     set({ personalDetails: result });
-    get().setLoader(false)
+    get().setLoader(false);
   },
   setLoader: async (payload) => {
     set({ isLoading: payload });

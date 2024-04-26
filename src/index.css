@@ -11,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 a {
@@ -28,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -44,14 +46,6 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
@@ -67,7 +61,7 @@ button:focus-visible {
   }
 }
 ::-webkit-scrollbar {
-  width:4px; /* Change the width as needed */
+  width: 4px; /* Change the width as needed */
   border-radius: 12px;
 }
 
@@ -80,4 +74,18 @@ button:focus-visible {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Change the color as needed */
+}
+.bm-overlay {
+  background: transparent !important;
+  left: 0;
+  top: 0;
+  width: 0% !important;
+}
+.bm-menu-wrap {
+  background-color: black !important;
+  left: 0;
+  top: 0;
+}
+#react-burger-menu-btn {
+  width: 0 !important;
 }
