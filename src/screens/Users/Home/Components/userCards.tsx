@@ -30,7 +30,7 @@ export default function UserCards({
   education,
 }: cardProps) {
   const profileImage = image
-    ? `${import.meta.env.VITE_IMAGE_URL}forEva/${image}`
+    ? `http://103.154.184.45:82/forEva/${image}`
     : DefaultProfile;
   return (
     <div className="card-wrap">
@@ -53,8 +53,10 @@ export default function UserCards({
             </div>
             <div className="wrapper">
               <MdLocationOn color="gray" />
-              <p className="card-address">
-                {!address || address === "" ? "Not available" : address}
+              <p className="card-address" title={address}>
+                {!address || address === ""
+                  ? "Not available"
+                  : address.slice(0, 35) + (address?.length > 35 && "....")}
               </p>
             </div>
             <div className="wrapper">

@@ -8,7 +8,7 @@ interface HomeState {
   getUserList: (payload: any) => void;
 }
 
-const homeStore = create<HomeState>()((set, get) => ({
+const homeStore = create<HomeState>()((set) => ({
   userList: [],
   getUserList: async (state) => {
     const result = await getUsersList(state);

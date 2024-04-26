@@ -48,7 +48,7 @@ const Home: React.FC = () => {
     }
   }, [userId]);
   const profileImage = personalDetails?.imageInfo?.image
-    ? `${import.meta.env.VITE_IMAGE_URL}forEva/${
+    ? `http://103.154.184.45:82/forEva/${
         personalDetails?.imageInfo?.image
       }`
     : DefaultProfile;
@@ -161,7 +161,7 @@ const Home: React.FC = () => {
                 sm={{ flex: "100%" }}
                 md={{ flex: "50%" }}
                 lg={{ flex: "50%" }}
-                xl={{ flex: "31%" }}
+                xl={{ flex: "32%" }}
               >
                 <UserCards
                   image={res.image}

@@ -4,10 +4,10 @@
   height: 85vh;
   overflow-y: scroll;
   overflow-x: hidden;
-
+  padding-left: 36px;
 }
 .menu-button {
-    display: none;
+  display: none;
   position: absolute;
   left: 12px;
   top: 12px;
@@ -39,7 +39,7 @@
 .sidebar {
   width: 320px;
   margin-right: 24px;
- 
+
   .profile-photo {
     background-color: #434e5d;
     min-height: 85vh;
@@ -50,7 +50,7 @@
     margin-right: 8px;
     padding-top: 36px;
     width: 100%;
-    
+
     img {
       border-radius: 2px;
       width: 140px;

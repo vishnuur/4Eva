@@ -19,9 +19,7 @@ export default function Profile() {
   const { getProfileDetails, personalDetails, getReligion, isLoading } =
     profileStore((state) => state);
   const { userId } = authStore((state) => state);
-  // const onChange = (key: string) => {
-  //   console.log(key);
-  // };
+
   useEffect(() => {
     if (userId) {
       getProfileDetails({ registerId: userId });
@@ -55,9 +53,7 @@ export default function Profile() {
   };
 
   const profileImage = personalDetails?.imageInfo?.image
-    ? `${import.meta.env.VITE_IMAGE_URL}forEva/${
-        personalDetails?.imageInfo?.image
-      }`
+    ? `http://103.154.184.45:82/forEva/${personalDetails?.imageInfo?.image}`
     : DefaultProfile;
 
   return isLoading ? (
@@ -83,22 +79,11 @@ export default function Profile() {
         </div>
       </div>
       <div className="my-details">
-        {/* <div className="profile-details">
-          <h1>{personalDetails?.registerInfo?.name}</h1>
-          <p>
-            24 Years, {personalDetails?.basicInfo?.height} cm,
-            {personalDetails?.basicInfo?.weight} kg
-          </p>
-          <h5>Trivandrum, Kerala</h5>
-          <h5>B.Tech , Software Professional</h5>
-          <h5>{personalDetails?.registerInfo?.phone}</h5>
-        </div> */}
         <div className="my-details-content">
           <BasicInfo />
           <EducationalInfo />
           <FamilyInfoTab />
           <ContactInfoTab />
-          {/* <Tabs defaultActiveKey="1" items={items} onChange={onChange} /> */}
         </div>
       </div>
     </div>
