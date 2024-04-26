@@ -89,3 +89,6 @@ button {
 #react-burger-menu-btn {
   width: 0 !important;
 }
+.bm-burger-bars{
+  display: none;
+}
