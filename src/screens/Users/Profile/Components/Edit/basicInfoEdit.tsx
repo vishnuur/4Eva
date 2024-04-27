@@ -78,10 +78,8 @@ export default function PersonalDetails() {
     isLoadingFn(false);
     if (result.status) {
       customToast(SUCCESS, "Basic Details Updated Successfully");
-      // if(personalDetails.basicInfo)
       navigate("/profile");
     }
-    // postProfileDetails(payload); //api to submit
     setFormData(formDataInitialState);
   };
 
@@ -104,13 +102,6 @@ export default function PersonalDetails() {
   };
 
   return (
-    // <Modal
-    //   title={`${formData.name ? "Edit" : "Add"} Personal Details`}
-    //   open={modalVisible}
-    //   onOk={handleOk}
-    //   onCancel={handleCancel}
-    //   width={600}
-    // >
     <div className="wrap">
       <div className="header-container">
         <h2>Basic Details</h2>
@@ -249,6 +240,5 @@ export default function PersonalDetails() {
         </div>
       </div>
     </div>
-    // </Modal>
   );
 }

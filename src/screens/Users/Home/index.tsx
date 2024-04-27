@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Image, Row, theme } from "antd";
 import UserCards from "./Components/userCards";
 import "./index.scss";
@@ -16,16 +16,23 @@ import { MdOutlineMenu } from "react-icons/md";
 import { FaHandsHelping } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
+import genericStore from "src/store/generic";
+import Loader from "react-js-loader";
 
 const Home: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const { getUserList, userList } = homeStore((state) => state);
+  const { getUserList, userList, getUserListVirtulized } = homeStore(
+    (state) => state
+  );
+  const { isLoading } = genericStore((state) => state);
   const { userId } = authStore((state) => state);
   const { personalDetails, getProfileDetails } = profileStore((state) => state);
   const [menuOpen, setmenuOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
     const payload = {
@@ -47,11 +54,57 @@ const Home: React.FC = () => {
       getUserList(payload);
     }
   }, [userId]);
+
   const profileImage = personalDetails?.imageInfo?.image
-    ? `http://103.154.184.45:82/forEva/${
-        personalDetails?.imageInfo?.image
-      }`
+    ? `http://103.154.184.45:82/forEva/${personalDetails?.imageInfo?.image}`
     : DefaultProfile;
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]); // Fetch data when the page state changes
+
+  const fetchData = async () => {
+    const payload = {
+      registerId: userId,
+      searchtype: "P",
+      limitBy: 15,
+      page: page,
+      maritalStatus: "",
+      height: "",
+      weight: "",
+      agefrom: "",
+      ageTo: "",
+      religion: "",
+      caste: "",
+      anualIncome: 0,
+    };
+    if (userId) {
+      getUserListVirtulized(payload);
+    }
+  };
+
+  const handleScroll = () => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+    const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+
+    if (scrollPercentage > 90 && !isLoading) {
+      setPage((prevPage) => prevPage + 1); // Increment page number to fetch next set of data
+    }
+  };
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    (scrollContainer as any).addEventListener("scroll", handleScroll);
+    return () => {
+      (scrollContainer as any).removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   return (
     <>
@@ -151,9 +204,9 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="home-user-list">
+        <div className="home-user-list" ref={scrollContainerRef}>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            {userList?.map((res: any) => (
+            {userList?.map((res: any, index: number) => (
               <Col
                 className="gutter-row"
                 style={{ marginBottom: "24px" }}
@@ -162,6 +215,7 @@ const Home: React.FC = () => {
                 md={{ flex: "50%" }}
                 lg={{ flex: "50%" }}
                 xl={{ flex: "32%" }}
+                key={index}
               >
                 <UserCards
                   image={res.image}
@@ -178,6 +232,15 @@ const Home: React.FC = () => {
               </Col>
             ))}
           </Row>
+          {isLoading && (
+            <Loader
+              type="box-up"
+              bgColor="#ffc107"
+              color="#ffc107"
+              title={""}
+              size={100}
+            />
+          )}
         </div>
       </div>
 

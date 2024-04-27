@@ -9,27 +9,6 @@ import Logo from "src/assets/logo.jpeg";
 
 const { Header, Content } = Layout;
 
-const items = [
-  {
-    key: 1,
-    label: (
-      <Link className="header-text-color" to="/home">
-        <HomeOutlined />
-        <span>Home</span>
-      </Link>
-    ),
-  },
-  {
-    key: 2,
-    label: (
-      <Link to="/profile">
-        <UserOutlined />
-        <span>Profile</span>
-      </Link>
-    ),
-  },
-];
-
 const LayoutPage: React.FC = () => {
   // const location = useLocation();
   const { pathname } = location;
@@ -61,7 +40,17 @@ const LayoutPage: React.FC = () => {
 
   const dropDownItems: MenuProps["items"] = [
     {
-      label: <Link to="/profile">Profile</Link>,
+      label: (
+        <Link
+          to={
+            personalDetails?.basicInfo?.name
+              ? "/profile"
+              : "/profile/edit/basic-details"
+          }
+        >
+          Profile
+        </Link>
+      ),
       key: "0",
     },
     {
@@ -74,7 +63,33 @@ const LayoutPage: React.FC = () => {
     },
   ];
 
-  console.log(currentPath, "currentpatn", pathname);
+  const items = [
+    {
+      key: 1,
+      label: (
+        <Link className="header-text-color" to="/home">
+          <HomeOutlined />
+          <span>Home</span>
+        </Link>
+      ),
+    },
+    {
+      key: 2,
+      label: (
+        <Link
+          to={
+            personalDetails?.basicInfo?.name
+              ? "/profile"
+              : "/profile/edit/basic-details"
+          }
+        >
+          <UserOutlined />
+          <span>Profile</span>
+        </Link>
+      ),
+    },
+  ];
+
   return (
     <Layout
       style={{ minHeight: "100vh", backgroundColor: "white" }}

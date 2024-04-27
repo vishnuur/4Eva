@@ -22,7 +22,6 @@ export default function AdminDashboard() {
   };
 
   const handleChange = (e: any) => {
-    console.log(e.target.value, "etargetrtt", e.target.name);
     const { name, value } = e.target;
     setFormData({
       ...formData,
