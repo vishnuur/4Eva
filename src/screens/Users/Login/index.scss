@@ -118,3 +118,37 @@
     }
   }
 }
+@media only screen and (max-width: 600px) {
+  .home-container {
+    .login-wrap {
+      .login-form {
+        width: 90%;
+        height: 60%;
+        .bg-image {
+          display: none;
+        }
+        .login-fields{
+          width: 100%;
+          input{
+            margin-bottom: 24px!important;
+          }
+        }
+      }
+    }
+    .home-part2{
+      height: unset;
+      .app-details{
+        flex-direction: column-reverse;
+        width: 90%;
+        .sample-image{
+          width: unset;
+        }
+        .app-data{
+          p{
+            text-align: justify;
+          }
+        }
+      }
+    }
+  }
+}

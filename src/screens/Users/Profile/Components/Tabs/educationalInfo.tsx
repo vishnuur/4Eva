@@ -18,7 +18,7 @@ export default function EducationalInfo() {
       {!personalDetails?.educationInfo ? (
         <div className="no-data-container">
           <div className="header-wrap-no-data">
-            <h2>Educational Info</h2>
+            <h2>Education & Occupation Info</h2>
           </div>
           <div className="no-data-wrap">
             <img src={noDataImage} />
@@ -30,7 +30,7 @@ export default function EducationalInfo() {
         <div className="tab-content-wrap">
           {personalDetails?.educationInfo && (
             <div className="header-wrap">
-              <h2>Educational Info</h2>
+              <h2>Education & Occupation Info</h2>
               <CustomButton onClick={showModal} text="Edit Details" primary />
             </div>
           )}

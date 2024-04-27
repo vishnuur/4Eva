@@ -5,6 +5,7 @@ import { create } from "zustand";
 interface HomeState {
   userList: any;
   totalCount: number;
+  listLoading: boolean;
   getUserList: (payload: any) => void;
   getUserListVirtulized: (payload: any) => void;
 }
@@ -12,10 +13,13 @@ interface HomeState {
 const homeStore = create<HomeState>()((set, get) => ({
   userList: [],
   totalCount: 0,
+  listLoading: false,
   getUserList: async (state) => {
+    set({ listLoading: true });
     const result = await getUsersList(state);
     set({ userList: result.result });
     set({ totalCount: result.hits });
+    set({ listLoading: false });
     // customToast(ERROR, result.result);
   },
   getUserListVirtulized: async (state) => {

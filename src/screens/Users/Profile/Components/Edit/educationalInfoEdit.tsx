@@ -68,12 +68,13 @@ export default function EducationalInfoModal() {
   return (
     <div>
       <div className="header-container">
-        <h2>Education Details</h2>
+        <h2>Education & Occupation Details</h2>
         <div className="edit-buttons">
           <CustomButton
             onClick={() => navigate(-1)}
             text="Cancel"
             style={{ marginRight: "12px" }}
+            extraClassName="edit-page-btn"
           />
           <CustomButton
             onClick={handleOk}
@@ -81,6 +82,7 @@ export default function EducationalInfoModal() {
             primary
             loader={isLoading}
             disabled={isLoading}
+            extraClassName="edit-page-btn"
           />
         </div>
       </div>

@@ -92,3 +92,28 @@
 .ant-upload-list-item-container {
   display: none;
 }
+
+@media only screen and (max-width: 600px) {
+  .profile-wrap {
+    padding: 0;
+    .profile-photo {
+      display: none;
+    }
+    .my-details {
+      padding: 0;
+      .profile-details {
+        margin-top: 32px;
+      }
+      .my-details-content {
+        height: unset;
+      }
+    }
+  }
+  .sidebar {
+    .profile-photo {
+      display: flex !important;
+      margin-top: 0;
+      width: 100%;
+    }
+  }
+}

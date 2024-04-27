@@ -75,6 +75,7 @@ export default function FamilyModal() {
             onClick={() => navigate(-1)}
             text="Cancel"
             style={{ marginRight: "12px" }}
+            extraClassName="edit-page-btn"
           />
           <CustomButton
             onClick={handleOk}
@@ -82,6 +83,7 @@ export default function FamilyModal() {
             primary
             loader={isLoading}
             disabled={isLoading}
+            extraClassName="edit-page-btn"
           />
         </div>
       </div>

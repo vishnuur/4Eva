@@ -111,6 +111,7 @@ export default function PersonalDetails() {
               onClick={() => navigate(-1)}
               text="Cancel"
               style={{ marginRight: "12px" }}
+              extraClassName="edit-page-btn"
             />
           )}
           <CustomButton
@@ -119,6 +120,7 @@ export default function PersonalDetails() {
             primary
             loader={isLoading}
             disabled={isLoading}
+            extraClassName="edit-page-btn"
           />
         </div>
       </div>

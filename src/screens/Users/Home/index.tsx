@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Col, Image, Row, theme } from "antd";
+import { Col, Image, Row, Skeleton, theme } from "antd";
 import UserCards from "./Components/userCards";
 import "./index.scss";
 import homeStore from "src/store/users/home";
@@ -24,9 +24,8 @@ const Home: React.FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const { getUserList, userList, getUserListVirtulized } = homeStore(
-    (state) => state
-  );
+  const { getUserList, userList, getUserListVirtulized, listLoading } =
+    homeStore((state) => state);
   const { isLoading } = genericStore((state) => state);
   const { userId } = authStore((state) => state);
   const { personalDetails, getProfileDetails } = profileStore((state) => state);
@@ -205,33 +204,37 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="home-user-list" ref={scrollContainerRef}>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            {userList?.map((res: any, index: number) => (
-              <Col
-                className="gutter-row"
-                style={{ marginBottom: "24px" }}
-                xs={{ flex: "100%" }}
-                sm={{ flex: "100%" }}
-                md={{ flex: "50%" }}
-                lg={{ flex: "50%" }}
-                xl={{ flex: "32%" }}
-                key={index}
-              >
-                <UserCards
-                  image={res.image}
-                  name={res?.name}
-                  phone="12312312323423"
-                  address={res?.Address}
-                  height={res?.height}
-                  weight={res?.weight}
-                  age={moment().diff(res?.dob, "years")}
-                  cast={res?.castename}
-                  occupation={res?.occupation}
-                  education={res?.educationDetail}
-                ></UserCards>
-              </Col>
-            ))}
-          </Row>
+          {listLoading ? (
+            <Skeleton active />
+          ) : (
+            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+              {userList?.map((res: any, index: number) => (
+                <Col
+                  className="gutter-row"
+                  style={{ marginBottom: "24px" }}
+                  xs={{ flex: "100%" }}
+                  sm={{ flex: "100%" }}
+                  md={{ flex: "50%" }}
+                  lg={{ flex: "50%" }}
+                  xl={{ flex: "32%" }}
+                  key={index}
+                >
+                  <UserCards
+                    image={res.image}
+                    name={res?.name}
+                    phone="12312312323423"
+                    address={res?.Address}
+                    height={res?.height}
+                    weight={res?.weight}
+                    age={moment().diff(res?.dob, "years")}
+                    cast={res?.castename}
+                    occupation={res?.occupation}
+                    education={res?.educationDetail}
+                  ></UserCards>
+                </Col>
+              ))}
+            </Row>
+          )}
           {isLoading && (
             <Loader
               type="box-up"
