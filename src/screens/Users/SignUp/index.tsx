@@ -26,7 +26,7 @@ const images = [
 ];
 
 export default function SignUp() {
-  const { onSigningUp, signUpSuccess, loginSuccess } = authStore(
+  const { onSigningUp, signUpSuccess, loginSuccess, userId } = authStore(
     (state) => state
   );
   const { isLoading } = genericStore((state) => state);
@@ -40,6 +40,12 @@ export default function SignUp() {
   const onSubmit = () => {
     onSigningUp(formData);
   };
+
+  useEffect(() => {
+    if (userId && userId !== "") {
+      navigate("/home");
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (signUpSuccess && loginSuccess) {

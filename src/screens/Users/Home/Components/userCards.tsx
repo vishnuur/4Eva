@@ -5,6 +5,7 @@ import DefaultProfile from "../../../../assets/default-user.jpeg";
 import { MdLocationOn } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { MdWork } from "react-icons/md";
+import { IMG_BASE_URL } from "src/config/app.const";
 
 interface cardProps {
   name: string;
@@ -29,9 +30,7 @@ export default function UserCards({
   occupation,
   education,
 }: cardProps) {
-  const profileImage = image
-    ? `http://103.154.184.45:82/forEva/${image}`
-    : DefaultProfile;
+  const profileImage = image ? `${IMG_BASE_URL}${image}` : DefaultProfile;
   return (
     <div className="card-wrap">
       <img src={profileImage}></img>

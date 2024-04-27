@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 import genericStore from "src/store/generic";
 import Loader from "react-js-loader";
+import { IMG_BASE_URL } from "src/config/app.const";
 
 const Home: React.FC = () => {
   const {
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
   }, [userId]);
 
   const profileImage = personalDetails?.imageInfo?.image
-    ? `http://103.154.184.45:82/forEva/${personalDetails?.imageInfo?.image}`
+    ? `${IMG_BASE_URL}${personalDetails?.imageInfo?.image}`
     : DefaultProfile;
 
   useEffect(() => {

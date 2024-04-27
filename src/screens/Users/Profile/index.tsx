@@ -10,7 +10,7 @@ import FamilyInfoTab from "./Components/Tabs/familyInfo";
 import ContactInfoTab from "./Components/Tabs/contactInfo";
 import { UploadOutlined } from "@ant-design/icons";
 import { customToast } from "src/components/Toast";
-import { ERROR, SUCCESS } from "src/config/app.const";
+import { ERROR, IMG_BASE_URL, SUCCESS } from "src/config/app.const";
 import authStore from "src/store/users/auth";
 import { saveProfileImage } from "src/services/apis/users/profile";
 import LoaderComponent from "src/components/LoaderComponent";
@@ -56,7 +56,7 @@ export default function Profile() {
   };
 
   const profileImage = personalDetails?.imageInfo?.image
-    ? `http://103.154.184.45:82/forEva/${personalDetails?.imageInfo?.image}`
+    ? `${IMG_BASE_URL}${personalDetails?.imageInfo?.image}`
     : DefaultProfile;
 
   return isLoading ? (
