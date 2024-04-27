@@ -56,7 +56,7 @@ export default function UserCards({
               <p className="card-address" title={address}>
                 {!address || address === ""
                   ? "Not available"
-                  : address.slice(0, 35) + (address?.length > 35 && "....")}
+                  : address.slice(0, 30) + (address?.length > 30 ? "...." : "")}
               </p>
             </div>
             <div className="wrapper">

@@ -18,16 +18,10 @@ const LayoutPage: React.FC = () => {
   const [currentPath, setcurrentPath] = useState("1");
 
   useEffect(() => {
-    switch (pathname) {
-      case "/home":
-        setcurrentPath("1");
-        break;
-      case "/profile":
-        setcurrentPath("2");
-        break;
-
-      default:
-        break;
+    if (pathname.includes("/home")) {
+      setcurrentPath("1");
+    } else if (pathname.includes("/profile")) {
+      setcurrentPath("2");
     }
   }, [pathname]);
 

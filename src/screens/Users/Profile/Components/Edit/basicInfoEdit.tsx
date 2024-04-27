@@ -67,9 +67,11 @@ export default function PersonalDetails() {
   const handleOk = async () => {
     // setModalVisible(false);
     isLoadingFn(true);
+    const formDataCopy = { ...formData };
+    delete formDataCopy.email;
     const result = await saveBasicDetailsAPI({
       registerId: userId,
-      basicInfo: { ...formData },
+      basicInfo: { ...formDataCopy },
     });
     await saveEmailInfoAPI({
       registerId: userId,
