@@ -16,6 +16,7 @@ import { saveProfileImage } from "src/services/apis/users/profile";
 import LoaderComponent from "src/components/LoaderComponent";
 import { slide as Menu } from "react-burger-menu";
 import { MdClose, MdOutlineMenu } from "react-icons/md";
+import moment from "moment";
 
 export default function Profile() {
   const { getProfileDetails, personalDetails, getReligion, isLoading } =
@@ -84,11 +85,23 @@ export default function Profile() {
                 <div className="profile-details">
                   <h1>{personalDetails?.registerInfo?.name}</h1>
                   <p>
-                    24 Years, {personalDetails?.basicInfo?.height} cm,
+                    {moment().diff(personalDetails?.basicInfo?.dob, "years")}{" "}
+                    Years,
+                    {personalDetails?.basicInfo?.height} cm,
                     {personalDetails?.basicInfo?.weight} kg
                   </p>
-                  <h5>Trivandrum, Kerala</h5>
-                  <h5>B.Tech , Software Professional</h5>
+                  {personalDetails?.locationInfo?.district && (
+                    <h5>
+                      {personalDetails?.locationInfo?.district},{" "}
+                      {personalDetails?.locationInfo?.state}
+                    </h5>
+                  )}
+                  {personalDetails?.educationInfo?.highestEducation && (
+                    <h5>
+                      {personalDetails?.educationInfo?.highestEducation},{" "}
+                      {personalDetails?.educationInfo?.occupation}
+                    </h5>
+                  )}
                   <h5>{personalDetails?.registerInfo?.phone}</h5>
                 </div>
               </div>
@@ -108,11 +121,22 @@ export default function Profile() {
           <div className="profile-details">
             <h1>{personalDetails?.registerInfo?.name}</h1>
             <p>
-              24 Years, {personalDetails?.basicInfo?.height} cm,
+              {moment().diff(personalDetails?.basicInfo?.dob, "years")} Years,
+              {personalDetails?.basicInfo?.height} cm,
               {personalDetails?.basicInfo?.weight} kg
             </p>
-            <h5>Trivandrum, Kerala</h5>
-            <h5>B.Tech , Software Professional</h5>
+            {personalDetails?.locationInfo?.district && (
+              <h5>
+                {personalDetails?.locationInfo?.district},{" "}
+                {personalDetails?.locationInfo?.state}
+              </h5>
+            )}
+            {personalDetails?.educationInfo?.highestEducation && (
+              <h5>
+                {personalDetails?.educationInfo?.highestEducation},{" "}
+                {personalDetails?.educationInfo?.occupation}
+              </h5>
+            )}
             <h5>{personalDetails?.registerInfo?.phone}</h5>
           </div>
         </div>

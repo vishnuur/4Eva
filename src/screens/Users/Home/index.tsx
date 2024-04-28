@@ -231,6 +231,7 @@ const Home: React.FC = () => {
                     cast={res?.castename}
                     occupation={res?.occupation}
                     education={res?.educationDetail}
+                    profileId={res?.registerId}
                   ></UserCards>
                 </Col>
               ))}

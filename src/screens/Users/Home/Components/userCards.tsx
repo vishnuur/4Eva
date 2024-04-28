@@ -6,6 +6,7 @@ import { MdLocationOn } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { MdWork } from "react-icons/md";
 import { IMG_BASE_URL } from "src/config/app.const";
+import { useNavigate } from "react-router-dom";
 
 interface cardProps {
   name: string;
@@ -18,6 +19,7 @@ interface cardProps {
   cast: string;
   occupation: string;
   education: string;
+  profileId: number;
 }
 export default function UserCards({
   name,
@@ -29,7 +31,9 @@ export default function UserCards({
   cast,
   occupation,
   education,
+  profileId,
 }: cardProps) {
+  const navigate = useNavigate();
   const profileImage = image ? `${IMG_BASE_URL}${image}` : DefaultProfile;
   return (
     <div className="card-wrap">
@@ -76,7 +80,10 @@ export default function UserCards({
         </div>
         <CustomButton
           text="View Profile"
-          onClick={() => console.log("first")}
+          onClick={() => {
+            navigate(`/home/user-details/${profileId}`);
+            // console.log("first");
+          }}
           primary
           extraClassName="card-button"
         />

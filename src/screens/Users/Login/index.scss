@@ -118,7 +118,7 @@
     }
   }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 660px) {
   .home-container {
     .login-wrap {
       .login-form {
@@ -127,24 +127,88 @@
         .bg-image {
           display: none;
         }
-        .login-fields{
+        .login-fields {
           width: 100%;
-          input{
-            margin-bottom: 24px!important;
+          input {
+            margin-bottom: 24px !important;
           }
         }
       }
     }
-    .home-part2{
+    .home-part2 {
       height: unset;
-      .app-details{
+      .app-details {
         flex-direction: column-reverse;
         width: 90%;
-        .sample-image{
+        .sample-image {
           width: unset;
         }
-        .app-data{
-          p{
+        .app-data {
+          p {
+            text-align: justify;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 860px) and (min-width: 661px) {
+  .home-container {
+    .login-wrap {
+      .login-form {
+        width: 90%;
+        height: 60%;
+        .login-fields {
+          width: 100%;
+          input {
+            margin-bottom: 24px !important;
+          }
+        }
+      }
+    }
+    .home-part2 {
+      height: unset;
+      padding-top: 24px;
+      .app-details {
+        flex-direction: column-reverse;
+        width: 90%;
+        .sample-image {
+          width: unset;
+        }
+        .app-data {
+          p {
+            text-align: justify;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1200px) and (min-width: 861px) {
+  .home-container {
+    .login-wrap {
+      .login-form {
+        width: 80%;
+        height: 60%;
+        .login-fields {
+          width: 100%;
+          input {
+            margin-bottom: 24px !important;
+          }
+        }
+      }
+    }
+    .home-part2 {
+      height: unset;
+      padding-top: 24px;
+      .app-details {
+        flex-direction: column-reverse;
+        width: 90%;
+        .sample-image {
+          width: unset;
+        }
+        .app-data {
+          p {
             text-align: justify;
           }
         }

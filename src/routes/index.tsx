@@ -11,6 +11,8 @@ import BasicInfoEdit from "src/screens/Users/Profile/Components/Edit/basicInfoEd
 import FamilyInfoEdit from "src/screens/Users/Profile/Components/Edit/familyEdit";
 import EducationalInfoEdit from "src/screens/Users/Profile/Components/Edit/educationalInfoEdit";
 import ContactInfoEdit from "src/screens/Users/Profile/Components/Edit/contactInfoEdit";
+import SingleUserProfile from "src/screens/Users/Home/Components/SingleUserProfile";
+import Verification from "src/screens/Users/Verification";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
         element: <EducationalInfoEdit />,
       },
       { path: "/profile/edit/contact-details", element: <ContactInfoEdit /> },
+      {
+        path: "/home/user-details/:profileId",
+        element: <SingleUserProfile />,
+      },
+      {
+        path: "/user-verification",
+        element: <Verification />,
+      },
     ],
   },
   {

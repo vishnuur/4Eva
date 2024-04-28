@@ -11,10 +11,12 @@ import { create } from "zustand";
 
 interface ProfileState {
   personalDetails: any;
+  usersDetails: any;
   religions: any;
   caste: any;
   postProfileDetails: (payload: any) => void;
   getProfileDetails: (payload: any) => void;
+  getUsersDetails: (payload: any) => void;
   getReligion: () => void;
   getCaste: (payload: any) => void;
   setLoader: (payload: any) => void;
@@ -25,6 +27,7 @@ const profileStore = create<ProfileState>()((set, get) => ({
   personalDetails: {},
   religions: [],
   caste: [],
+  usersDetails: [],
   isLoading: false,
   postProfileDetails: async (payload) => {
     genericStore.getState().isLoadingFn(true);
@@ -39,6 +42,12 @@ const profileStore = create<ProfileState>()((set, get) => ({
     get().setLoader(true);
     const result = await getProfileDetailsAPI(payload);
     set({ personalDetails: result });
+    get().setLoader(false);
+  },
+  getUsersDetails: async (payload) => {
+    get().setLoader(true);
+    const result = await getProfileDetailsAPI(payload);
+    set({ usersDetails: result });
     get().setLoader(false);
   },
   setLoader: async (payload) => {
