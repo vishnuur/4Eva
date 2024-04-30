@@ -2,6 +2,7 @@ import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
+import { dataValidation } from "src/config/app.const";
 
 export default function ContactInfoTab() {
   const { usersDetails } = profileStore((state) => state);
@@ -29,19 +30,21 @@ export default function ContactInfoTab() {
             <div className="tab-content">
               <SingleRow
                 keyName="Country"
-                keyValue={usersDetails?.locationInfo?.country}
+                keyValue={dataValidation(usersDetails?.locationInfo?.country)}
               />
               <SingleRow
                 keyName="State"
-                keyValue={usersDetails?.locationInfo?.state}
+                keyValue={dataValidation(usersDetails?.locationInfo?.state)}
               />
               <SingleRow
                 keyName="District"
-                keyValue={usersDetails?.locationInfo?.district}
+                keyValue={dataValidation(usersDetails?.locationInfo?.district)}
               />
               <SingleRow
                 keyName="Citizenship"
-                keyValue={usersDetails?.locationInfo?.citizenship}
+                keyValue={dataValidation(
+                  usersDetails?.locationInfo?.citizenship
+                )}
               />
             </div>
           </div>

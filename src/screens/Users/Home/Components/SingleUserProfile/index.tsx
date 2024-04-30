@@ -1,4 +1,4 @@
-import {  Image } from "antd";
+import { Image } from "antd";
 import "./index.scss";
 import profileStore from "src/store/users/profile";
 import DefaultProfile from "../../../../../assets/profile.jpg";
@@ -54,6 +54,9 @@ export default function SingleUserProfile() {
         <div className="my-details">
           <div className="profile-details">
             <h1>{usersDetails?.registerInfo?.name}</h1>
+            <p className="profile-id">
+              Profile ID : {usersDetails?.basicInfo?.profileId}
+            </p>
             <p>{moment().diff(usersDetails?.basicInfo?.dob, "years")} Years</p>
             {usersDetails?.educationInfo?.highestEducation && (
               <h5>

@@ -4,6 +4,7 @@ import noDataImage from "../../../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
 import moment from "moment";
+import { dataValidation } from "src/config/app.const";
 
 export default function BasicInfo() {
   const { usersDetails, religions, caste, getCaste } = profileStore(
@@ -44,46 +45,59 @@ export default function BasicInfo() {
             <div className="tab-content">
               <SingleRow
                 keyName="Name"
-                keyValue={usersDetails?.basicInfo?.name}
+                keyValue={dataValidation(usersDetails?.basicInfo?.name)}
               />
               <SingleRow
                 keyName="Date Of Birth"
-                keyValue={moment(new Date(usersDetails?.basicInfo?.dob)).format(
-                  "DD-MM-YYYY"
+                keyValue={dataValidation(
+                  moment(new Date(usersDetails?.basicInfo?.dob)).format(
+                    "DD-MM-YYYY"
+                  )
                 )}
               />
               <SingleRow
                 keyName="Height"
-                keyValue={usersDetails?.basicInfo?.height + "cm"}
+                keyValue={dataValidation(
+                  usersDetails?.basicInfo?.height + "cm"
+                )}
               />
               <SingleRow
                 keyName="Weight"
-                keyValue={usersDetails?.basicInfo?.weight + "kg"}
+                keyValue={dataValidation(
+                  usersDetails?.basicInfo?.weight + "kg"
+                )}
               />
               <SingleRow
                 keyName="Mother Tongue"
-                keyValue={usersDetails?.basicInfo?.motherTounge}
+                keyValue={dataValidation(usersDetails?.basicInfo?.motherTounge)}
               />
             </div>
             <div className="tab-content">
               <SingleRow
                 keyName="Religion"
-                keyValue={
+                keyValue={dataValidation(
                   religions?.find(
                     (res: any) =>
                       res.religionId === usersDetails?.basicInfo?.religion
                   )?.religionName
-                }
+                )}
               />
-              <SingleRow keyName="Caste" keyValue={casteValue()} />
+              <SingleRow
+                keyName="Caste"
+                keyValue={dataValidation(casteValue())}
+              />
 
               <SingleRow
                 keyName="Marital Status"
-                keyValue={usersDetails?.basicInfo?.maritalStatus}
+                keyValue={dataValidation(
+                  usersDetails?.basicInfo?.maritalStatus
+                )}
               />
               <SingleRow
                 keyName="Physical Status"
-                keyValue={usersDetails?.basicInfo?.physicalStatus}
+                keyValue={dataValidation(
+                  usersDetails?.basicInfo?.physicalStatus
+                )}
               />
             </div>
           </div>

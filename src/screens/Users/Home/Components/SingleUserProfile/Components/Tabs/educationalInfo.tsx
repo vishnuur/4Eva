@@ -2,6 +2,7 @@ import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
+import { dataValidation } from "src/config/app.const";
 
 export default function EducationalInfo() {
   const { usersDetails } = profileStore((state) => state);
@@ -29,33 +30,45 @@ export default function EducationalInfo() {
             <div className="tab-content">
               <SingleRow
                 keyName="Highest Education"
-                keyValue={usersDetails?.educationInfo?.highestEducation}
+                keyValue={dataValidation(
+                  usersDetails?.educationInfo?.highestEducation
+                )}
               />
               <SingleRow
                 keyName="College"
-                keyValue={usersDetails?.educationInfo?.college}
+                keyValue={dataValidation(usersDetails?.educationInfo?.college)}
               />
               <SingleRow
                 keyName="Education Details"
-                keyValue={usersDetails?.educationInfo?.educationDet}
+                keyValue={dataValidation(
+                  usersDetails?.educationInfo?.educationDet
+                )}
               />
             </div>
             <div className="tab-content">
               <SingleRow
                 keyName="Employed In"
-                keyValue={usersDetails?.educationInfo?.employedIn}
+                keyValue={dataValidation(
+                  usersDetails?.educationInfo?.employedIn
+                )}
               />
               <SingleRow
                 keyName="Occupation"
-                keyValue={usersDetails?.educationInfo?.occupation}
+                keyValue={dataValidation(
+                  usersDetails?.educationInfo?.occupation
+                )}
               />
               <SingleRow
                 keyName="Occupation Details"
-                keyValue={usersDetails?.educationInfo?.occupationDet}
+                keyValue={dataValidation(
+                  usersDetails?.educationInfo?.occupationDet
+                )}
               />
               <SingleRow
                 keyName="Annual Income"
-                keyValue={usersDetails?.educationInfo?.annualIncome}
+                keyValue={dataValidation(
+                  usersDetails?.educationInfo?.annualIncome
+                )}
               />
             </div>
           </div>

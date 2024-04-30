@@ -8,9 +8,25 @@
     height: 60%;
   }
 }
-.ant-layout .ant-layout-sider{
-  background:red !important   ;
+.ant-layout .ant-layout-sider {
+  background: red !important   ;
 }
-.ant-menu-item ant-menu-item-active ant-menu-item-selected{
+.ant-menu-item ant-menu-item-active ant-menu-item-selected {
   background-color: #555151 !important;
-} 
+}
+
+.admin-layout {
+  width: 100%;
+  .demo-logo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: 45px;
+    }
+  }
+  .ant-menu {
+    background: white !important;
+    border-bottom: 1px solid #ffc107 !important;
+  }
+}

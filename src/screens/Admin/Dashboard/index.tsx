@@ -1,76 +1,145 @@
 import CustomTable from "src/components/Table";
 import "./index.scss";
-import Modal from "antd/es/modal/Modal";
-import CustomDropDown from "src/components/CustomDropDown";
-import CustomInput from "src/components/CustomInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import homeStore from "src/store/users/home";
+import authStore from "src/store/users/auth";
+import { ColumnsType } from "antd/es/table";
+import { DataSourceItemType } from "antd/es/auto-complete";
+import { Space } from "antd";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "src/components/CustomButton";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export default function AdminDashboard() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    relation: "",
-    description: "",
-  });
+  const { getUserList, userList, listLoading, totalCount } = homeStore(
+    (state) => state
+  );
+  const navigate = useNavigate();
+  const { userId } = authStore((state) => state);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const showModal = () => {
-    setIsModalOpen(true);
+    navigate("/admin/users/new");
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
+  useEffect(() => {
+    const payload = {
+      registerId: userId,
+      searchtype: "P",
+      limitBy: 10,
+      page: currentPage,
+      maritalStatus: "",
+      height: "",
+      weight: "",
+      agefrom: "",
+      ageTo: "",
+      religion: "",
+      caste: "",
+      anualIncome: 0,
+    };
+    if (userId) {
+      getUserList(payload);
+    }
+  }, [userId, currentPage]);
+
+  const onPaginationChange = (value: number) => {
+    setCurrentPage(value);
   };
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const columns: ColumnsType<DataSourceItemType> = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "Profile ID",
+      dataIndex: "profileId",
+      key: "profileId",
+      defaultSortOrder: "descend",
+      sorter: (a: any, b: any) => a.profileId - b.profileId,
+    },
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      key: "gender",
+      render: (value) => (
+        <p>{value?.toLowerCase() === "m" ? "Male" : "Female"}</p>
+      ),
+      filters: [
+        {
+          text: "Male",
+          value: "M",
+        },
+        {
+          text: "Female",
+          value: "F",
+        },
+      ],
+      onFilter: (value, _) => {
+        console.log(value, "value and record");
+        return false;
+      },
+      // onFilter: (value, record) =>
+      //   record.address.indexOf(value as string) === 0,
+    },
+    {
+      title: "DOB",
+      dataIndex: "dob",
+      key: "dob",
+      render: (value) => <p>{moment(value).format("DD-MM-YYYY")}</p>,
+    },
+    {
+      title: "Age",
+      dataIndex: "dob",
+      key: "dob",
+      render: (value) => <p>{moment().diff(value, "years")} years</p>,
+    },
+    {
+      title: "Religion",
+      dataIndex: "religionname",
+      key: "religionname",
+    },
+    {
+      title: "Caste",
+      dataIndex: "castename",
+      key: "castename",
+    },
+
+    {
+      title: "Action",
+      key: "action",
+      render: (value) => (
+        <Space size="middle">
+          <a
+            className="table-btn edit"
+            onClick={() => navigate(`/admin/users/${value?.registerId}`)}
+            title="Edit"
+          >
+            <EditOutlined />
+          </a>
+          <a className="table-btn delete" title="Delete">
+            <DeleteOutlined />
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div>
       <div className="header">
         <h2>Users</h2>
-        <button className="primary-btn" onClick={showModal}>
-          Add Users
-        </button>
+        <CustomButton text="Add User" onClick={showModal} primary />
       </div>
-      <Modal
-        title="Add details"
-        open={isModalOpen}
-        // onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <label>Name:</label>
-        <CustomInput
-          placeHolder="Name"
-          onChange={handleChange}
-          name="name"
-          value={formData.name}
-          type="text"
-          style={{ width: "100%" }}
-        />
-        <label>Relation:</label>
-        <CustomDropDown
-          options={["Mother", "Father", "Sibling"]}
-          onChange={handleChange}
-          placeHolder="Select relation"
-          name="relation"
-          style={{ width: "100%" }}
-          value={formData.relation}
-        />
-        <label>Details:</label>
-        <CustomInput
-          placeHolder="Details"
-          onChange={handleChange}
-          name="description"
-          value={formData.description}
-          type="text"
-          style={{ width: "100%" }}
-        />
-      </Modal>
-      <CustomTable />
+      <CustomTable
+        data={userList}
+        columns={columns}
+        totalCount={totalCount}
+        onPaginationChange={onPaginationChange}
+      />
     </div>
   );
 }

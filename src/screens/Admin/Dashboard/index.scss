@@ -1,7 +1,36 @@
-.header{
-    display: flex;
-    justify-content: space-between;
-    .primary-btn{
-        background: linear-gradient(135deg, #f95450, #fa5252);
+.header {
+  display: flex;
+  justify-content: space-between;
+  .primary-btn {
+    background: linear-gradient(135deg, #f95450, #fa5252);
+  }
+}
+.table-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  &.edit {
+    background-color: #ffed4d;
+    &:hover {
+      background-color: #ffe70c;
+      color: black;
+      transition: 0.2s ease-in;
     }
+  }
+  &.delete {
+    background-color: #ff7373;
+    &:hover {
+      background-color: #ff5050;
+      color: black;
+      transition: 0.2s ease-in;
+    }
+  }
+  svg {
+    color: "white";
+  }
 }

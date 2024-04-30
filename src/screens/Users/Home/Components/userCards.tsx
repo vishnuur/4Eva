@@ -19,6 +19,7 @@ interface cardProps {
   cast: string;
   occupation: string;
   education: string;
+  userId: number;
   profileId: number;
 }
 export default function UserCards({
@@ -31,6 +32,7 @@ export default function UserCards({
   cast,
   occupation,
   education,
+  userId,
   profileId,
 }: cardProps) {
   const navigate = useNavigate();
@@ -48,7 +50,10 @@ export default function UserCards({
               {height} kg, {weight} cm
             </p>
           </div>
-          <p className="card-title">{name}</p>
+          <span className="title-wrap">
+            <p className="card-title">{name}</p>
+            <p className="card-profileId">Profile ID: {profileId}</p>
+          </span>
           <span className="card-content-wrap">
             <div className="wrapper">
               <span style={{ width: "22px" }}></span>
@@ -81,7 +86,7 @@ export default function UserCards({
         <CustomButton
           text="View Profile"
           onClick={() => {
-            navigate(`/home/user-details/${profileId}`);
+            navigate(`/home/user-details/${userId}`);
             // console.log("first");
           }}
           primary

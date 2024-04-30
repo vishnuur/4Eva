@@ -6,6 +6,7 @@ import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import authStore from "src/store/users/auth";
 import profileStore from "src/store/users/profile";
 import Logo from "src/assets/logo.jpeg";
+import { IMG_BASE_URL } from "src/config/app.const";
 
 const { Header, Content } = Layout;
 
@@ -114,6 +115,10 @@ const LayoutPage: React.FC = () => {
             <Avatar
               style={{ backgroundColor: "#f56a00", verticalAlign: "middle" }}
               size="large"
+              src={
+                personalDetails?.imageInfo?.image &&
+                `${IMG_BASE_URL}${personalDetails?.imageInfo?.image}`
+              }
             >
               {personalDetails?.registerInfo?.name?.slice(0, 1)}
             </Avatar>
@@ -121,11 +126,6 @@ const LayoutPage: React.FC = () => {
         </Dropdown>
       </Header>
       <Content>
-        {/* <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>Layout</Breadcrumb.Item>
-        </Breadcrumb> */}
         <div>
           <Outlet />
         </div>

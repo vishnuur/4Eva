@@ -84,6 +84,9 @@ export default function Profile() {
               <div className="my-details">
                 <div className="profile-details">
                   <h1>{personalDetails?.registerInfo?.name}</h1>
+                  <p className="profile-id">
+                    Profile ID : {personalDetails?.basicInfo?.profileId}
+                  </p>
                   <p>
                     {moment().diff(personalDetails?.basicInfo?.dob, "years")}{" "}
                     Years,
@@ -120,6 +123,9 @@ export default function Profile() {
         <div className="my-details">
           <div className="profile-details">
             <h1>{personalDetails?.registerInfo?.name}</h1>
+            <p className="profile-id">
+              Profile ID : {personalDetails?.basicInfo?.profileId}
+            </p>
             <p>
               {moment().diff(personalDetails?.basicInfo?.dob, "years")} Years,
               {personalDetails?.basicInfo?.height} cm,

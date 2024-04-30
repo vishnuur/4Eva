@@ -2,6 +2,7 @@ import profileStore from "src/store/users/profile";
 import noDataImage from "../../../../../../../assets/no-data.png";
 import "../index.scss";
 import SingleRow from "../singleRow";
+import { dataValidation } from "src/config/app.const";
 
 export default function FamilyInfoTab() {
   const { usersDetails } = profileStore((state) => state);
@@ -29,53 +30,61 @@ export default function FamilyInfoTab() {
             <div className="tab-content">
               <SingleRow
                 keyName="Address"
-                keyValue={usersDetails?.familyInfo?.Address}
+                keyValue={dataValidation(usersDetails?.familyInfo?.Address)}
               />
               <SingleRow
                 keyName="Father's Name"
-                keyValue={usersDetails?.familyInfo?.fatherName}
+                keyValue={dataValidation(usersDetails?.familyInfo?.fatherName)}
               />
               <SingleRow
                 keyName="Father's Occupation"
-                keyValue={usersDetails?.familyInfo?.fatherOccupation}
+                keyValue={dataValidation(
+                  usersDetails?.familyInfo?.fatherOccupation
+                )}
               />
               <SingleRow
                 keyName="Mother's Name"
-                keyValue={usersDetails?.familyInfo?.motherName}
+                keyValue={dataValidation(usersDetails?.familyInfo?.motherName)}
               />
               <SingleRow
                 keyName="Mother's Occupation"
-                keyValue={usersDetails?.familyInfo?.motherOccupation}
+                keyValue={dataValidation(
+                  usersDetails?.familyInfo?.motherOccupation
+                )}
               />
               <SingleRow
                 keyName="House Name"
-                keyValue={usersDetails?.familyInfo?.houseName}
+                keyValue={dataValidation(usersDetails?.familyInfo?.houseName)}
               />
             </div>
             <div className="tab-content">
               <SingleRow
                 keyName="Family Value"
-                keyValue={usersDetails?.familyInfo?.familyValue}
+                keyValue={dataValidation(usersDetails?.familyInfo?.familyValue)}
               />
               <SingleRow
                 keyName="Family Type"
-                keyValue={usersDetails?.familyInfo?.familyType}
+                keyValue={dataValidation(usersDetails?.familyInfo?.familyType)}
               />
               <SingleRow
                 keyName="Family Status"
-                keyValue={usersDetails?.familyInfo?.familyStaus}
+                keyValue={dataValidation(usersDetails?.familyInfo?.familyStaus)}
               />
               <SingleRow
                 keyName="Number Of Brothers"
-                keyValue={usersDetails?.familyInfo?.numOfBrothers}
+                keyValue={dataValidation(
+                  usersDetails?.familyInfo?.numOfBrothers
+                )}
               />
               <SingleRow
                 keyName="Number Of Sisters"
-                keyValue={usersDetails?.familyInfo?.numOfSisters}
+                keyValue={dataValidation(
+                  usersDetails?.familyInfo?.numOfSisters
+                )}
               />{" "}
               <SingleRow
                 keyName="About Family"
-                keyValue={usersDetails?.familyInfo?.aboutFamily}
+                keyValue={dataValidation(usersDetails?.familyInfo?.aboutFamily)}
               />
             </div>
           </div>

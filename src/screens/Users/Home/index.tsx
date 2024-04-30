@@ -131,6 +131,9 @@ const Home: React.FC = () => {
                 <div className="my-details">
                   <div className="profile-details">
                     <h1>{personalDetails?.registerInfo?.name}</h1>
+                    <p className="profile-id">
+                      Profile ID : {personalDetails?.basicInfo?.profileId}
+                    </p>
                     <Link to="/profile">
                       <div className="home-buttons-wrap">
                         <TbUserEdit color="white" />
@@ -173,6 +176,9 @@ const Home: React.FC = () => {
             <div className="my-details">
               <div className="profile-details">
                 <h1>{personalDetails?.registerInfo?.name}</h1>
+                <p className="profile-id">
+                  Profile ID : {personalDetails?.basicInfo?.profileId}
+                </p>
                 <Link to="/profile">
                   <div className="home-buttons-wrap">
                     <TbUserEdit color="white" />
@@ -231,7 +237,8 @@ const Home: React.FC = () => {
                     cast={res?.castename}
                     occupation={res?.occupation}
                     education={res?.educationDetail}
-                    profileId={res?.registerId}
+                    userId={res?.registerId}
+                    profileId={res?.profileId}
                   ></UserCards>
                 </Col>
               ))}

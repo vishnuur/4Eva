@@ -13,6 +13,14 @@ export const toastConfig: ToastOptions = {
   toastId: 1,
 };
 
+export const dataValidation = (value: string) => {
+  if (value) {
+    return value;
+  } else {
+    return "Not available";
+  }
+};
+
 export const SUCCESS = "success";
 export const ERROR = "error";
 
