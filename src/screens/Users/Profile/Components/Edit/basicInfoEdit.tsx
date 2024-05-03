@@ -12,7 +12,7 @@ import {
 } from "src/services/apis/users/profile";
 import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
-import { SUCCESS } from "src/config/app.const";
+import { SUCCESS, convertToFeetAndInches } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
 import moment from "moment";
 import genericStore from "src/store/generic";
@@ -71,7 +71,11 @@ export default function PersonalDetails() {
     delete formDataCopy.email;
     const result = await saveBasicDetailsAPI({
       registerId: userId,
-      basicInfo: { ...formDataCopy },
+      basicInfo: {
+        ...formDataCopy,
+        heightValue: formDataCopy.height, //height value
+        height: convertToFeetAndInches(formDataCopy.height), //height text
+      },
     });
     await saveEmailInfoAPI({
       registerId: userId,
@@ -101,6 +105,26 @@ export default function PersonalDetails() {
       dob: new Date(dateString).toISOString(),
     });
     console.log(date);
+  };
+
+  interface HeightOption {
+    value: number;
+    label: string;
+  }
+
+  const generateHeightOptions: () => HeightOption[] = () => {
+    const options: HeightOption[] = [];
+    for (let feet = 4; feet <= 7; feet++) {
+      for (let inch = 1; inch <= 12; inch++) {
+        if (feet === 7 && inch > 6) {
+          break; // Exit loop when reaching 7ft 6inch
+        }
+        const value = feet + inch / 10; // Convert inch to decimal value
+        const label = `${feet}ft ${inch}in`;
+        options.push({ value, label });
+      }
+    }
+    return options;
   };
 
   return (
@@ -188,13 +212,13 @@ export default function PersonalDetails() {
           </div>
           <div className="right">
             <label>Height:</label>
-            <CustomInput
-              placeHolder="Height"
+            <CustomDropDown
+              options={generateHeightOptions()}
               onChange={handleChange}
+              placeHolder="Select Height"
               name="height"
-              value={formData.height}
-              type="text"
               style={{ width: "100%" }}
+              value={formData.height}
             />
             <label>Weight:</label>
             <CustomInput

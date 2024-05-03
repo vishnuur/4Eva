@@ -6,6 +6,7 @@ import SingleRow from "../singleRow";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "src/components/CustomButton";
 import moment from "moment";
+import { convertToFeetAndInches } from "src/config/app.const";
 
 export default function BasicInfo() {
   const { personalDetails, religions, caste, getCaste } = profileStore(
@@ -63,7 +64,9 @@ export default function BasicInfo() {
               />
               <SingleRow
                 keyName="Height"
-                keyValue={personalDetails?.basicInfo?.height + "cm"}
+                keyValue={convertToFeetAndInches(
+                  personalDetails?.basicInfo?.height
+                )}
               />
               <SingleRow
                 keyName="Weight"

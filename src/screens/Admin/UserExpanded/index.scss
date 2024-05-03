@@ -7,6 +7,20 @@
       cursor: pointer;
     }
   }
+  .admin-image-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .ant-upload.ant-upload-select {
+      width: 160px !important;
+      height: 160px !important;
+    }
+    .anticon {
+      svg {
+        color: black;
+      }
+    }
+  }
   .admin-user-header-wrap {
     h1 {
       font-size: 22px;

@@ -21,6 +21,17 @@ export const dataValidation = (value: string) => {
   }
 };
 
+export function convertToFeetAndInches(heightStr: string) {
+  try {
+    const [feet, inches] = heightStr.split(".").map(parseFloat);
+    return `${feet}ft ${inches}in`;
+  } catch (error) {
+    // If no decimal point, assume it's just feet
+    const feet = parseFloat(heightStr);
+    return `${feet}ft 0in`;
+  }
+}
+
 export const SUCCESS = "success";
 export const ERROR = "error";
 

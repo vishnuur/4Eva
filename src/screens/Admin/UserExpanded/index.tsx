@@ -9,6 +9,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import profileStore from "src/store/users/profile";
 import moment from "moment";
+import AdminImageUpload from "./Component";
 
 export default function UserExpanded() {
   const { userId } = useParams();
@@ -78,6 +79,26 @@ export default function UserExpanded() {
     });
   }, [personalDetails]);
 
+  interface HeightOption {
+    value: number;
+    label: string;
+  }
+
+  const generateHeightOptions: () => HeightOption[] = () => {
+    const options: HeightOption[] = [];
+    for (let feet = 4; feet <= 7; feet++) {
+      for (let inch = 1; inch <= 12; inch++) {
+        if (feet === 7 && inch > 6) {
+          break; // Exit loop when reaching 7ft 6inch
+        }
+        const value = feet + inch / 10; // Convert inch to decimal value
+        const label = `${feet}ft ${inch}in`;
+        options.push({ value, label });
+      }
+    }
+    return options;
+  };
+
   return (
     <div className="admin-user-creation-wrap">
       <span className="breadcrumb-wrap">
@@ -97,6 +118,9 @@ export default function UserExpanded() {
         {userId !== "new" && (
           <p>Profile ID : {personalDetails?.basicInfo?.profileId}</p>
         )}
+      </div>
+      <div className="admin-image-upload">
+        <AdminImageUpload />
       </div>
       <div className="wrap">
         <div className="header-container">
@@ -171,13 +195,13 @@ export default function UserExpanded() {
           </div>
           <div className="right">
             <label>Height:</label>
-            <CustomInput
-              placeHolder="Height"
+            <CustomDropDown
+              options={generateHeightOptions()}
               onChange={handleChange}
+              placeHolder="Select Height"
               name="height"
-              value={basicFormData?.height}
-              type="text"
               style={{ width: "100%" }}
+              value={basicFormData.height}
             />
             <label>Weight:</label>
             <CustomInput

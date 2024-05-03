@@ -5,7 +5,7 @@ import DefaultProfile from "../../../../assets/default-user.jpeg";
 import { MdLocationOn } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { MdWork } from "react-icons/md";
-import { IMG_BASE_URL } from "src/config/app.const";
+import { IMG_BASE_URL, convertToFeetAndInches } from "src/config/app.const";
 import { useNavigate } from "react-router-dom";
 
 interface cardProps {
@@ -47,7 +47,7 @@ export default function UserCards({
               {age} Years
             </p>
             <p className="card-address" style={{ color: "#ffc107" }}>
-              {height} kg, {weight} cm
+              {convertToFeetAndInches(height)}, {weight} kg
             </p>
           </div>
           <span className="title-wrap">
