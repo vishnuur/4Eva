@@ -8,13 +8,14 @@ import { BASE_URL } from "src/config/app.const";
 // const baseURL = import.meta.env.VITE_baseURL;
 // const baseURL = import.meta.env.VITE_BASE_URL;
 const baseURL = BASE_URL;
+const token = localStorage.getItem("userToken");
 
 const base = async (options: any, headerOptions: any) => {
   try {
     return axios({
       baseURL,
       headers: {
-        //Authorization: token ? `Bearer ${token}` : null,
+        Authorization: options?.token ? `Bearer ${token}` : null,
         ...headerOptions,
       },
       ...options,

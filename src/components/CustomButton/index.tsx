@@ -3,7 +3,7 @@ import Loader from "react-js-loader";
 
 interface buttonProps {
   onClick: any;
-  text: string;
+  text: any;
   disabled?: boolean;
   primary?: boolean;
   style?: any;

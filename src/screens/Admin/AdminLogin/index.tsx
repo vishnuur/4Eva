@@ -1,21 +1,23 @@
 import CustomInput from "src/components/CustomInput";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
-import authStore from "src/store/users/auth";
 import { useEffect, useState } from "react";
 import LoginBg from "src/assets/admin-bg.jpeg";
 import Logo from "src/assets/logo.jpeg";
+import adminAuthStore from "src/store/admin/auth";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const { loginSuccess } = authStore((state) => state);
+  const { loginSuccess, onLogingIn, userToken } = adminAuthStore(
+    (state) => state
+  );
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
+    username: "",
+    password: "",
   });
 
   const onSubmit = () => {
-    // onLogingIn(formData);
+    onLogingIn(formData);
     navigate("/admin/dashboard");
   };
 
@@ -24,6 +26,12 @@ export default function AdminLogin() {
       navigate("/profile");
     }
   }, [loginSuccess]);
+
+  useEffect(() => {
+    if (userToken && userToken !== "") {
+      navigate("/admin/dashboard");
+    }
+  }, [userToken]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -42,7 +50,7 @@ export default function AdminLogin() {
             <img src={Logo} />
             <h3>Login</h3>
             <CustomInput
-              value={formData.name}
+              value={formData.username}
               placeHolder="User name"
               type="text"
               style={{
@@ -53,12 +61,12 @@ export default function AdminLogin() {
                 color: "#fff",
               }}
               onChange={handleChange}
-              name="name"
+              name="username"
             />
             <CustomInput
-              value={formData.phone}
-              placeHolder="Phone"
-              type="text"
+              value={formData.password}
+              placeHolder="Password"
+              type="password"
               style={{
                 marginBottom: "24px",
                 width: "100%",
@@ -67,7 +75,7 @@ export default function AdminLogin() {
                 color: "#fff",
               }}
               onChange={handleChange}
-              name="phone"
+              name="password"
             />
             <button onClick={onSubmit} className="login-button">
               Log In

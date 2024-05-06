@@ -6,6 +6,26 @@
   overflow-x: hidden;
   padding-left: 36px;
 }
+.home-user-list-container {
+  display: flex;
+  flex-direction: column;
+  .no-data-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
+  .filter-btns-container {
+    margin-right: 50px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    .filter-btn {
+      margin-bottom: 24px;
+      margin-left: 12px;
+    }
+  }
+}
 .menu-button {
   display: none;
   position: absolute;

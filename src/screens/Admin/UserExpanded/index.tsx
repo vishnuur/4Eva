@@ -1,7 +1,7 @@
 import { Breadcrumb, DatePicker } from "antd";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
-import CustomButton from "src/components/CustomButton";
+import { useEffect, useState } from "react";
+// import CustomButton from "src/components/CustomButton";
 import CustomDropDown from "src/components/CustomDropDown";
 import CustomInput from "src/components/CustomInput";
 import "./index.scss";
@@ -40,9 +40,9 @@ export default function UserExpanded() {
 
   console.log(caste, "castecaste");
 
-  const handleOk = () => {
-    console.log("value");
-  };
+  // const handleOk = () => {
+  //   console.log("value");
+  // };
   const onChangeDate = () => {
     console.log("first");
   };

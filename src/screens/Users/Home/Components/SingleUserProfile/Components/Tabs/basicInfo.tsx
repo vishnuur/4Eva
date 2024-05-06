@@ -58,7 +58,7 @@ export default function BasicInfo() {
               <SingleRow
                 keyName="Height"
                 keyValue={dataValidation(
-                  usersDetails?.basicInfo?.height + "cm"
+                  usersDetails?.basicInfo?.height
                 )}
               />
               <SingleRow

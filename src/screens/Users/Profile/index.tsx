@@ -10,12 +10,7 @@ import FamilyInfoTab from "./Components/Tabs/familyInfo";
 import ContactInfoTab from "./Components/Tabs/contactInfo";
 import { UploadOutlined } from "@ant-design/icons";
 import { customToast } from "src/components/Toast";
-import {
-  ERROR,
-  IMG_BASE_URL,
-  SUCCESS,
-  convertToFeetAndInches,
-} from "src/config/app.const";
+import { ERROR, IMG_BASE_URL, SUCCESS } from "src/config/app.const";
 import authStore from "src/store/users/auth";
 import { saveProfileImage } from "src/services/apis/users/profile";
 import LoaderComponent from "src/components/LoaderComponent";
@@ -95,8 +90,8 @@ export default function Profile() {
                   <p>
                     {moment().diff(personalDetails?.basicInfo?.dob, "years")}{" "}
                     Years,
-                    {convertToFeetAndInches(personalDetails?.basicInfo?.height)}
-                    ,{personalDetails?.basicInfo?.weight} kg
+                    {personalDetails?.basicInfo?.height},
+                    {personalDetails?.basicInfo?.weight} kg
                   </p>
                   {personalDetails?.locationInfo?.district && (
                     <h5>
@@ -133,7 +128,7 @@ export default function Profile() {
             </p>
             <p>
               {moment().diff(personalDetails?.basicInfo?.dob, "years")} Years,{" "}
-              {convertToFeetAndInches(personalDetails?.basicInfo?.height)},{" "}
+              {personalDetails?.basicInfo?.height},{" "}
               {personalDetails?.basicInfo?.weight} kg
             </p>
             {personalDetails?.locationInfo?.district && (

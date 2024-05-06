@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Col, Image, Row, Skeleton, theme } from "antd";
+import { Badge, Col, Image, Row, Skeleton, theme } from "antd";
 import UserCards from "./Components/userCards";
 import "./index.scss";
 import homeStore from "src/store/users/home";
@@ -19,7 +19,19 @@ import { slide as Menu } from "react-burger-menu";
 import genericStore from "src/store/generic";
 import Loader from "react-js-loader";
 import { IMG_BASE_URL } from "src/config/app.const";
+import CustomButton from "src/components/CustomButton";
+import FilterDrawer from "./Components/FilterDrawer";
+import noDataImage from "../../../assets/no-data.png";
 
+const initialFilters = {
+  maritalStatus: "",
+  height: "",
+  heightValue: "",
+  agefrom: "",
+  ageTo: "",
+  religion: "",
+  caste: "",
+};
 const Home: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -33,25 +45,28 @@ const Home: React.FC = () => {
   const [menuOpen, setmenuOpen] = useState(false);
   const [page, setPage] = useState(1);
   const scrollContainerRef = useRef(null);
+  const [filterDisplay, setfilterDisplay] = useState(false);
+  const [filters, setfilters] = useState(initialFilters as any);
 
   useEffect(() => {
     const payload = {
+      ...filters,
       registerId: userId,
       searchtype: "P",
       limitBy: 15,
       page: 1,
-      maritalStatus: "",
-      height: "",
       weight: "",
-      agefrom: "",
-      ageTo: "",
-      religion: "",
       caste: "",
       anualIncome: 0,
     };
     if (userId) {
-      getProfileDetails({ registerId: userId });
       getUserList(payload);
+    }
+  }, [userId, filters]);
+
+  useEffect(() => {
+    if (userId) {
+      getProfileDetails({ registerId: userId });
     }
   }, [userId]);
 
@@ -66,16 +81,12 @@ const Home: React.FC = () => {
 
   const fetchData = async () => {
     const payload = {
+      ...filters,
       registerId: userId,
       searchtype: "P",
       limitBy: 15,
       page: page,
-      maritalStatus: "",
-      height: "",
       weight: "",
-      agefrom: "",
-      ageTo: "",
-      religion: "",
       caste: "",
       anualIncome: 0,
     };
@@ -83,6 +94,14 @@ const Home: React.FC = () => {
       getUserListVirtulized(payload);
     }
   };
+
+  function hasValue(data: any) {
+    // Use Object.values() to get an array of values from the object
+    const values = Object.values(data);
+
+    // Check if any value in the array is truthy (not empty, null, undefined, etc.)
+    return values.some((value) => Boolean(value));
+  }
 
   const handleScroll = () => {
     const scrollContainer = scrollContainerRef.current;
@@ -214,35 +233,62 @@ const Home: React.FC = () => {
           {listLoading ? (
             <Skeleton active />
           ) : (
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-              {userList?.map((res: any, index: number) => (
-                <Col
-                  className="gutter-row"
-                  style={{ marginBottom: "24px" }}
-                  xs={{ flex: "100%" }}
-                  sm={{ flex: "100%" }}
-                  md={{ flex: "50%" }}
-                  lg={{ flex: "50%" }}
-                  xl={{ flex: "32%" }}
-                  key={index}
-                >
-                  <UserCards
-                    image={res.image}
-                    name={res?.name}
-                    phone="12312312323423"
-                    address={res?.Address}
-                    height={res?.height}
-                    weight={res?.weight}
-                    age={moment().diff(res?.dob, "years")}
-                    cast={res?.castename}
-                    occupation={res?.occupation}
-                    education={res?.educationDetail}
-                    userId={res?.registerId}
-                    profileId={res?.profileId}
-                  ></UserCards>
-                </Col>
-              ))}
-            </Row>
+            <div className="home-user-list-container">
+              <div className="filter-btns-container">
+                <CustomButton
+                  text="Reset Filter"
+                  onClick={() => setfilters(initialFilters)}
+                  extraClassName={"filter-btn"}
+                  disabled={!hasValue(filters)}
+                />
+                <Badge dot={hasValue(filters) ? true : false}>
+                  <CustomButton
+                    text="Filter"
+                    onClick={() => setfilterDisplay(true)}
+                    extraClassName={"filter-btn"}
+                    primary
+                  />
+                </Badge>
+              </div>
+              {userList?.length ? (
+                <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                  {userList?.map((res: any, index: number) => (
+                    <Col
+                      className="gutter-row"
+                      style={{ marginBottom: "24px" }}
+                      xs={{ flex: "100%" }}
+                      sm={{ flex: "100%" }}
+                      md={{ flex: "50%" }}
+                      lg={{ flex: "50%" }}
+                      xl={{ flex: "32%" }}
+                      key={index}
+                    >
+                      <UserCards
+                        image={res.image}
+                        name={res?.name}
+                        phone="12312312323423"
+                        address={res?.Address}
+                        height={res?.height}
+                        weight={res?.weight}
+                        age={moment().diff(res?.dob, "years")}
+                        cast={res?.castename}
+                        occupation={res?.occupation}
+                        education={res?.educationDetail}
+                        userId={res?.registerId}
+                        profileId={res?.profileId}
+                      ></UserCards>
+                    </Col>
+                  ))}
+                </Row>
+              ) : (
+                <div className="no-data-container">
+                  <div className="no-data-wrap">
+                    <img src={noDataImage} />
+                    <span>No data found</span>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
           {isLoading && (
             <Loader
@@ -255,7 +301,12 @@ const Home: React.FC = () => {
           )}
         </div>
       </div>
-
+      <FilterDrawer
+        visible={filterDisplay}
+        visibleFn={setfilterDisplay}
+        setfilters={setfilters}
+        appliedFilters={filters}
+      />
       {/* // <Footer style={{ textAlign: "center" }}>Matrimonial website</Footer> */}
     </>
   );

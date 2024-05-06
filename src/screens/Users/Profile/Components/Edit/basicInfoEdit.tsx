@@ -12,7 +12,7 @@ import {
 } from "src/services/apis/users/profile";
 import { useNavigate } from "react-router-dom";
 import { customToast } from "src/components/Toast";
-import { SUCCESS, convertToFeetAndInches } from "src/config/app.const";
+import { SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
 import moment from "moment";
 import genericStore from "src/store/generic";
@@ -58,11 +58,27 @@ export default function PersonalDetails() {
         dob: moment(new Date(personalDetails?.basicInfo?.dob)).format(
           "YYYY-MM-DD"
         ),
+        heightValue:
+          personalDetails?.basicInfo?.heightValue.endsWith("0") &&
+          !personalDetails?.basicInfo?.height.includes("10")
+            ? personalDetails?.basicInfo?.heightValue.slice(0, -1)
+            : personalDetails?.basicInfo?.heightValue,
       });
     return () => {
       setFormData(formDataInitialState);
     };
   }, [personalDetails]);
+
+  function convertToFeetAndInches(heightStr: string) {
+    try {
+      const [feet, inches] = heightStr.split(".").map(parseFloat);
+      return `${feet}ft ${inches}in`;
+    } catch (error) {
+      // If no decimal point, assume it's just feet
+      const feet = parseFloat(heightStr);
+      return `${feet}ft 0in`;
+    }
+  }
 
   const handleOk = async () => {
     // setModalVisible(false);
@@ -73,8 +89,8 @@ export default function PersonalDetails() {
       registerId: userId,
       basicInfo: {
         ...formDataCopy,
-        heightValue: formDataCopy.height, //height value
-        height: convertToFeetAndInches(formDataCopy.height), //height text
+        heightValue: formDataCopy.heightValue, //height value
+        height: convertToFeetAndInches(formDataCopy.heightValue), //height text
       },
     });
     await saveEmailInfoAPI({
@@ -108,7 +124,7 @@ export default function PersonalDetails() {
   };
 
   interface HeightOption {
-    value: number;
+    value: number | string;
     label: string;
   }
 
@@ -119,7 +135,10 @@ export default function PersonalDetails() {
         if (feet === 7 && inch > 6) {
           break; // Exit loop when reaching 7ft 6inch
         }
-        const value = feet + inch / 10; // Convert inch to decimal value
+        // if(inch>10){
+
+        // }
+        const value = feet.toString() + "." + inch.toString(); // Convert inch to decimal value
         const label = `${feet}ft ${inch}in`;
         options.push({ value, label });
       }
@@ -216,9 +235,9 @@ export default function PersonalDetails() {
               options={generateHeightOptions()}
               onChange={handleChange}
               placeHolder="Select Height"
-              name="height"
+              name="heightValue"
               style={{ width: "100%" }}
-              value={formData.height}
+              value={formData.heightValue}
             />
             <label>Weight:</label>
             <CustomInput

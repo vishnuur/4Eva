@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import {
-  HomeOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Layout, Menu, MenuProps, theme } from "antd";
+import React from "react";
+import { HomeOutlined } from "@ant-design/icons";
+import { Avatar, Layout, Menu, theme } from "antd";
 import Logo from "src/assets/logo.jpeg";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./index.scss";
+import adminAuthStore from "src/store/admin/auth";
 
 const { Header, Sider, Content } = Layout;
 
@@ -16,11 +12,15 @@ const AdminLayout: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const navigate = useNavigate();
+  const { setUserToken, setLoginSuccess } = adminAuthStore((state) => state);
 
-  const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
-    key,
-    label: `nav ${key}`,
-  }));
+  const logout = () => {
+    localStorage.removeItem("userToken");
+    setUserToken("");
+    setLoginSuccess(false);
+    navigate("/admin/login");
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }} className="admin-layout">
@@ -36,7 +36,7 @@ const AdminLayout: React.FC = () => {
       >
         <div className="demo-logo" style={{ color: "white" }}>
           <img src={Logo} />
-          <a onClick={(e) => e.preventDefault()}>
+          <a onClick={() => logout()}>
             <Avatar
               style={{ backgroundColor: "#f56a00", verticalAlign: "middle" }}
               size="large"

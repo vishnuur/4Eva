@@ -1,0 +1,21 @@
+.drawer-wrap {
+  position: relative;
+  height: 100%;
+  .filters-list {
+    .single-filter {
+      padding: 12px 0;
+      label {
+        color: black;
+        font-weight: 600;
+      }
+      select {
+        margin-top: 8px;
+      }
+    }
+  }
+  .drawer-submit {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+}
