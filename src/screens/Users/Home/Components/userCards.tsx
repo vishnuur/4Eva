@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 interface cardProps {
   name: string;
   phone: string;
-  address: string;
+  district: string;
   image: string;
   height: string;
   weight: string;
@@ -24,7 +24,7 @@ interface cardProps {
 }
 export default function UserCards({
   name,
-  address,
+  district,
   image,
   height,
   weight,
@@ -61,10 +61,8 @@ export default function UserCards({
             </div>
             <div className="wrapper">
               <MdLocationOn color="gray" />
-              <p className="card-address" title={address}>
-                {!address || address === ""
-                  ? "Not available"
-                  : address.slice(0, 30) + (address?.length > 30 ? "...." : "")}
+              <p className="card-address" title={district}>
+                {!district || district === "" ? "Not available" : district}
               </p>
             </div>
             <div className="wrapper">

@@ -267,7 +267,7 @@ const Home: React.FC = () => {
                         image={res.image}
                         name={res?.name}
                         phone="12312312323423"
-                        address={res?.Address}
+                        district={res?.district}
                         height={res?.height}
                         weight={res?.weight}
                         age={moment().diff(res?.dob, "years")}

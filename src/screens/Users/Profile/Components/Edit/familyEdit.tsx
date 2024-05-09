@@ -140,7 +140,7 @@ export default function FamilyModal() {
             <CustomInput
               placeHolder="House Name"
               onChange={handleChange}
-              name="houseName "
+              name="houseName"
               value={formData.houseName}
               type="text"
               style={{ width: "100%" }}

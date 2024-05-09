@@ -29,10 +29,6 @@ export default function FamilyInfoTab() {
           <div className="tab-content-cover">
             <div className="tab-content">
               <SingleRow
-                keyName="Address"
-                keyValue={dataValidation(usersDetails?.familyInfo?.Address)}
-              />
-              <SingleRow
                 keyName="Father's Name"
                 keyValue={dataValidation(usersDetails?.familyInfo?.fatherName)}
               />

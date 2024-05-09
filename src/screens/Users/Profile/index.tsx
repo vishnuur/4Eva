@@ -1,4 +1,4 @@
-import { Button, Image, Upload, UploadProps } from "antd";
+import { Button, Image, Upload } from "antd";
 import "./index.scss";
 import profileStore from "src/store/users/profile";
 import DefaultProfile from "../../../assets/profile.jpg";
@@ -17,6 +17,7 @@ import LoaderComponent from "src/components/LoaderComponent";
 import { slide as Menu } from "react-burger-menu";
 import { MdClose, MdOutlineMenu } from "react-icons/md";
 import moment from "moment";
+import ImgCrop from "antd-img-crop";
 
 export default function Profile() {
   const { getProfileDetails, personalDetails, getReligion, isLoading } =
@@ -31,29 +32,31 @@ export default function Profile() {
     getReligion();
   }, [userId]);
 
-  const props: UploadProps = {
-    async onChange(info: any) {
-      const reader = new FileReader();
+  const handleImageUpload = (file: any) => {
+    const reader = new FileReader();
 
-      reader.onloadend = async () => {
-        const payload = {
-          registerId: userId,
-          image: reader.result,
-        };
-        if (reader.result) {
-          const result = await saveProfileImage(payload);
-          if (result.status) {
-            customToast(SUCCESS, "Profile Photo Uploaded Successfully");
-            getProfileDetails({ registerId: userId });
-          } else {
-            customToast(ERROR, result?.result);
-          }
-        }
+    reader.onload = async (event: any) => {
+      // event.target.result contains the Base64 encoded image data
+      let base64ImageData: any = JSON.stringify(event?.target?.result);
+      base64ImageData = base64ImageData.substring(1);
+
+      const payload = {
+        registerId: userId,
+        image: base64ImageData,
       };
-      if (info.file) {
-        reader.readAsDataURL(info.file);
+      if (base64ImageData) {
+        const result = await saveProfileImage(payload);
+        if (result.status) {
+          customToast(SUCCESS, "Profile Photo Uploaded Successfully");
+          getProfileDetails({ registerId: userId });
+        } else {
+          customToast(ERROR, result?.result);
+        }
       }
-    },
+    };
+
+    // Read the image file as Data URL
+    reader.readAsDataURL(file);
   };
 
   const profileImage = personalDetails?.imageInfo?.image
@@ -78,9 +81,14 @@ export default function Profile() {
           <div className="sidebar">
             <div className="profile-photo">
               <Image src={profileImage} />
-              <Upload {...props} beforeUpload={() => false}>
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
+              <ImgCrop>
+                <Upload beforeUpload={handleImageUpload}>
+                  <Button icon={<UploadOutlined />}>
+                    Click to{" "}
+                    {personalDetails?.imageInfo?.image ? "Update" : "Upload"}
+                  </Button>
+                </Upload>
+              </ImgCrop>
               <div className="my-details">
                 <div className="profile-details">
                   <h1>{personalDetails?.registerInfo?.name}</h1>
@@ -117,9 +125,13 @@ export default function Profile() {
       </div>
       <div className="profile-photo">
         <Image src={profileImage} />
-        <Upload {...props} beforeUpload={() => false}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
-        </Upload>
+        <ImgCrop>
+          <Upload beforeUpload={handleImageUpload}>
+            <Button icon={<UploadOutlined />}>
+              Click to {personalDetails?.imageInfo?.image ? "Update" : "Upload"}
+            </Button>
+          </Upload>
+        </ImgCrop>
         <div className="my-details">
           <div className="profile-details">
             <h1>{personalDetails?.registerInfo?.name}</h1>
