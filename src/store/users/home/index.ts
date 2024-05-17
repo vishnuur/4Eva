@@ -17,9 +17,15 @@ const homeStore = create<HomeState>()((set, get) => ({
   getUserList: async (state) => {
     set({ listLoading: true });
     const result = await getUsersList(state);
-    set({ userList: result.result });
-    set({ totalCount: result.hits });
-    set({ listLoading: false });
+    if (result.status) {
+      set({ userList: result?.result });
+      set({ totalCount: result?.hits });
+      set({ listLoading: false });
+    } else {
+      set({ userList: [] });
+      set({ totalCount: 0 });
+      set({ listLoading: false });
+    }
     // customToast(ERROR, result.result);
   },
   getUserListVirtulized: async (state) => {

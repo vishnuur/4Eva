@@ -234,22 +234,24 @@ const Home: React.FC = () => {
             <Skeleton active />
           ) : (
             <div className="home-user-list-container">
-              <div className="filter-btns-container">
-                <CustomButton
-                  text="Reset Filter"
-                  onClick={() => setfilters(initialFilters)}
-                  extraClassName={"filter-btn"}
-                  disabled={!hasValue(filters)}
-                />
-                <Badge dot={hasValue(filters) ? true : false}>
+              {!!userList?.length && (
+                <div className="filter-btns-container">
                   <CustomButton
-                    text="Filter"
-                    onClick={() => setfilterDisplay(true)}
+                    text="Reset Filter"
+                    onClick={() => setfilters(initialFilters)}
                     extraClassName={"filter-btn"}
-                    primary
+                    disabled={!hasValue(filters)}
                   />
-                </Badge>
-              </div>
+                  <Badge dot={hasValue(filters) ? true : false}>
+                    <CustomButton
+                      text="Filter"
+                      onClick={() => setfilterDisplay(true)}
+                      extraClassName={"filter-btn"}
+                      primary
+                    />
+                  </Badge>
+                </div>
+              )}
               {userList?.length ? (
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                   {userList?.map((res: any, index: number) => (
@@ -284,7 +286,7 @@ const Home: React.FC = () => {
                 <div className="no-data-container">
                   <div className="no-data-wrap">
                     <img src={noDataImage} />
-                    <span>No data found</span>
+                    <span>No data available</span>
                   </div>
                 </div>
               )}
