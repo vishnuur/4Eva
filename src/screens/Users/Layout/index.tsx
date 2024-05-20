@@ -10,6 +10,8 @@ import { IMG_BASE_URL } from "src/config/app.const";
 
 const { Header, Content } = Layout;
 
+const userIdLocalStorage = localStorage.getItem("userId");
+
 const LayoutPage: React.FC = () => {
   // const location = useLocation();
   const { pathname } = location;
@@ -85,7 +87,7 @@ const LayoutPage: React.FC = () => {
     },
   ];
 
-  return userId ? (
+  return userId || userIdLocalStorage ? (
     <Layout
       style={{ minHeight: "100vh", backgroundColor: "white" }}
       className="user-layout-container"
