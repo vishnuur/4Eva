@@ -17,7 +17,7 @@ export default function Login() {
 
   const [formData, setFormData] = useState({
     username: "",
-    phone: "",
+    password: "",
   });
 
   const onSubmit = () => {
@@ -72,9 +72,9 @@ export default function Login() {
               name="username"
             />
             <CustomInput
-              value={formData.phone}
-              placeHolder="Phone"
-              type="text"
+              value={formData.password}
+              placeHolder="Password"
+              type="password"
               style={{
                 marginBottom: "24px",
                 width: "100%",
@@ -83,7 +83,7 @@ export default function Login() {
                 color: "#fff",
               }}
               onChange={handleChange}
-              name="phone"
+              name="password"
             />
             <p className="login-subhead">
               Don't have an account ? <Link to="/">Sign Up</Link>

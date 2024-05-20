@@ -24,7 +24,7 @@ export const dataValidation = (value: string) => {
 export const SUCCESS = "success";
 export const ERROR = "error";
 
-// export const BASE_URL = "http://103.154.184.45:3010/"; //dev base URL
-export const BASE_URL = "https://4evamatrimony.com/"; //prod base URL
-// export const IMG_BASE_URL = "http://103.154.184.45:82/forEva_UAT/";
-export const IMG_BASE_URL = "https://4evamatrimony.com/";
+export const BASE_URL = "http://103.154.184.45:3010/"; //dev base URL
+// export const BASE_URL = "https://4evamatrimony.com/"; //prod base URL
+export const IMG_BASE_URL = "http://103.154.184.45:82/forEva_UAT/";
+// export const IMG_BASE_URL = "https://4evamatrimony.com/";

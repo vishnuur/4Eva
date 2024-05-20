@@ -16,6 +16,7 @@ interface ProfileState {
   caste: any;
   postProfileDetails: (payload: any) => void;
   getProfileDetails: (payload: any) => void;
+  getProfileImageDetails: (payload: any) => void;
   getUsersDetails: (payload: any) => void;
   getReligion: () => void;
   getCaste: (payload: any) => void;
@@ -37,6 +38,10 @@ const profileStore = create<ProfileState>()((set, get) => ({
       get().getProfileDetails({ registerId: payload?.registerId });
     }
     genericStore.getState().isLoadingFn(false);
+  },
+  getProfileImageDetails: async (payload) => {
+    const result = await getProfileDetailsAPI(payload);
+    set({ personalDetails: result });
   },
   getProfileDetails: async (payload) => {
     get().setLoader(true);

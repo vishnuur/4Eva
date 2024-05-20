@@ -109,6 +109,13 @@
       .profile-id {
         font-size: 12px;
         padding-top: 0;
+        span {
+          font-weight: 600;
+          svg {
+            margin-left: 8px;
+            cursor: pointer;
+          }
+        }
       }
       .home-buttons-wrap {
         display: flex;

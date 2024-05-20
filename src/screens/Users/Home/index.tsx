@@ -7,7 +7,7 @@ import authStore from "src/store/users/auth";
 import moment from "moment";
 import profileStore from "src/store/users/profile";
 import DefaultProfile from "../../../assets/profile.jpg";
-import { FaRegEdit } from "react-icons/fa";
+import { FaCopy, FaRegEdit } from "react-icons/fa";
 import { TbUserEdit } from "react-icons/tb";
 // import { IoMdPlanet } from "react-icons/io";
 import { MdDoneAll, MdOutlineSettings } from "react-icons/md";
@@ -18,10 +18,11 @@ import { Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 import genericStore from "src/store/generic";
 import Loader from "react-js-loader";
-import { IMG_BASE_URL } from "src/config/app.const";
+import { IMG_BASE_URL, SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
 import FilterDrawer from "./Components/FilterDrawer";
 import noDataImage from "../../../assets/no-data.png";
+import { customToast } from "src/components/Toast";
 
 const initialFilters = {
   maritalStatus: "",
@@ -151,7 +152,21 @@ const Home: React.FC = () => {
                   <div className="profile-details">
                     <h1>{personalDetails?.registerInfo?.name}</h1>
                     <p className="profile-id">
-                      Profile ID : {personalDetails?.basicInfo?.profileId}
+                      Profile ID :{" "}
+                      <span>
+                        {personalDetails?.registerInfo?.loginProfileId}
+                        <FaCopy
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              personalDetails?.registerInfo?.loginProfileId
+                            );
+                            customToast(
+                              SUCCESS,
+                              "Profile ID Copied to Clipboard"
+                            );
+                          }}
+                        />
+                      </span>
                     </p>
                     <Link to="/profile">
                       <div className="home-buttons-wrap">
@@ -196,7 +211,18 @@ const Home: React.FC = () => {
               <div className="profile-details">
                 <h1>{personalDetails?.registerInfo?.name}</h1>
                 <p className="profile-id">
-                  Profile ID : {personalDetails?.basicInfo?.profileId}
+                  Profile ID :{" "}
+                  <span>
+                    {personalDetails?.registerInfo?.loginProfileId}
+                    <FaCopy
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          personalDetails?.registerInfo?.loginProfileId
+                        );
+                        customToast(SUCCESS, "Profile ID Copied to Clipboard");
+                      }}
+                    />
+                  </span>
                 </p>
                 <Link to="/profile">
                   <div className="home-buttons-wrap">
@@ -277,7 +303,7 @@ const Home: React.FC = () => {
                         occupation={res?.occupation}
                         education={res?.educationDetail}
                         userId={res?.registerId}
-                        profileId={res?.profileId}
+                        profileId={res?.loginProfileId}
                       ></UserCards>
                     </Col>
                   ))}

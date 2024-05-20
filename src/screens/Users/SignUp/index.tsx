@@ -35,6 +35,7 @@ export default function SignUp() {
     username: "",
     phone: "",
     gender: "",
+    password: "",
   });
   const navigate = useNavigate();
   const onSubmit = () => {
@@ -123,6 +124,20 @@ export default function SignUp() {
                 }}
                 onChange={handleChange}
                 name="phone"
+              />
+              <CustomInput
+                value={formData.password}
+                placeHolder="Password"
+                type="password"
+                style={{
+                  marginBottom: "24px",
+                  width: "100%",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                  borderColor: "#fff",
+                  color: "#fff",
+                }}
+                onChange={handleChange}
+                name="password"
               />
             </div>
 

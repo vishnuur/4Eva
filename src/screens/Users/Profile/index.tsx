@@ -18,12 +18,15 @@ import { slide as Menu } from "react-burger-menu";
 import { MdClose, MdOutlineMenu } from "react-icons/md";
 import moment from "moment";
 import ImgCrop from "antd-img-crop";
+import ViewAddPhotos from "./Components/viewAddPhotos";
+import { FaCopy } from "react-icons/fa";
 
 export default function Profile() {
   const { getProfileDetails, personalDetails, getReligion, isLoading } =
     profileStore((state) => state);
   const { userId } = authStore((state) => state);
   const [menuOpen, setmenuOpen] = useState(false);
+  const [viewImageModal, setviewImageModal] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -43,6 +46,7 @@ export default function Profile() {
       const payload = {
         registerId: userId,
         image: base64ImageData,
+        picIndex: 1,
       };
       if (base64ImageData) {
         const result = await saveProfileImage(payload);
@@ -89,11 +93,31 @@ export default function Profile() {
                   </Button>
                 </Upload>
               </ImgCrop>
+              <button
+                className="add-view-more-photos"
+                onClick={() => setviewImageModal(true)}
+              >
+                Add/View More Photos
+              </button>
               <div className="my-details">
                 <div className="profile-details">
                   <h1>{personalDetails?.registerInfo?.name}</h1>
                   <p className="profile-id">
-                    Profile ID : {personalDetails?.basicInfo?.profileId}
+                    Profile ID :{" "}
+                    <span>
+                      {personalDetails?.registerInfo?.loginProfileId}
+                      <FaCopy
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            personalDetails?.registerInfo?.loginProfileId
+                          );
+                          customToast(
+                            SUCCESS,
+                            "Profile ID Copied to Clipboard"
+                          );
+                        }}
+                      />
+                    </span>
                   </p>
                   <p>
                     {moment().diff(personalDetails?.basicInfo?.dob, "years")}{" "}
@@ -124,7 +148,7 @@ export default function Profile() {
         <MdOutlineMenu />
       </div>
       <div className="profile-photo">
-        <Image src={profileImage} />
+        <Image src={profileImage || DefaultProfile} />
         <ImgCrop>
           <Upload beforeUpload={handleImageUpload}>
             <Button icon={<UploadOutlined />}>
@@ -132,11 +156,28 @@ export default function Profile() {
             </Button>
           </Upload>
         </ImgCrop>
+        <button
+          className="add-view-more-photos"
+          onClick={() => setviewImageModal(true)}
+        >
+          Add/View More Photos
+        </button>
         <div className="my-details">
           <div className="profile-details">
             <h1>{personalDetails?.registerInfo?.name}</h1>
             <p className="profile-id">
-              Profile ID : {personalDetails?.basicInfo?.profileId}
+              Profile ID :{" "}
+              <span>
+                {personalDetails?.registerInfo?.loginProfileId}
+                <FaCopy
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      personalDetails?.registerInfo?.loginProfileId
+                    );
+                    customToast(SUCCESS, "Profile ID Copied to Clipboard");
+                  }}
+                />
+              </span>
             </p>
             <p>
               {moment().diff(personalDetails?.basicInfo?.dob, "years")} Years,{" "}
@@ -167,6 +208,10 @@ export default function Profile() {
           <ContactInfoTab />
         </div>
       </div>
+      <ViewAddPhotos
+        setVisible={setviewImageModal}
+        isVisible={viewImageModal}
+      />
     </div>
   );
 }

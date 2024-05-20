@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Dropdown, Layout, Menu, MenuProps } from "antd";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import authStore from "src/store/users/auth";
@@ -14,7 +14,7 @@ const LayoutPage: React.FC = () => {
   // const location = useLocation();
   const { pathname } = location;
   const navigate = useNavigate();
-  const { setLoginSuccess, setUserId } = authStore((state) => state);
+  const { setLoginSuccess, setUserId, userId } = authStore((state) => state);
   const { personalDetails } = profileStore((state) => state);
   const [currentPath, setcurrentPath] = useState("1");
 
@@ -85,7 +85,7 @@ const LayoutPage: React.FC = () => {
     },
   ];
 
-  return (
+  return userId ? (
     <Layout
       style={{ minHeight: "100vh", backgroundColor: "white" }}
       className="user-layout-container"
@@ -134,6 +134,8 @@ const LayoutPage: React.FC = () => {
         Ant Design ©{new Date().getFullYear()} Created by Ant UED
       </Footer> */}
     </Layout>
+  ) : (
+    <Navigate to="/"></Navigate>
   );
 };
 

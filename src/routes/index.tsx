@@ -103,13 +103,17 @@ import ContactInfoEdit from "src/screens/Users/Profile/Components/Edit/contactIn
 import SingleUserProfile from "src/screens/Users/Home/Components/SingleUserProfile";
 import Verification from "src/screens/Users/Verification";
 
+
+
 const router = createBrowserRouter([
   {
     element: <LayoutPage />,
+
     children: [
       {
         path: "/home",
         element: <Home />,
+
       },
       {
         path: "/profile",
