@@ -22,9 +22,11 @@ export default function ViewAddPhotos({
   const { userId } = authStore((state) => state);
   const fileInputRef = useRef(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentViewImage, setcurrentViewImage] = useState("");
 
-  const showModal = () => {
+  const showModal = (imageValue: string) => {
     setIsModalVisible(true);
+    setcurrentViewImage(imageValue);
   };
 
   const handleCancel = () => {
@@ -85,6 +87,30 @@ export default function ViewAddPhotos({
         <div className="image-container-wrap">
           <div className="image-container">
             <img src={`${IMG_BASE_URL}${personalDetails?.imageInfo?.image}`} />
+            <span className="update-image">
+              <span style={{ position: "relative" }}>
+                <button
+                  className="image-hover-button"
+                  onClick={() => showModal(personalDetails?.imageInfo?.image)}
+                >
+                  View
+                  <MdZoomIn fill="black" />
+                </button>
+                <button
+                  className="image-hover-button"
+                  onClick={onEditIconClicked}
+                >
+                  Update
+                  <MdEditSquare fill="black" />
+                </button>
+                <input
+                  type="file"
+                  onChange={(e: any) => handleImageUpload(e.target.files[0], 1)}
+                  ref={fileInputRef}
+                  accept="image/*"
+                />
+              </span>
+            </span>
           </div>
           {personalDetails?.imageInfo?.image2 && (
             <div className="image-container">
@@ -93,7 +119,12 @@ export default function ViewAddPhotos({
               />
               <span className="update-image">
                 <span style={{ position: "relative" }}>
-                  <button className="image-hover-button" onClick={showModal}>
+                  <button
+                    className="image-hover-button"
+                    onClick={() =>
+                      showModal(personalDetails?.imageInfo?.image2)
+                    }
+                  >
                     View
                     <MdZoomIn fill="black" />
                   </button>
@@ -130,7 +161,12 @@ export default function ViewAddPhotos({
               />
               <span className="update-image">
                 <span style={{ position: "relative" }}>
-                  <button className="image-hover-button" onClick={showModal}>
+                  <button
+                    className="image-hover-button"
+                    onClick={() =>
+                      showModal(personalDetails?.imageInfo?.image3)
+                    }
+                  >
                     View
                     <MdZoomIn fill="black" />
                   </button>
@@ -150,13 +186,6 @@ export default function ViewAddPhotos({
                     accept="image/*"
                   />
                 </span>
-                {/* <Dropdown
-                menu={{ items }}
-                placement="bottomRight"
-                trigger={["click"]}
-              >
-                <MdEditSquare />
-              </Dropdown> */}
               </span>
             </div>
           )}{" "}
@@ -167,7 +196,12 @@ export default function ViewAddPhotos({
               />
               <span className="update-image">
                 <span style={{ position: "relative" }}>
-                  <button className="image-hover-button" onClick={showModal}>
+                  <button
+                    className="image-hover-button"
+                    onClick={() =>
+                      showModal(personalDetails?.imageInfo?.image4)
+                    }
+                  >
                     View
                     <MdZoomIn fill="black" />
                   </button>
@@ -219,7 +253,7 @@ export default function ViewAddPhotos({
       >
         <div className="modal-image-container">
           <img
-            src={`${IMG_BASE_URL}${personalDetails?.imageInfo?.image2}`}
+            src={`${IMG_BASE_URL}${currentViewImage}`}
             alt="Profile Zoomed"
             className="modal-image"
           />
