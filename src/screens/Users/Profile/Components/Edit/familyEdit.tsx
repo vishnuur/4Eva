@@ -9,6 +9,7 @@ import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
 import CustomButton from "src/components/CustomButton";
 import genericStore from "src/store/generic";
+import { Radio } from "antd";
 
 const formDataInitialState = {
   Address: "",
@@ -38,7 +39,7 @@ export default function FamilyModal() {
   }, [userId]);
 
   useEffect(() => {
-    personalDetails?.familyInfo && setFormData(personalDetails?.familyInfo);
+    personalDetails?.familyInfo && checkIfValid();
   }, [personalDetails?.familyInfo]);
 
   const handleOk = async () => {
@@ -63,6 +64,43 @@ export default function FamilyModal() {
     setFormData({
       ...formData,
       [name]: value,
+    });
+    console.log(name, "NAMEVALUE", value);
+  };
+
+  const checkIfValid = () => {
+    console.log("callled");
+    const familyValueToCheck = [
+      "Liberal",
+      "Moderate",
+      "Traditional",
+      "Orthodox",
+    ];
+    const familyTypeToCheck = ["Others", "Nuclear Family", "Joint Family"];
+    const familyStatusToCheck = [
+      "Rich/Affluent",
+      "High Class",
+      "Upper Middle Class",
+      "Middle Class",
+    ];
+    let valueChanges = {};
+    if (
+      !familyValueToCheck?.includes(personalDetails?.familyInfo?.familyValue)
+    ) {
+      console.log("got in");
+      valueChanges = { familyValue: "Orthodox" };
+    }
+    if (!familyTypeToCheck?.includes(personalDetails?.familyInfo?.familyType)) {
+      valueChanges = { ...valueChanges, familyType: "Joint Family" };
+    }
+    if (
+      !familyStatusToCheck?.includes(personalDetails?.familyInfo?.familyStaus)
+    ) {
+      valueChanges = { ...valueChanges, familyStaus: "Middle Class" };
+    }
+    setFormData({
+      ...personalDetails?.familyInfo,
+      ...valueChanges,
     });
   };
 
@@ -90,7 +128,7 @@ export default function FamilyModal() {
         </div>
         <div className="form-wrap">
           <div className="left">
-            <label>Address:</label>
+            <label className="profile-edit-label">Address:</label>
             <CustomInput
               placeHolder="Address"
               onChange={handleChange}
@@ -99,7 +137,7 @@ export default function FamilyModal() {
               type="text"
               style={{ width: "100%" }}
             />
-            <label>Father's Name:</label>
+            <label className="profile-edit-label">Father's Name:</label>
             <CustomInput
               placeHolder="Father Name"
               onChange={handleChange}
@@ -108,7 +146,7 @@ export default function FamilyModal() {
               type="text"
               style={{ width: "100%" }}
             />
-            <label>Father's Occupation:</label>
+            <label className="profile-edit-label">Father's Occupation:</label>
             <CustomInput
               placeHolder="Father's Occupation"
               onChange={handleChange}
@@ -117,7 +155,7 @@ export default function FamilyModal() {
               type="text"
               style={{ width: "100%" }}
             />
-            <label>Mother's name:</label>
+            <label className="profile-edit-label">Mother's name:</label>
             <CustomInput
               placeHolder="Mother's name"
               onChange={handleChange}
@@ -127,7 +165,7 @@ export default function FamilyModal() {
               style={{ width: "100%" }}
             />
 
-            <label>Mother's Occupation:</label>
+            <label className="profile-edit-label">Mother's Occupation:</label>
             <CustomInput
               placeHolder="Mother's Occupation"
               onChange={handleChange}
@@ -136,7 +174,7 @@ export default function FamilyModal() {
               type="text"
               style={{ width: "100%" }}
             />
-            <label>House Name:</label>
+            <label className="profile-edit-label">House Name:</label>
             <CustomInput
               placeHolder="House Name"
               onChange={handleChange}
@@ -147,34 +185,48 @@ export default function FamilyModal() {
             />
           </div>
           <div className="right">
-            <label>Family Value:</label>
-            <CustomInput
-              placeHolder="Family Value"
-              onChange={handleChange}
-              name="familyValue"
-              value={formData.familyValue}
-              type="text"
-              style={{ width: "100%" }}
-            />
-            <label>Family Type:</label>
-            <CustomInput
-              placeHolder="Family Type"
-              onChange={handleChange}
-              name="familyType"
-              value={formData.familyType}
-              type="text"
-              style={{ width: "100%" }}
-            />
-            <label>Family Status:</label>
-            <CustomInput
-              placeHolder="Family Status"
-              onChange={handleChange}
-              name="familyStaus"
-              value={formData.familyStaus}
-              type="text"
-              style={{ width: "100%" }}
-            />
-            <label>Number Of Brothers:</label>
+            <span className="radio-container">
+              <label className="profile-edit-label">Family Value:</label>
+              <Radio.Group
+                onChange={handleChange}
+                value={formData.familyValue}
+                name="familyValue"
+              >
+                <Radio value={"Orthodox"}>Orthodox</Radio>
+                <Radio value={"Traditional"}>Traditional</Radio>
+                <Radio value={"Moderate"}>Moderate</Radio>
+                <Radio value={"Liberal"}>Liberal</Radio>
+              </Radio.Group>
+            </span>
+
+            <span className="radio-container">
+              <label className="profile-edit-label">Family Type:</label>
+              <Radio.Group
+                onChange={handleChange}
+                value={formData.familyType}
+                name="familyType"
+              >
+                <Radio value={"Joint Family"}>Joint Family</Radio>
+                <Radio value={"Nuclear Family"}>Nuclear Family</Radio>
+                <Radio value={"Others"}>Others</Radio>
+              </Radio.Group>
+            </span>
+
+            <span className="radio-container">
+              <label className="profile-edit-label">Family Status:</label>
+              <Radio.Group
+                onChange={handleChange}
+                value={formData.familyStaus}
+                name="familyStaus"
+              >
+                <Radio value={"Middle Class"}>Middle Class</Radio>
+                <Radio value={"Upper Middle Class"}>Upper Middle Class</Radio>
+                <Radio value={"High Class"}>High Class</Radio>
+                <Radio value={"Liberal"}>Rich/Affluent</Radio>
+              </Radio.Group>
+            </span>
+
+            <label className="profile-edit-label">Number Of Brothers:</label>
             <CustomInput
               placeHolder="Number Of Brothers"
               onChange={handleChange}
@@ -183,7 +235,7 @@ export default function FamilyModal() {
               type="text"
               style={{ width: "100%" }}
             />
-            <label>Number Of Sisters:</label>
+            <label className="profile-edit-label">Number Of Sisters:</label>
             <CustomInput
               placeHolder="Number Of Sisters"
               onChange={handleChange}
@@ -192,7 +244,7 @@ export default function FamilyModal() {
               type="text"
               style={{ width: "100%" }}
             />
-            <label>About Family:</label>
+            <label className="profile-edit-label">About Family:</label>
             <CustomInput
               placeHolder="About Family"
               onChange={handleChange}
