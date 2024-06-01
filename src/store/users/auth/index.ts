@@ -35,6 +35,7 @@ const authStore = create<AuthState>()((set, get) => ({
   onLogingIn: async (state) => {
     genericStore.getState().isLoadingFn(true);
     const result = await userLoginAPI(state);
+    console.log(result, "result");
     if (!result.status) {
       set({ loginSuccess: false });
       customToast(ERROR, result.result);

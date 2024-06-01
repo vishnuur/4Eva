@@ -9,6 +9,7 @@ import { customToast } from "src/components/Toast";
 import { SUCCESS } from "src/config/app.const";
 import genericStore from "src/store/generic";
 import CustomButton from "src/components/CustomButton";
+import CustomFooter from "src/components/CustomFooter";
 
 const images = [
   {
@@ -64,127 +65,130 @@ export default function SignUp() {
   };
 
   return (
-    <div className="home-container">
-      <img
-        className="bg-login"
-        src="https://images.pexels.com/photos/1045541/pexels-photo-1045541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-      />
-      <div className="login-wrap">
-        <div className="login-form">
-          <img
-            className="bg-image"
-            src="https://images.pexels.com/photos/916344/pexels-photo-916344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
-          <div className="login-fields">
-            <h3>Welcome to a Match made in heaven</h3>
-            <p className="login-subhead">
-              Already Signed up ? <Link to="/login">Login</Link>
-            </p>
-            <div>
-              <CustomInput
-                value={formData.username}
-                placeHolder="Name"
-                type="text"
-                style={{
-                  marginBottom: "24px",
-                  width: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.4)",
-                  borderColor: "#fff",
-                  color: "#fff",
-                }}
-                onChange={handleChange}
-                name="username"
-              />
-              <CustomDropDown
-                options={[
-                  { value: "M", label: "Male" },
-                  { value: "F", label: "Female" },
-                ]}
-                placeHolder="Gender"
-                style={{
-                  marginBottom: "24px",
-                  width: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.4)",
-                  borderColor: "#fff",
-                  color: "#fff",
-                }}
-                onChange={handleChange}
-                name="gender"
-              />
-              <CustomInput
-                value={formData.phone}
-                placeHolder="Mobile No"
-                type="text"
-                style={{
-                  marginBottom: "24px",
-                  width: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.4)",
-                  borderColor: "#fff",
-                  color: "#fff",
-                }}
-                onChange={handleChange}
-                name="phone"
-              />
-              <CustomInput
-                value={formData.password}
-                placeHolder="Password"
-                type="password"
-                style={{
-                  marginBottom: "24px",
-                  width: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.4)",
-                  borderColor: "#fff",
-                  color: "#fff",
-                }}
-                onChange={handleChange}
-                name="password"
+    <div>
+      <div className="home-container">
+        <img
+          className="bg-login"
+          src="https://images.pexels.com/photos/1045541/pexels-photo-1045541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+        <div className="login-wrap">
+          <div className="login-form">
+            <img
+              className="bg-image"
+              src="https://images.pexels.com/photos/916344/pexels-photo-916344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            />
+            <div className="login-fields">
+              <h3>Welcome to a Match made in heaven</h3>
+              <p className="login-subhead">
+                Already Signed up ? <Link to="/login">Login</Link>
+              </p>
+              <div>
+                <CustomInput
+                  value={formData.username}
+                  placeHolder="Name"
+                  type="text"
+                  style={{
+                    marginBottom: "24px",
+                    width: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    borderColor: "#fff",
+                    color: "#fff",
+                  }}
+                  onChange={handleChange}
+                  name="username"
+                />
+                <CustomDropDown
+                  options={[
+                    { value: "M", label: "Male" },
+                    { value: "F", label: "Female" },
+                  ]}
+                  placeHolder="Gender"
+                  style={{
+                    marginBottom: "24px",
+                    width: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    borderColor: "#fff",
+                    color: "#fff",
+                  }}
+                  onChange={handleChange}
+                  name="gender"
+                />
+                <CustomInput
+                  value={formData.phone}
+                  placeHolder="Mobile No"
+                  type="text"
+                  style={{
+                    marginBottom: "24px",
+                    width: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    borderColor: "#fff",
+                    color: "#fff",
+                  }}
+                  onChange={handleChange}
+                  name="phone"
+                />
+                <CustomInput
+                  value={formData.password}
+                  placeHolder="Password"
+                  type="password"
+                  style={{
+                    marginBottom: "24px",
+                    width: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    borderColor: "#fff",
+                    color: "#fff",
+                  }}
+                  onChange={handleChange}
+                  name="password"
+                />
+              </div>
+
+              <CustomButton
+                onClick={onSubmit}
+                extraClassName={"login-button"}
+                text="Sign Up"
+                loader={isLoading}
+                disabled={isLoading}
               />
             </div>
-
-            <CustomButton
-              onClick={onSubmit}
-              extraClassName={"login-button"}
-              text="Sign Up"
-              loader={isLoading}
-              disabled={isLoading}
-            />
+          </div>
+        </div>
+        <div className="home-part2">
+          <div className="app-details">
+            <div className="app-data">
+              <h2>Discover everlasting love with 4Eva</h2>
+              <p>
+                At 4EvaMatrimony.com, we've been instrumental in uniting
+                countless individuals with their ideal life partners and
+                families. We firmly believe that marriage extends beyond the
+                union of two individuals; it's the convergence of two families
+                as well. At 4EvaMatrimony.com, our mission is to facilitate your
+                search for the perfect partner and family who resonate with your
+                values, aspirations, and community. Our personalized search
+                assistance ensures that you discover not only a life partner but
+                also a harmonious family dynamic tailored to your preferences
+                and interests. Join us on the journey to finding enduring love
+                and building everlasting connections.
+              </p>
+              <h3>
+                Discover your perfect match among the countless families united
+                through 4Eva .
+              </h3>
+            </div>
+            <div className="sample-image">
+              <SimpleImageSlider
+                width={380}
+                height={504}
+                images={images}
+                showBullets={false}
+                showNavs={false}
+                autoPlay
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="home-part2">
-        <div className="app-details">
-          <div className="app-data">
-            <h2>Discover everlasting love with 4Eva</h2>
-            <p>
-              At 4EvaMatrimony.com, we've been instrumental in uniting countless
-              individuals with their ideal life partners and families. We firmly
-              believe that marriage extends beyond the union of two individuals;
-              it's the convergence of two families as well. At
-              4EvaMatrimony.com, our mission is to facilitate your search for
-              the perfect partner and family who resonate with your values,
-              aspirations, and community. Our personalized search assistance
-              ensures that you discover not only a life partner but also a
-              harmonious family dynamic tailored to your preferences and
-              interests. Join us on the journey to finding enduring love and
-              building everlasting connections.
-            </p>
-            <h3>
-              Discover your perfect match among the countless families united
-              through 4Eva .
-            </h3>
-          </div>
-          <div className="sample-image">
-            <SimpleImageSlider
-              width={380}
-              height={504}
-              images={images}
-              showBullets={false}
-              showNavs={false}
-              autoPlay
-            />
-          </div>
-        </div>
-      </div>
+      <CustomFooter />
     </div>
   );
 }

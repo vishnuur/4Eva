@@ -17,6 +17,7 @@ import ImageGalleryComponent from "./Components/imageGallery";
 import { TbBoxMultiple } from "react-icons/tb";
 import { FaCopy } from "react-icons/fa";
 import { customToast } from "src/components/Toast";
+import CustomFooter from "src/components/CustomFooter";
 
 export default function SingleUserProfile() {
   const {
@@ -68,74 +69,79 @@ export default function SingleUserProfile() {
   return isLoading ? (
     <LoaderComponent />
   ) : (
-    <div className="profile-wrap-user">
-      <div className="profile-photo">
-        <div className="profile-photo-wrap">
-          <Image
-            src={profileImage}
-            preview={{
-              destroyOnClose: true,
-              imageRender: () =>
-                usersDetails?.imageInfo?.image2 ? (
-                  <ImageGalleryComponent
-                    setVisible={setgalleryVisible}
-                    isVisible={true}
-                    images={usersDetails?.imageInfo}
-                  />
-                ) : (
-                  <img style={{ width: "480px" }} src={profileImage} />
-                ),
-              toolbarRender: () => null,
-            }}
-          />
-          {getImageIndex() !== 1 && (
-            <span className="image-count">
-              <TbBoxMultiple />
-              <p>{getImageIndex()}</p>
-            </span>
-          )}
-        </div>
-
-        <div className="my-details">
-          <div className="profile-details">
-            <h1>{usersDetails?.registerInfo?.name}</h1>
-            <p className="profile-id">
-              Profile ID :
-              <span>
-                {usersDetails?.registerInfo?.loginProfileId}
-                <FaCopy
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      usersDetails?.registerInfo?.loginProfileId
-                    );
-                    customToast(SUCCESS, "Profile ID Copied to Clipboard");
-                  }}
-                />
+    <div>
+      <div className="profile-wrap-user">
+        <div className="profile-photo">
+          <div className="profile-photo-wrap">
+            <Image
+              src={profileImage}
+              preview={{
+                destroyOnClose: true,
+                imageRender: () =>
+                  usersDetails?.imageInfo?.image2 ? (
+                    <ImageGalleryComponent
+                      setVisible={setgalleryVisible}
+                      isVisible={true}
+                      images={usersDetails?.imageInfo}
+                    />
+                  ) : (
+                    <img style={{ width: "480px" }} src={profileImage} />
+                  ),
+                toolbarRender: () => null,
+              }}
+            />
+            {getImageIndex() !== 1 && (
+              <span className="image-count">
+                <TbBoxMultiple />
+                <p>{getImageIndex()}</p>
               </span>
-            </p>
-            <p>{moment().diff(usersDetails?.basicInfo?.dob, "years")} Years</p>
-            {usersDetails?.educationInfo?.highestEducation && (
-              <h5>
-                {usersDetails?.educationInfo?.highestEducation},{" "}
-                {usersDetails?.educationInfo?.occupation}
-              </h5>
             )}
           </div>
+
+          <div className="my-details">
+            <div className="profile-details">
+              <h1>{usersDetails?.registerInfo?.name}</h1>
+              <p className="profile-id">
+                Profile ID :
+                <span>
+                  {usersDetails?.registerInfo?.loginProfileId}
+                  <FaCopy
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        usersDetails?.registerInfo?.loginProfileId
+                      );
+                      customToast(SUCCESS, "Profile ID Copied to Clipboard");
+                    }}
+                  />
+                </span>
+              </p>
+              <p>
+                {moment().diff(usersDetails?.basicInfo?.dob, "years")} Years
+              </p>
+              {usersDetails?.educationInfo?.highestEducation && (
+                <h5>
+                  {usersDetails?.educationInfo?.highestEducation},{" "}
+                  {usersDetails?.educationInfo?.occupation}
+                </h5>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="my-details">
-        <div className="my-details-content">
-          <BasicInfo />
-          <EducationalInfo />
-          <FamilyInfoTab />
-          <ContactInfoTab />
+        <div className="my-details">
+          <div className="my-details-content">
+            <BasicInfo />
+            <EducationalInfo />
+            <FamilyInfoTab />
+            <ContactInfoTab />
+          </div>
         </div>
+        <ImageGalleryComponent
+          setVisible={setgalleryVisible}
+          isVisible={galleryVisible}
+          images={usersDetails?.imageInfo}
+        />
       </div>
-      <ImageGalleryComponent
-        setVisible={setgalleryVisible}
-        isVisible={galleryVisible}
-        images={usersDetails?.imageInfo}
-      />
+      <CustomFooter />
     </div>
   );
 }

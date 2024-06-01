@@ -1,19 +1,20 @@
 import { post } from "src/services/httpMethods";
 
-export const userRegisterAPI = (payload: any) => {
+export const userRegisterAPI = async (payload: any) => {
   try {
-    const result = post("/auth/register", payload);
+    const result = await post("/auth/register", payload);
     return result;
   } catch (er) {
     console.log(er);
   }
 };
 
-export const userLoginAPI = (payload: any) => {
+export const userLoginAPI = async (payload: any) => {
   try {
-    const result = post("/auth/login", payload);
+    const result = await post("/auth/login", payload);
     return result;
-  } catch (er) {
+  } catch (er: any) {
     console.log(er);
+    return { status: false, result: er.message };
   }
 };

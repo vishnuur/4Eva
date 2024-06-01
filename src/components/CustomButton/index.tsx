@@ -29,8 +29,7 @@ export default function CustomButton({
       disabled={disabled}
       style={style}
     >
-      {text}
-      {loader && (
+      {loader ? (
         <Loader
           type="spinner-circle"
           bgColor="#ffc107"
@@ -38,6 +37,8 @@ export default function CustomButton({
           title={""}
           size={30}
         />
+      ) : (
+        text
       )}
     </button>
   );
